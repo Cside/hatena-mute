@@ -1,0 +1,7 @@
+/node_modules/
+/yarn-error.log
+/out.zip
+/.extension-id
+/dist/
+.git-pr-release
+/stats.html

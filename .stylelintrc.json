@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-prettier",
+    "stylelint-config-recess-order"
+  ],
+  "plugins": [
+    "stylelint-value-no-unknown-custom-properties",
+    "stylelint-csstree-validator",
+    "stylelint-declaration-block-no-ignored-properties",
+    "stylelint-no-unsupported-browser-features"
+  ],
+  "rules": {
+    "csstools/value-no-unknown-custom-properties": [
+      true,
+      {
+        "importFrom": ["src/popup/components/App/customProperties.css"]
+      }
+    ],
+    "csstree/validator": true,
+    "plugin/declaration-block-no-ignored-properties": true,
+    "plugin/no-unsupported-browser-features": true
+  }
+}

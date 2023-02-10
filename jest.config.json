@@ -1,0 +1,10 @@
+{
+  "transform": {
+    "\\.[jt]sx?$": ["ts-jest"]
+  },
+  "moduleNameMapper": {
+    "\\.p?css$": "jest-transform-stub"
+  },
+  "setupFilesAfterEnv": ["./test/jest.setup.ts"],
+  "testEnvironment": "jest-environment-jsdom"
+}
