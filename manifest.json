@@ -1,13 +1,22 @@
 {
   "manifest_version": 3,
-  "name": "FIXME",
-  "description": "FIXME",
+  "name": "はてなHide",
+  "description": "はてなブックマークの気に入らない記事を非表示にする",
   "action": {
     "default_icon": "images/icon38.png",
     "default_popup": "index.html"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://b.hatena.ne.jp/hotentry/*",
+        "https://b.hatena.ne.jp/entrylist/*"
+      ],
+      "js": ["src/contentScript.ts"]
+    }
+  ],
   "background": {
-    "service_worker": "src/background/main.ts",
+    "service_worker": "src/background.ts",
     "type": "module"
   },
   "permissions": ["storage", "unlimitedStorage"],
