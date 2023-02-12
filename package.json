@@ -1,8 +1,8 @@
 {
   "version": "0.0.1",
   "scripts": {
+    "dev": "yarn run clean && vite",
     "build": "yarn run clean && vite build",
-    "dev": "yarn run clean",
     "visualize": "yarn run clean && ENABLES_VISUALIZER=true vite build && open stats.html",
     "clean": "rimraf dist out.zip",
     "test": "jest",
@@ -58,7 +58,8 @@
     "vite": "^4.0.4"
   },
   "dependencies": {
-    "preact": "^10.12.1"
+    "preact": "^10.12.1",
+    "react-bootstrap": "^2.7.1"
   },
   "license": "MIT"
 }

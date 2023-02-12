@@ -1,10 +1,7 @@
 import { render } from 'preact';
-
-const App = () => {
-  return <h1>Hello World</h1>;
-};
+import { App } from './components/App';
 
 const root = document.querySelector('.preact-root');
 if (!root) throw new Error('.preact-root is not found');
 
-render(<App />, root);
+render(App, root);

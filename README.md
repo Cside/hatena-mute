@@ -13,7 +13,7 @@ yarn run build
 
 ## Release Notes
 
-[/releases](https://github.com/Cside/chrome-hatena-hide/releases)
+[/releases](https://github.com/Cside/chrome-hatena-mute/releases)
 
 ## How to Contribute
 
