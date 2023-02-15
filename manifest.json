@@ -9,8 +9,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://b.hatena.ne.jp/hotentry/*",
-        "https://b.hatena.ne.jp/entrylist/*"
+        "https://b.hatena.ne.jp/*"
       ],
       "js": ["src/contentScript/main.ts"]
     }
