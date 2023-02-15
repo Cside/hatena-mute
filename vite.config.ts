@@ -1,7 +1,6 @@
 import type { ManifestV3Export } from '@crxjs/vite-plugin';
 import { crx } from '@crxjs/vite-plugin';
-import preact from '@preact/preset-vite';
-import postcssNested from 'postcss-nested';
+import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, PluginOption } from 'vite';
 import manifest from './manifest.json';
@@ -13,15 +12,10 @@ manifest.version = version;
 
 export default defineConfig({
   plugins: [
-    preact(),
+    react(),
     crx({ manifest: manifest as ManifestV3Export }),
     ...(ENABLES_VISUALIZER ? [visualizer() as PluginOption] : []),
   ],
-  css: {
-    postcss: {
-      plugins: [postcssNested],
-    },
-  },
 });
 
 // utils

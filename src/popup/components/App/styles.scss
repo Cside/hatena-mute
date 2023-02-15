@@ -1,0 +1,6 @@
+@import 'bootstrap/scss/_functions';
+@import 'bootstrap/scss/_variables';
+
+.nav-item:has([aria-selected='false']) {
+  background-color: $gray-300 !important;
+}

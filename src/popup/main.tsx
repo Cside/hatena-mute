@@ -1,7 +1,8 @@
-import { render } from 'preact';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import { App } from './components/App';
 
-const root = document.querySelector('.preact-root');
-if (!root) throw new Error('.preact-root is not found');
+const root = document.querySelector('.react-root');
+if (!root) throw new Error('.react-root is not found');
 
-render(App, root);
+createRoot(root).render(<App />);
