@@ -1,3 +1,5 @@
+import { EntryList } from './EntryList';
+
 const $ = <T extends HTMLElement>(selector: string) =>
   document.querySelector<T>(selector);
 const $$ = <T extends HTMLElement>(selector: string) => [
@@ -5,22 +7,13 @@ const $$ = <T extends HTMLElement>(selector: string) => [
 ];
 
 chrome.runtime.onMessage.addListener((req) => {
-  alert(JSON.stringify(req));
+  // alert(JSON.stringify(req));
 });
 
-const applyNg = ({ words, urls }: { words: boolean; urls: boolean }) => {};
-
 (async () => {
-  if ($('.entrylist-wrapper')) return;
-})();
+  const entryList = new EntryList();
 
-// Templates.entry();
-// Templates.siteMuteButton();
-//
-//
-// for (const domainWrapper of $$('.entrylist-contents-domain')) {
-//   domainWrapper.appendChild(
-// createElementFromString();
-//   );
-// }
-//
+  if (!entryList.exists()) return;
+  entryList.filterByNgWords();
+  entryList.filterByUrls();
+})();
