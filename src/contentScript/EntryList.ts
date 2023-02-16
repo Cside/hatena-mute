@@ -64,29 +64,37 @@ export class EntryList {
       }),
     ];
   }
-  async filterByNgWords() {
-    const ngWords = await storage.getLines(STORAGE_KEY.NG_WORDS);
-    if (!ngWords) return;
+  private async filterBy({
+    storageKey,
+    matchClassName,
+    matchTarget,
+  }: {
+    storageKey: StorageKey;
+    matchClassName: string;
+    matchTarget: (entry: Entry) => string;
+  }) {
+    const ngList = await storage.getLines(storageKey);
 
-    this.entries = this.entries.filter((entry) => {
-      if (ngWords.some((ngWord) => entry.title.includes(ngWord))) {
-        entry.element.remove();
-        return false;
+    for (const entry of this.entries) {
+      if (ngList.some((ng) => matchTarget(entry).includes(ng))) {
+        entry.element.classList.add(matchClassName);
+        continue;
       }
-      return true;
+      entry.element.classList.remove(matchClassName);
+    }
+  }
+  async filterByUrls() {
+    this.filterBy({
+      storageKey: STORAGE_KEY.NG_URLS,
+      matchClassName: 'ng-urls-matched',
+      matchTarget: (entry: Entry) => entry.url,
     });
   }
-
-  async filterByUrls() {
-    const ngUrls = await storage.getLines(STORAGE_KEY.NG_URLS);
-    if (!ngUrls) return;
-
-    this.entries = this.entries.filter((entry) => {
-      if (ngUrls.some((ngUrl) => entry.url.includes(ngUrl))) {
-        entry.element.remove();
-        return false;
-      }
-      return true;
+  async filterByNgWords() {
+    this.filterBy({
+      storageKey: STORAGE_KEY.NG_WORDS,
+      matchClassName: 'ng-words-matched',
+      matchTarget: (entry: Entry) => entry.title,
     });
   }
   exists() {

@@ -4,4 +4,4 @@ export const ACTION = {
   ADD_NG_WORD: 'add-ng-word',
   ADD_NG_URL: 'add-ng-url',
   HIDE_ENTRY: 'hide-entry',
-};
+} as const;

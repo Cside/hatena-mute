@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { ACTION } from '../../../constants';
 import { EVENT_KEY, STORAGE_KEY } from '../../constants';
 import { TextFormTab } from '../TextFormTab';
 import './styles.scss';
@@ -14,10 +15,16 @@ export const App = () => {
       <Container className="m-2">
         <Tabs defaultActiveKey={EVENT_KEY.NG_URLS}>
           <Tab eventKey={EVENT_KEY.NG_URLS} title="NGサイト">
-            <TextFormTab storagekey={STORAGE_KEY.NG_URLS} />
+            <TextFormTab
+              storagekey={STORAGE_KEY.NG_URLS}
+              actionOnChange={ACTION.UPDATE_NG_URLS}
+            />
           </Tab>
           <Tab eventKey={EVENT_KEY.NG_WORDS} title="NGワード">
-            <TextFormTab storagekey={STORAGE_KEY.NG_WORDS} />
+            <TextFormTab
+              storagekey={STORAGE_KEY.NG_WORDS}
+              actionOnChange={ACTION.UPDATE_NG_WORDS}
+            />
           </Tab>
         </Tabs>
       </Container>

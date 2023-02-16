@@ -3,7 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { storage } from '../../../storage';
 
-export const TextFormTab = ({ storagekey }: { storagekey: StorageKey }) => {
+export const TextFormTab = ({
+  storagekey,
+  actionOnChange,
+}: {
+  storagekey: StorageKey;
+  actionOnChange: Action;
+}) => {
   const [text, setText] = useState('');
   const [textInStorage, setTextInStorage] = useState('');
 
@@ -28,18 +34,16 @@ export const TextFormTab = ({ storagekey }: { storagekey: StorageKey }) => {
           onClick={() => {
             storage.setText(storagekey, text);
             setTextInStorage(text);
-            chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-              const activeTab = tabs[0];
-              if (!activeTab) {
-                throw new Error('Active tab is not found');
-              }
-              chrome.tabs.sendMessage(activeTab.id ?? 0, {});
+            chrome.tabs.query({ url: 'https://b.hatena.ne.jp/*' }, (tabs) => {
+              console.log(tabs);
+              for (const tab of tabs)
+                chrome.tabs.sendMessage(tab.id ?? 0, { type: actionOnChange });
             });
           }}
           variant="primary"
           disabled={text === textInStorage}
         >
-          更新
+          リストを更新
         </Button>
       </div>
     </Container>
