@@ -2,7 +2,7 @@ import { fakeStorage } from '../test/chrome/fakeStorage';
 import { STORAGE_KEY } from './popup/constants';
 import { storage } from './storage';
 
-const KEY = STORAGE_KEY.MUTED_URLS;
+const KEY = STORAGE_KEY.MUTED_SITES;
 
 afterEach(() => {
   fakeStorage.clear();

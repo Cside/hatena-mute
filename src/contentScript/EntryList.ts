@@ -98,13 +98,14 @@ export class EntryList {
   exists() {
     return !!$('.entrylist-wrapper');
   }
-  async filterByUrls() {
+  async filterBySites() {
     await this.filterBy({
-      storageKey: STORAGE_KEY.MUTED_URLS,
-      matchClassName: 'muted-urls-matched',
+      storageKey: STORAGE_KEY.MUTED_SITES,
+      matchClassName: 'muted-sites-matched',
       matchTarget: (entry: Entry) => entry.url,
     });
   }
+  async muteSite() {}
   async filterByMutedWords() {
     await this.filterBy({
       storageKey: STORAGE_KEY.MUTED_WORDS,
@@ -115,7 +116,7 @@ export class EntryList {
   async appendMuteButtons() {
     const className = {
       button: 'mute-button',
-      muteUrl: 'mute-url',
+      muteSite: 'mute-site',
       pulldown: 'mute-pulldown',
       displayNone: 'display-none',
     } as const;
@@ -133,11 +134,16 @@ export class EntryList {
           class="${className.pulldown} ${className.displayNone}"
           style="top: ${muteButton.offsetTop + 29}px; left: ${muteButton.offsetLeft-209}px"
         >
-          <div class="mute-url"><mark>${entry.domain}</mark> を非表示にする</div>
+          <div class="mute-site">${entry.domain} をミュートする</div>
           <div>この記事を非表示にする</div>
         </div>
       `);
       entry.element.appendChild(pulldown);
+
+      pulldown.addEventListener('click', (event) => {
+        this.muteSite(entry.domain);
+      });
+
       muteButton.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();

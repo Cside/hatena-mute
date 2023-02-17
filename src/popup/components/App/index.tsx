@@ -13,11 +13,11 @@ export const App = () => {
   return (
     <>
       <Container>
-        <Tabs defaultActiveKey={EVENT_KEY.MUTED_URLS}>
-          <Tab eventKey={EVENT_KEY.MUTED_URLS} title="ミュートするサイト">
+        <Tabs defaultActiveKey={EVENT_KEY.MUTED_SITES}>
+          <Tab eventKey={EVENT_KEY.MUTED_SITES} title="ミュートするサイト">
             <TextFormTab
-              storagekey={STORAGE_KEY.MUTED_URLS}
-              actionOnChange={ACTION.UPDATE_MUTED_URLS}
+              storagekey={STORAGE_KEY.MUTED_SITES}
+              actionOnChange={ACTION.UPDATE_MUTED_SITES}
             />
           </Tab>
           <Tab eventKey={EVENT_KEY.MUTED_WORDS} title="ミュートするキーワード">

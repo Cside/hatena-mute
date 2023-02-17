@@ -6,8 +6,8 @@ const entryList = new EntryList();
 
 chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
   switch (type) {
-    case ACTION.UPDATE_MUTED_URLS:
-      entryList.filterByUrls();
+    case ACTION.UPDATE_MUTED_SITES:
+      entryList.filterBySites();
       break;
     case ACTION.UPDATE_MUTED_WORDS:
       entryList.filterByMutedWords();
@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
 (async () => {
   if (!entryList.exists()) return;
   entryList.injectCss();
-  await entryList.filterByUrls();
+  await entryList.filterBySites();
   await entryList.filterByMutedWords();
   await entryList.appendMuteButtons();
 })();
