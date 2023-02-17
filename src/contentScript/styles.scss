@@ -11,24 +11,31 @@
 }
 
 .mute-button {
-  --size: 22px;
+  --button-size: 28px;
+  --image-size: 22px;
 
   position: absolute;
-  top: 14px;
+  top: 11px;
   right: 37px;
   display: block;
-  width: var(--size);
-  height: var(--size);
+  width: var(--button-size);
+  height: var(--button-size);
   margin-left: auto;
-  background-size: var(--size) var(--size);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: var(--image-size) var(--image-size);
+
+  &:focus {
+    outline: none;
+  }
 
   .style-list & {
-    top: 8px;
+    top: 5px;
     right: 37px;
   }
 
   .style-headline & {
-    top: 14px;
+    top: 11px;
     right: 37px;
   }
 }

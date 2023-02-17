@@ -133,7 +133,7 @@ export class EntryList {
       const pulldown = createElementFromString(`
         <div
           class="${className.pulldown} ${className.displayNone}"
-          style="top: ${muteButton.offsetTop + 23}px; left: ${muteButton.offsetLeft-209}px"
+          style="top: ${muteButton.offsetTop + 29}px; left: ${muteButton.offsetLeft-209}px"
         >
           <div>${entry.domain} を非表示にする</div>
           <div>この記事を非表示にする</div>
