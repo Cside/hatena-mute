@@ -2,11 +2,11 @@
   display: none !important;
 }
 
-.ng-urls-matched {
+.muted-urls-matched {
   display: none;
 }
 
-.ng-words-matched {
+.muted-words-matched {
   display: none;
 }
 
@@ -29,11 +29,13 @@
     outline: none;
   }
 
+  /* narrow design */
   .style-list & {
     top: 5px;
     right: 37px;
   }
 
+  /* very narrow design */
   .style-headline & {
     top: 11px;
     right: 37px;

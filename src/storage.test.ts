@@ -2,7 +2,7 @@ import { fakeStorage } from '../test/chrome/fakeStorage';
 import { STORAGE_KEY } from './popup/constants';
 import { storage } from './storage';
 
-const KEY = STORAGE_KEY.NG_URLS;
+const KEY = STORAGE_KEY.MUTED_URLS;
 
 afterEach(() => {
   fakeStorage.clear();
@@ -57,5 +57,26 @@ describe('getLines', () => {
   ])('%o', async ({ input, expected }) => {
     await chrome.storage.local.set({ [KEY]: input });
     expect(await storage.getLines(KEY)).toEqual(expected);
+  });
+});
+
+describe('addLine', () => {
+  test.each([
+    {
+      input: undefined,
+      expected: 'foo',
+    },
+    {
+      input: '',
+      expected: 'foo',
+    },
+    {
+      input: 'bar',
+      expected: 'bar\nfoo',
+    },
+  ])('%o', async ({ input, expected }) => {
+    if (input !== undefined) await chrome.storage.local.set({ [KEY]: input });
+    await storage.addLine(KEY, 'foo');
+    expect(await storage.getText(KEY)).toEqual(expected);
   });
 });

@@ -32,28 +32,3 @@ export const createElementFromString = <T = HTMLElement>(
   div.innerHTML = htmlString.trim();
   return div.firstChild as T;
 };
-
-const WAIT_FOR_TIMEOUT = 10_000;
-
-export const waitFor = async (fn: () => boolean) => {
-  const interval = 100;
-  return new Promise((resolve) => {
-    if (fn()) {
-      resolve(undefined);
-    }
-
-    let elapsed = 0;
-    const id = setInterval(() => {
-      elapsed += interval;
-      if (elapsed >= WAIT_FOR_TIMEOUT) {
-        console.error(`Timeout`);
-        clearInterval(id);
-        return;
-      }
-      if (fn()) {
-        resolve(undefined);
-        clearInterval(id);
-      }
-    }, interval);
-  });
-};

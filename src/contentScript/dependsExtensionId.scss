@@ -3,7 +3,7 @@
 }
 
 /* TODO: 重複してるので変数化したい。しかし迂闊な変数にすると linter に怒られる... */
-.entrylist-readlater-ranking-item:hover .mute-button,
+.entrylist-readlater-rankimuted-item:hover .mute-button,
 :where(.entrylist-header-main, .entrylist-item)
   > li:not(.entrylist-recommend):hover
   .mute-button,

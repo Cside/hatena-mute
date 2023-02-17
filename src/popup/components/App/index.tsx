@@ -12,18 +12,18 @@ import './styles.scss';
 export const App = () => {
   return (
     <>
-      <Container className="m-2">
-        <Tabs defaultActiveKey={EVENT_KEY.NG_URLS}>
-          <Tab eventKey={EVENT_KEY.NG_URLS} title="NGサイト">
+      <Container>
+        <Tabs defaultActiveKey={EVENT_KEY.MUTED_URLS}>
+          <Tab eventKey={EVENT_KEY.MUTED_URLS} title="ミュートするサイト">
             <TextFormTab
-              storagekey={STORAGE_KEY.NG_URLS}
-              actionOnChange={ACTION.UPDATE_NG_URLS}
+              storagekey={STORAGE_KEY.MUTED_URLS}
+              actionOnChange={ACTION.UPDATE_MUTED_URLS}
             />
           </Tab>
-          <Tab eventKey={EVENT_KEY.NG_WORDS} title="NGワード">
+          <Tab eventKey={EVENT_KEY.MUTED_WORDS} title="ミュートするキーワード">
             <TextFormTab
-              storagekey={STORAGE_KEY.NG_WORDS}
-              actionOnChange={ACTION.UPDATE_NG_WORDS}
+              storagekey={STORAGE_KEY.MUTED_WORDS}
+              actionOnChange={ACTION.UPDATE_MUTED_WORDS}
             />
           </Tab>
         </Tabs>

@@ -1,7 +1,7 @@
 export const ACTION = {
-  UPDATE_NG_URLS: 'update-ng-urls',
-  UPDATE_NG_WORDS: 'update-ng-words',
-  ADD_NG_WORD: 'add-ng-word',
-  ADD_NG_URL: 'add-ng-url',
+  UPDATE_MUTED_URLS: 'update-muted-urls',
+  UPDATE_MUTED_WORDS: 'update-muted-words',
+  ADD_MUTED_WORD: 'add-muted-word',
+  ADD_MUTED_URL: 'add-muted-url',
   HIDE_ENTRY: 'hide-entry',
 } as const;

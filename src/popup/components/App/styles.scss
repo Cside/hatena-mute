@@ -1,6 +1,21 @@
 @import 'bootstrap/scss/_functions';
 @import 'bootstrap/scss/_variables';
 
-.nav-item:has([aria-selected='false']) {
-  background-color: $gray-300 !important;
+// reset injected styles
+:root {
+  font-family: sans-serif;
+  font-size: 100%;
+}
+
+body {
+  width: 360px;
+  outline: 1px pink dotted;
+}
+
+.nav-item {
+  font-size: $font-size-sm;
+
+  &:has([aria-selected='false']) {
+    background-color: $gray-300 !important;
+  }
 }

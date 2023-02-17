@@ -18,4 +18,12 @@ export const storage = {
     if (text === undefined || text === '') return [];
     return normalizeText(text).split('\n');
   },
+
+  addLine: async (key: StorageKey, line: string) => {
+    const text = await storage.getText(key);
+    storage.setText(
+      key,
+      text === undefined || text === '' ? line : `${text}\n${line}`,
+    );
+  },
 };

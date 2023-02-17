@@ -12,8 +12,8 @@ type Entry = {
   domain: string;
 };
 
-// 3 種類の記事タイプの DOM アクセスを抽象化する処理だけ書く
-// それ以外は entry.element で頑張る
+// 3 種類のデザインの DOM アクセスを抽象化する処理だけ書く
+// それ以外は entry.element.querySelector() で頑張る
 const getEntries = ({
   selectors,
 }: {
@@ -88,7 +88,7 @@ export class EntryList {
     const ngList = await storage.getLines(storageKey);
 
     for (const entry of this.entries) {
-      if (ngList.some((ng) => matchTarget(entry).includes(ng))) {
+      if (ngList.some((muted) => matchTarget(entry).includes(muted))) {
         entry.element.classList.add(matchClassName);
         continue;
       }
@@ -100,21 +100,22 @@ export class EntryList {
   }
   async filterByUrls() {
     await this.filterBy({
-      storageKey: STORAGE_KEY.NG_URLS,
-      matchClassName: 'ng-urls-matched',
+      storageKey: STORAGE_KEY.MUTED_URLS,
+      matchClassName: 'muted-urls-matched',
       matchTarget: (entry: Entry) => entry.url,
     });
   }
-  async filterByNgWords() {
+  async filterByMutedWords() {
     await this.filterBy({
-      storageKey: STORAGE_KEY.NG_WORDS,
-      matchClassName: 'ng-words-matched',
+      storageKey: STORAGE_KEY.MUTED_WORDS,
+      matchClassName: 'muted-words-matched',
       matchTarget: (entry: Entry) => entry.title,
     });
   }
   async appendMuteButtons() {
     const className = {
       button: 'mute-button',
+      muteUrl: 'mute-url',
       pulldown: 'mute-pulldown',
       displayNone: 'display-none',
     } as const;
@@ -122,10 +123,7 @@ export class EntryList {
     for (const entry of this.entries) {
       // prettier-ignore
       const muteButton = createElementFromString(`
-        <a
-          href="#" class="${className.button}"
-        >
-        </a>
+        <a href="#" class="${className.button}"></a>
       `);
       entry.element.appendChild(muteButton);
 
@@ -135,7 +133,7 @@ export class EntryList {
           class="${className.pulldown} ${className.displayNone}"
           style="top: ${muteButton.offsetTop + 29}px; left: ${muteButton.offsetLeft-209}px"
         >
-          <div>${entry.domain} を非表示にする</div>
+          <div class="mute-url"><mark>${entry.domain}</mark> を非表示にする</div>
           <div>この記事を非表示にする</div>
         </div>
       `);

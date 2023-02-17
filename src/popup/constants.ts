@@ -1,9 +1,9 @@
 export const EVENT_KEY = {
-  NG_URLS: 'ng-urls',
-  NG_WORDS: 'ng-words',
+  MUTED_URLS: 'muted-urls',
+  MUTED_WORDS: 'muted-words',
 } as const;
 
 export const STORAGE_KEY = {
-  NG_URLS: EVENT_KEY.NG_URLS,
-  NG_WORDS: EVENT_KEY.NG_WORDS,
+  MUTED_URLS: EVENT_KEY.MUTED_URLS,
+  MUTED_WORDS: EVENT_KEY.MUTED_WORDS,
 } as const;

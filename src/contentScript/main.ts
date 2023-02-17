@@ -6,11 +6,11 @@ const entryList = new EntryList();
 
 chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
   switch (type) {
-    case ACTION.UPDATE_NG_URLS:
+    case ACTION.UPDATE_MUTED_URLS:
       entryList.filterByUrls();
       break;
-    case ACTION.UPDATE_NG_WORDS:
-      entryList.filterByNgWords();
+    case ACTION.UPDATE_MUTED_WORDS:
+      entryList.filterByMutedWords();
       break;
 
     default:
@@ -22,6 +22,6 @@ chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
   if (!entryList.exists()) return;
   entryList.injectCss();
   await entryList.filterByUrls();
-  await entryList.filterByNgWords();
+  await entryList.filterByMutedWords();
   await entryList.appendMuteButtons();
 })();
