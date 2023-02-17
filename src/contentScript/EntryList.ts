@@ -3,7 +3,7 @@ import { storage } from '../storage';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import css from './dependsExtensionId.scss?inline';
-import { $, $$, createElementFromString, waitFor } from './utils';
+import { $, $$, createElementFromString } from './utils';
 
 type Entry = {
   element: HTMLElement;
@@ -120,16 +120,10 @@ export class EntryList {
     } as const;
 
     for (const entry of this.entries) {
-      const readLaterButton = $(entry.element, '.readlater-button');
-      await waitFor(
-        () => readLaterButton.offsetTop > 0 || readLaterButton.offsetLeft > 0,
-      );
-
       // prettier-ignore
       const muteButton = createElementFromString(`
         <a
           href="#" class="${className.button}"
-          style="top: ${readLaterButton.offsetTop + 12}px; left: ${readLaterButton.offsetLeft - 16}px;"
         >
         </a>
       `);
@@ -139,7 +133,7 @@ export class EntryList {
       const pulldown = createElementFromString(`
         <div
           class="${className.pulldown} ${className.displayNone}"
-          style="top: ${readLaterButton.offsetTop}px; left: ${readLaterButton.offsetLeft}px;"
+          style="top: ${muteButton.offsetTop + 23}px; left: ${muteButton.offsetLeft-209}px"
         >
           <div>${entry.domain} を非表示にする</div>
           <div>この記事を非表示にする</div>

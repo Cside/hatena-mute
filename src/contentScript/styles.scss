@@ -14,23 +14,33 @@
   --size: 22px;
 
   position: absolute;
+  top: 14px;
+  right: 37px;
   display: block;
   width: var(--size);
   height: var(--size);
   margin-left: auto;
   background-size: var(--size) var(--size);
-  outline: red dotted solid;
+
+  .style-list & {
+    top: 8px;
+    right: 37px;
+  }
+
+  .style-headline & {
+    top: 14px;
+    right: 37px;
+  }
 }
 
 .mute-pulldown {
   position: absolute;
   z-index: 10000;
   display: block;
-  width: 270px;
+  width: 269px;
   font-size: 0.85rem;
   background-color: #f6f7f8;
   border-radius: 5px;
-  outline: red dotted solid;
 
   div {
     padding: 12px;
