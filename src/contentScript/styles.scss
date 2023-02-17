@@ -1,6 +1,42 @@
+.display-none {
+  display: none !important;
+}
+
 .ng-urls-matched {
   display: none;
 }
+
 .ng-words-matched {
   display: none;
+}
+
+.mute-button {
+  --size: 22px;
+
+  position: absolute;
+  display: block;
+  width: var(--size);
+  height: var(--size);
+  margin-left: auto;
+  background-size: var(--size) var(--size);
+  outline: red dotted solid;
+}
+
+.mute-pulldown {
+  position: absolute;
+  z-index: 10000;
+  display: block;
+  width: 270px;
+  font-size: 0.85rem;
+  background-color: #f6f7f8;
+  border-radius: 5px;
+  outline: red dotted solid;
+
+  div {
+    padding: 12px;
+
+    &:hover {
+      background-color: #ebeced;
+    }
+  }
 }

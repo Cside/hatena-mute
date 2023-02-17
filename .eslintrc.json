@@ -27,7 +27,6 @@
     "@typescript-eslint/no-empty-function": "off",
     "react-hooks/exhaustive-deps": "off",
     "jest/valid-title": "off",
-    "jest/no-conditional-expect": "off",
-    "testing-library/no-unnecessary-act": "off"
+    "jest/no-conditional-expect": "off"
   }
 }

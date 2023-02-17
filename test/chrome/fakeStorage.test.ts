@@ -25,6 +25,13 @@ test('remove', async () => {
   expect(await fakeStorage.get('bar')).toEqual({ bar: 2 });
 });
 
+describe('set', () => {
+  test('set multi', async () => {
+    await fakeStorage.set({ foo: 1, bar: 2 });
+    expect(await fakeStorage.get()).toEqual({ foo: 1, bar: 2 });
+  });
+});
+
 test('clear', async () => {
   await fakeStorage.set({ foo: 1 });
   await fakeStorage.set({ bar: 2 });

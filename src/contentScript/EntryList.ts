@@ -1,45 +1,45 @@
 import { STORAGE_KEY } from '../popup/constants';
 import { storage } from '../storage';
-
-const $ = <T extends HTMLElement>(selector: string) =>
-  document.querySelector<T>(selector);
-const $$ = <T extends HTMLElement>(selector: string) => [
-  ...document.querySelectorAll<T>(selector),
-];
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import css from './dependsExtensionId.scss?inline';
+import { $, $$, createElementFromString, waitFor } from './utils';
 
 type Entry = {
   element: HTMLElement;
   title: string;
   url: string;
+  domain: string;
 };
 
+// 3 種類の記事タイプの DOM アクセスを抽象化する処理だけ書く
+// それ以外は entry.element で頑張る
 const getEntries = ({
   selectors,
 }: {
-  selectors: { entry: string; titleLink: string };
+  selectors: {
+    entry: string;
+    titleLink: string;
+    domain: string;
+  };
 }) => {
   const entries: Entry[] = [];
   for (const entry of $$(selectors.entry)) {
-    const link = entry.querySelector<HTMLAnchorElement>(selectors.titleLink);
-    if (!link) {
-      console.error(
-        `title link (${selectors.titleLink}) is not found`,
-        entry,
-        entry.innerHTML,
-      );
-      continue;
-    }
+    const link = $<HTMLAnchorElement>(entry, selectors.titleLink);
+    const domain = $(entry, selectors.domain);
+
     entries.push({
       element: entry,
-      title: link.textContent ?? '',
+      title: link.title,
       url: link.href,
+      domain: (domain.textContent ?? '').trim(),
     });
   }
   return entries;
 };
 
 export class EntryList {
-  entries: Entry[];
+  entries: Entry[] = [];
 
   constructor() {
     this.entries = [
@@ -48,21 +48,33 @@ export class EntryList {
           entry:
             ':where(.entrylist-header-main, .entrylist-item) > li:not(.entrylist-recommend)',
           titleLink: '.entrylist-contents-title a',
+          domain: '.entrylist-contents-domain a',
         },
       }),
       ...getEntries({
         selectors: {
           entry: '.entrylist-readlater-ranking-item',
           titleLink: '.entrylist-readlater-ranking-title a',
+          domain: '.entrylist-readlater-ranking-domain a',
         },
       }),
       ...getEntries({
         selectors: {
           entry: '.entrylist-3column-items > li',
           titleLink: '.entrylist-3column-title a',
+          domain: '.entrylist-3column-domain a',
         },
       }),
     ];
+  }
+  injectCss() {
+    const style = document.createElement('style');
+    style.appendChild(
+      document.createTextNode(
+        css.replaceAll('__MSG_@@extension_id__', chrome.runtime.id),
+      ),
+    );
+    document.body.appendChild(style);
   }
   private async filterBy({
     storageKey,
@@ -83,21 +95,75 @@ export class EntryList {
       entry.element.classList.remove(matchClassName);
     }
   }
+  exists() {
+    return !!$('.entrylist-wrapper');
+  }
   async filterByUrls() {
-    this.filterBy({
+    await this.filterBy({
       storageKey: STORAGE_KEY.NG_URLS,
       matchClassName: 'ng-urls-matched',
       matchTarget: (entry: Entry) => entry.url,
     });
   }
   async filterByNgWords() {
-    this.filterBy({
+    await this.filterBy({
       storageKey: STORAGE_KEY.NG_WORDS,
       matchClassName: 'ng-words-matched',
       matchTarget: (entry: Entry) => entry.title,
     });
   }
-  exists() {
-    return !!$('.entrylist-wrapper');
+  async appendMuteButtons() {
+    const className = {
+      button: 'mute-button',
+      pulldown: 'mute-pulldown',
+      displayNone: 'display-none',
+    } as const;
+
+    for (const entry of this.entries) {
+      const readLaterButton = $(entry.element, '.readlater-button');
+      await waitFor(
+        () => readLaterButton.offsetTop > 0 || readLaterButton.offsetLeft > 0,
+      );
+
+      // prettier-ignore
+      const muteButton = createElementFromString(`
+        <a
+          href="#" class="${className.button}"
+          style="top: ${readLaterButton.offsetTop + 12}px; left: ${readLaterButton.offsetLeft - 16}px;"
+        >
+        </a>
+      `);
+      entry.element.appendChild(muteButton);
+
+      // prettier-ignore
+      const pulldown = createElementFromString(`
+        <div
+          class="${className.pulldown} ${className.displayNone}"
+          style="top: ${readLaterButton.offsetTop}px; left: ${readLaterButton.offsetLeft}px;"
+        >
+          <div>${entry.domain} を非表示にする</div>
+          <div>この記事を非表示にする</div>
+        </div>
+      `);
+      entry.element.appendChild(pulldown);
+      muteButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        pulldown.classList.toggle(className.displayNone);
+
+        if (!pulldown.classList.contains(className.displayNone)) {
+          const listener = (event: MouseEvent) => {
+            if (
+              !(event.target as HTMLElement).closest('.' + className.pulldown)
+            ) {
+              pulldown.classList.add(className.displayNone);
+              document.removeEventListener('click', listener);
+            }
+          };
+          document.addEventListener('click', listener);
+        }
+      });
+    }
   }
 }

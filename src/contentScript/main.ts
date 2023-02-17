@@ -2,12 +2,6 @@ import { ACTION } from '../constants';
 import { EntryList } from './EntryList';
 import './styles.scss';
 
-const $ = <T extends HTMLElement>(selector: string) =>
-  document.querySelector<T>(selector);
-const $$ = <T extends HTMLElement>(selector: string) => [
-  ...document.querySelectorAll<T>(selector),
-];
-
 const entryList = new EntryList();
 
 chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
@@ -26,6 +20,8 @@ chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
 
 (async () => {
   if (!entryList.exists()) return;
-  entryList.filterByUrls();
-  entryList.filterByNgWords();
+  entryList.injectCss();
+  await entryList.filterByUrls();
+  await entryList.filterByNgWords();
+  await entryList.appendMuteButtons();
 })();

@@ -1,18 +1,18 @@
-let store = {};
-type Key = keyof typeof store;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const map = new Map<string, any>();
 
 export const fakeStorage = {
   clear: async () => {
-    store = {};
+    map.clear();
   },
   get: async (key?: string) => {
-    if (key === undefined) return store;
-    return Object.hasOwn(store, key) ? { [key]: store[key as Key] } : {};
+    if (key === undefined) return Object.fromEntries(map);
+    return map.has(key) ? { [key]: map.get(key) } : {};
   },
   remove: async (key: string) => {
-    delete store[key as Key];
+    map.delete(key);
   },
   set: async (value: object) => {
-    store = { ...store, ...value };
+    for (const pair of Object.entries(value)) map.set(...pair);
   },
 };

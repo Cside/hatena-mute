@@ -35,7 +35,6 @@ export const TextFormTab = ({
             storage.setText(storagekey, text);
             setTextInStorage(text);
             chrome.tabs.query({ url: 'https://b.hatena.ne.jp/*' }, (tabs) => {
-              console.log(tabs);
               for (const tab of tabs)
                 chrome.tabs.sendMessage(tab.id ?? 0, { type: actionOnChange });
             });
