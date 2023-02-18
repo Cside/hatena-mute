@@ -27,6 +27,14 @@ describe('setText', () => {
       expected: 'foo',
     },
     {
+      input: ' foo　',
+      expected: 'foo',
+    },
+    {
+      input: 'foo\n \nbar',
+      expected: 'foo\nbar',
+    },
+    {
       input: '\n\n',
       expected: '',
     },
@@ -47,7 +55,19 @@ describe('getLines', () => {
       expected: ['foo'],
     },
     {
+      input: ' foo　',
+      expected: ['foo'],
+    },
+    {
       input: 'foo\nbar',
+      expected: ['foo', 'bar'],
+    },
+    {
+      input: 'foo\n\nbar',
+      expected: ['foo', 'bar'],
+    },
+    {
+      input: 'foo\n　\nbar',
       expected: ['foo', 'bar'],
     },
     {

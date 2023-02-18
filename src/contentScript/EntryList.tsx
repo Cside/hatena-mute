@@ -6,12 +6,19 @@ import { storage } from '../storage';
 import css from './dependsExtensionId.scss?inline';
 import { $, $$ } from './utils';
 
+const hasVisited = async (url: string) =>
+  (await chrome.history.getVisits({ url })).length > 0;
+
 type Entry = {
   element: HTMLElement;
-  title: string;
-  description?: string;
-  url: string;
-  domain: string;
+  titleLink: HTMLAnchorElement;
+  commentsLink: HTMLAnchorElement;
+  description?: HTMLElement;
+  domain: HTMLElement;
+  hasVisited?: {
+    entry: boolean;
+    comments: boolean;
+  };
 };
 
 // 3 種類のデザインの DOM アクセスを抽象化する処理だけ書く
@@ -22,31 +29,21 @@ const getEntries = ({
   selectors: {
     entry: string;
     titleLink: string;
+    commentsLink: string;
     domain: string;
     description?: string;
   };
 }) => {
   const entries: Entry[] = [];
   for (const entry of $$(selectors.entry)) {
-    const link = $<HTMLAnchorElement>(entry, selectors.titleLink);
-    const domain = $(entry, selectors.domain);
-    if (domain.textContent === null) {
-      throw new Error('domain.textContent is null');
-    }
-    let description: HTMLElement | undefined;
-    if (selectors.description !== undefined) {
-      description = $(entry, selectors.description);
-    }
-    if (description?.textContent === null) {
-      throw new Error('description.textContent is null');
-    }
-
     entries.push({
       element: entry,
-      title: link.title,
-      url: link.href,
-      domain: domain.textContent.trim(),
-      ...(description ? { description: description.textContent } : {}),
+      titleLink: $<HTMLAnchorElement>(entry, selectors.titleLink),
+      commentsLink: $<HTMLAnchorElement>(entry, selectors.commentsLink),
+      domain: $(entry, selectors.domain),
+      ...(selectors.description
+        ? { description: $(entry, selectors.description) }
+        : {}),
     });
   }
   return entries;
@@ -62,6 +59,8 @@ export class EntryList {
           entry:
             ':where(.entrylist-header-main, .entrylist-item) > li:not(.entrylist-recommend)',
           titleLink: '.entrylist-contents-title a',
+          commentsLink:
+            ':where(.entrylist-contents-users, .entrylist-contents-body) a',
           description: '.entrylist-contents-description',
           domain: '.entrylist-contents-domain a',
         },
@@ -70,6 +69,7 @@ export class EntryList {
         selectors: {
           entry: '.entrylist-readlater-ranking-item',
           titleLink: '.entrylist-readlater-ranking-title a',
+          commentsLink: 'a.entrylist-readlater-ranking-head',
           domain: '.entrylist-readlater-ranking-domain a',
         },
       }),
@@ -77,6 +77,7 @@ export class EntryList {
         selectors: {
           entry: '.entrylist-3column-items > li',
           titleLink: '.entrylist-3column-title a',
+          commentsLink: '.entrylist-3column-users a',
           domain: '.entrylist-3column-domain a',
         },
       }),
@@ -91,6 +92,7 @@ export class EntryList {
     );
     document.body.appendChild(style);
   }
+  async loadHistory() {}
   private async filterBy({
     storageKey,
     matchedClassName,
@@ -116,28 +118,30 @@ export class EntryList {
   async filterBySites() {
     await this.filterBy({
       storageKey: STORAGE_KEY.MUTED_SITES,
-      matchedClassName: 'muted-sites-matched',
-      match: (entry: Entry, muted: string) => entry.url.includes(muted),
+      matchedClassName: 'hm-muted-sites-matched',
+      match: (entry: Entry, muted: string) =>
+        entry.titleLink.href.includes(muted),
+    });
+  }
+  async filterByMutedWords() {
+    await this.filterBy({
+      storageKey: STORAGE_KEY.MUTED_WORDS,
+      matchedClassName: 'hm-muted-words-matched',
+      match: (entry: Entry, muted: string) =>
+        !!entry.titleLink?.textContent?.includes(muted) ||
+        !!entry.description?.textContent?.includes(muted),
     });
   }
   async muteSite(domain: string) {
     await storage.addLine(STORAGE_KEY.MUTED_SITES, domain);
     await this.filterBySites();
   }
-  async filterByMutedWords() {
-    await this.filterBy({
-      storageKey: STORAGE_KEY.MUTED_WORDS,
-      matchedClassName: 'muted-words-matched',
-      match: (entry: Entry, muted: string) =>
-        entry.title.includes(muted) || !!entry.description?.includes(muted),
-    });
-  }
   async appendMuteButtons() {
     const className = {
-      button: 'mute-button',
-      muteSite: 'mute-site',
-      pulldown: 'mute-pulldown',
-      displayNone: 'display-none',
+      button: 'hm-mute-button',
+      muteSite: 'hm-mute-site',
+      pulldown: 'hm-mute-pulldown',
+      displayNone: 'hm-display-none',
     } as const;
 
     for (const entry of this.entries) {
@@ -169,6 +173,7 @@ export class EntryList {
       );
       entry.element.appendChild(muteButton);
 
+      const domain = (entry.domain.textContent ?? '').trim();
       const pulldown = (
         <div
           className={`${className.pulldown} ${className.displayNone}`}
@@ -176,9 +181,9 @@ export class EntryList {
             top: `${(muteButton as HTMLElement).offsetTop + 29}px`,
             left: `${(muteButton as HTMLElement).offsetLeft - 209}px`,
           }}
-          onClick={() => this.muteSite(entry.domain)}
+          onClick={() => this.muteSite(domain)}
         >
-          <div className="mute-site">{entry.domain} をミュートする</div>
+          <div className="mute-site">{domain} をミュートする</div>
           <div>この記事を非表示にする</div>
         </div>
       );

@@ -1,12 +1,13 @@
-.mute-button:hover {
+.hm-mute-button:hover {
   background-image: url('chrome-extension://__MSG_@@extension_id__/images/mute-hover.svg') !important;
 }
 
-/* TODO: 重複してるので変数化したい。しかし迂闊な変数にすると linter に怒られる... */
-.entrylist-readlater-rankimuted-item:hover .mute-button,
-:where(.entrylist-header-main, .entrylist-item)
-  > li:not(.entrylist-recommend):hover
-  .mute-button,
-.entrylist-3column-items > li:hover .mute-button {
+:where(
+    :where(.entrylist-header-main, .entrylist-item)
+      > li:not(.entrylist-recommend),
+    .entrylist-readlater-rankimuted-item,
+    .entrylist-3column-items > li
+  ):hover
+  .hm-mute-button {
   background-image: url('chrome-extension://__MSG_@@extension_id__/images/mute.svg');
 }

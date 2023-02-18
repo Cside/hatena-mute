@@ -1,16 +1,16 @@
-.display-none {
+.hm-display-none {
   display: none !important;
 }
 
-.muted-sites-matched {
+.hm-muted-sites-matched {
   display: none;
 }
 
-.muted-words-matched {
+.hm-muted-words-matched {
   display: none;
 }
 
-.mute-button {
+.hm-mute-button {
   --button-size: 28px;
   --image-size: 22px;
 
@@ -42,7 +42,7 @@
   }
 }
 
-.mute-pulldown {
+.hm-mute-pulldown {
   position: absolute;
   z-index: 10000;
   display: block;
