@@ -4,7 +4,7 @@ import { storage } from '../storage';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import css from './dependsExtensionId.scss?inline';
-import { $, $$, createElementFromString } from './utils';
+import { $, $$ } from './utils';
 
 type Entry = {
   element: HTMLElement;
@@ -122,6 +122,7 @@ export class EntryList {
   }
   async muteSite(domain: string) {
     await storage.addLine(STORAGE_KEY.MUTED_SITES, domain);
+    await this.filterBySites();
   }
   async filterByMutedWords() {
     await this.filterBy({
@@ -132,7 +133,6 @@ export class EntryList {
     });
   }
   async appendMuteButtons() {
-    // TODO: これ CSS から取得できないの
     const className = {
       button: 'mute-button',
       muteSite: 'mute-site',
@@ -141,46 +141,48 @@ export class EntryList {
     } as const;
 
     for (const entry of this.entries) {
-      // prettier-ignore
-      const muteButton = createElementFromString(`
-        <a href="#" class="${className.button}"></a>
-      `);
+      const muteButton = (
+        <a
+          href="#"
+          className={className.button}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            pulldown.classList.toggle(className.displayNone);
+
+            if (!pulldown.classList.contains(className.displayNone)) {
+              const listener = (event: MouseEvent) => {
+                if (
+                  !(event.target as HTMLElement).closest(
+                    '.' + className.pulldown,
+                  )
+                ) {
+                  pulldown.classList.add(className.displayNone);
+                  document.removeEventListener('click', listener);
+                }
+              };
+              document.addEventListener('click', listener);
+            }
+          }}
+        ></a>
+      );
       entry.element.appendChild(muteButton);
 
-      // prettier-ignore
-      const pulldown = createElementFromString(`
+      const pulldown = (
         <div
-          class="${className.pulldown} ${className.displayNone}"
-          style="top: ${muteButton.offsetTop + 29}px; left: ${muteButton.offsetLeft-209}px"
+          className={`${className.pulldown} ${className.displayNone}`}
+          style={{
+            top: `${(muteButton as HTMLElement).offsetTop + 29}px`,
+            left: `${(muteButton as HTMLElement).offsetLeft - 209}px`,
+          }}
+          onClick={() => this.muteSite(entry.domain)}
         >
-          <div class="mute-site">${entry.domain} をミュートする</div>
+          <div className="mute-site">{entry.domain} をミュートする</div>
           <div>この記事を非表示にする</div>
         </div>
-      `);
+      );
       entry.element.appendChild(pulldown);
-
-      pulldown.addEventListener('click', async () => {
-        await this.muteSite(entry.domain);
-      });
-
-      muteButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        pulldown.classList.toggle(className.displayNone);
-
-        if (!pulldown.classList.contains(className.displayNone)) {
-          const listener = (event: MouseEvent) => {
-            if (
-              !(event.target as HTMLElement).closest('.' + className.pulldown)
-            ) {
-              pulldown.classList.add(className.displayNone);
-              document.removeEventListener('click', listener);
-            }
-          };
-          document.addEventListener('click', listener);
-        }
-      });
     }
   }
 }

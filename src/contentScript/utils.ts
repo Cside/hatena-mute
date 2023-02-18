@@ -24,11 +24,3 @@ export const $$ = <T extends HTMLElement>(
       : document.querySelectorAll<T>(elementOrSelector as string)),
   ];
 };
-
-export const createElementFromString = <T = HTMLElement>(
-  htmlString: string,
-) => {
-  const div = document.createElement('div');
-  div.innerHTML = htmlString.trim();
-  return div.firstChild as T;
-};
