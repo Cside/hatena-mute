@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { storage } from '../../../storage';
@@ -31,13 +31,18 @@ export const TextFormTab = ({
       </div>
       <div>
         <Button
-          onClick={() => {
-            storage.setText(storagekey, text);
+          onClick={async () => {
+            await storage.setText(storagekey, text);
             setTextInStorage(text);
-            chrome.tabs.query({ url: 'https://b.hatena.ne.jp/*' }, (tabs) => {
-              for (const tab of tabs)
-                chrome.tabs.sendMessage(tab.id ?? 0, { type: actionOnChange });
-            });
+            chrome.tabs.query(
+              { url: 'https://b.hatena.ne.jp/*' },
+              async (tabs) => {
+                for (const tab of tabs)
+                  await chrome.tabs.sendMessage(tab.id ?? 0, {
+                    type: actionOnChange,
+                  });
+              },
+            );
           }}
           variant="primary"
           disabled={text === textInStorage}

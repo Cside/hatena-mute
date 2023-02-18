@@ -21,7 +21,7 @@ export const storage = {
 
   addLine: async (key: StorageKey, line: string) => {
     const text = await storage.getText(key);
-    storage.setText(
+    await storage.setText(
       key,
       text === undefined || text === '' ? line : `${text}\n${line}`,
     );

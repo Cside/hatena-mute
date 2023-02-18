@@ -4,13 +4,13 @@ import './styles.scss';
 
 const entryList = new EntryList();
 
-chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
+chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
   switch (type) {
     case ACTION.UPDATE_MUTED_SITES:
-      entryList.filterBySites();
+      await entryList.filterBySites();
       break;
     case ACTION.UPDATE_MUTED_WORDS:
-      entryList.filterByMutedWords();
+      await entryList.filterByMutedWords();
       break;
 
     default:
@@ -18,10 +18,9 @@ chrome.runtime.onMessage.addListener(({ type }: { type: string }) => {
   }
 });
 
-(async () => {
-  if (!entryList.exists()) return;
+if (entryList.exists()) {
   entryList.injectCss();
   await entryList.filterBySites();
   await entryList.filterByMutedWords();
   await entryList.appendMuteButtons();
-})();
+}

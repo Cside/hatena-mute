@@ -4,8 +4,8 @@ import { storage } from './storage';
 
 const KEY = STORAGE_KEY.MUTED_SITES;
 
-afterEach(() => {
-  fakeStorage.clear();
+afterEach(async () => {
+  await fakeStorage.clear();
 });
 
 test('getText', async () => {

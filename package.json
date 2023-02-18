@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "jsx-dom": "^8.0.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.1",
     "react-dom": "^18.2.0"

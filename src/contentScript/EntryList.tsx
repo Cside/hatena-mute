@@ -1,3 +1,4 @@
+/** @jsxImportSource jsx-dom */
 import { STORAGE_KEY } from '../popup/constants';
 import { storage } from '../storage';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -8,6 +9,7 @@ import { $, $$, createElementFromString } from './utils';
 type Entry = {
   element: HTMLElement;
   title: string;
+  description?: string;
   url: string;
   domain: string;
 };
@@ -21,18 +23,30 @@ const getEntries = ({
     entry: string;
     titleLink: string;
     domain: string;
+    description?: string;
   };
 }) => {
   const entries: Entry[] = [];
   for (const entry of $$(selectors.entry)) {
     const link = $<HTMLAnchorElement>(entry, selectors.titleLink);
     const domain = $(entry, selectors.domain);
+    if (domain.textContent === null) {
+      throw new Error('domain.textContent is null');
+    }
+    let description: HTMLElement | undefined;
+    if (selectors.description !== undefined) {
+      description = $(entry, selectors.description);
+    }
+    if (description?.textContent === null) {
+      throw new Error('description.textContent is null');
+    }
 
     entries.push({
       element: entry,
       title: link.title,
       url: link.href,
-      domain: (domain.textContent ?? '').trim(),
+      domain: domain.textContent.trim(),
+      ...(description ? { description: description.textContent } : {}),
     });
   }
   return entries;
@@ -48,6 +62,7 @@ export class EntryList {
           entry:
             ':where(.entrylist-header-main, .entrylist-item) > li:not(.entrylist-recommend)',
           titleLink: '.entrylist-contents-title a',
+          description: '.entrylist-contents-description',
           domain: '.entrylist-contents-domain a',
         },
       }),
@@ -78,21 +93,21 @@ export class EntryList {
   }
   private async filterBy({
     storageKey,
-    matchClassName,
-    matchTarget,
+    matchedClassName,
+    match,
   }: {
     storageKey: StorageKey;
-    matchClassName: string;
-    matchTarget: (entry: Entry) => string;
+    matchedClassName: string;
+    match: (entry: Entry, muted: string) => boolean;
   }) {
     const ngList = await storage.getLines(storageKey);
 
     for (const entry of this.entries) {
-      if (ngList.some((muted) => matchTarget(entry).includes(muted))) {
-        entry.element.classList.add(matchClassName);
+      if (ngList.some((muted) => match(entry, muted))) {
+        entry.element.classList.add(matchedClassName);
         continue;
       }
-      entry.element.classList.remove(matchClassName);
+      entry.element.classList.remove(matchedClassName);
     }
   }
   exists() {
@@ -101,19 +116,23 @@ export class EntryList {
   async filterBySites() {
     await this.filterBy({
       storageKey: STORAGE_KEY.MUTED_SITES,
-      matchClassName: 'muted-sites-matched',
-      matchTarget: (entry: Entry) => entry.url,
+      matchedClassName: 'muted-sites-matched',
+      match: (entry: Entry, muted: string) => entry.url.includes(muted),
     });
   }
-  async muteSite() {}
+  async muteSite(domain: string) {
+    await storage.addLine(STORAGE_KEY.MUTED_SITES, domain);
+  }
   async filterByMutedWords() {
     await this.filterBy({
       storageKey: STORAGE_KEY.MUTED_WORDS,
-      matchClassName: 'muted-words-matched',
-      matchTarget: (entry: Entry) => entry.title,
+      matchedClassName: 'muted-words-matched',
+      match: (entry: Entry, muted: string) =>
+        entry.title.includes(muted) || !!entry.description?.includes(muted),
     });
   }
   async appendMuteButtons() {
+    // TODO: これ CSS から取得できないの
     const className = {
       button: 'mute-button',
       muteSite: 'mute-site',
@@ -140,8 +159,8 @@ export class EntryList {
       `);
       entry.element.appendChild(pulldown);
 
-      pulldown.addEventListener('click', (event) => {
-        this.muteSite(entry.domain);
+      pulldown.addEventListener('click', async () => {
+        await this.muteSite(entry.domain);
       });
 
       muteButton.addEventListener('click', (event) => {
