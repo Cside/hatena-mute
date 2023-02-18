@@ -14,7 +14,7 @@
     }
   ],
   "background": {
-    "service_worker": "src/background.ts",
+    "service_worker": "src/background/main.ts",
     "type": "module"
   },
   "permissions": ["storage", "unlimitedStorage", "tabs", "history"],

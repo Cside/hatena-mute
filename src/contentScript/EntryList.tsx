@@ -1,4 +1,5 @@
 /** @jsxImportSource jsx-dom */
+import { ACTION } from '../constants';
 import { STORAGE_KEY } from '../popup/constants';
 import { storage } from '../storage';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -6,16 +7,13 @@ import { storage } from '../storage';
 import css from './dependsExtensionId.scss?inline';
 import { $, $$ } from './utils';
 
-const hasVisited = async (url: string) =>
-  (await chrome.history.getVisits({ url })).length > 0;
-
 type Entry = {
   element: HTMLElement;
   titleLink: HTMLAnchorElement;
   commentsLink: HTMLAnchorElement;
   description?: HTMLElement;
   domain: HTMLElement;
-  hasVisited?: {
+  hasVisited: {
     entry: boolean;
     comments: boolean;
   };
@@ -44,6 +42,10 @@ const getEntries = ({
       ...(selectors.description
         ? { description: $(entry, selectors.description) }
         : {}),
+      hasVisited: {
+        entry: false,
+        comments: false,
+      },
     });
   }
   return entries;
@@ -92,7 +94,20 @@ export class EntryList {
     );
     document.body.appendChild(style);
   }
-  async loadHistory() {}
+  async loadHistory() {
+    const visitedMap = await chrome.runtime.sendMessage({
+      type: ACTION.GET_VISITED_MAP,
+      payload: {
+        urls: this.entries
+          .map((entry) => [entry.titleLink.href, entry.commentsLink.href])
+          .flat(),
+      },
+    });
+    for (const entry of this.entries) {
+      entry.hasVisited.entry = visitedMap[entry.titleLink.href];
+      entry.hasVisited.comments = visitedMap[entry.commentsLink.href];
+    }
+  }
   private async filterBy({
     storageKey,
     matchedClassName,

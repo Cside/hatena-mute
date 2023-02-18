@@ -20,6 +20,7 @@ chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
 
 if (entryList.exists()) {
   entryList.injectCss();
+  await entryList.loadHistory();
   await entryList.filterBySites();
   await entryList.filterByMutedWords();
   await entryList.appendMuteButtons();
