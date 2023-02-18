@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
 import { storage } from '../../../storage';
 
-export const TextFormTab = ({
+export const TextForm = ({
   storagekey,
   actionOnChange,
 }: {
@@ -22,7 +21,7 @@ export const TextFormTab = ({
   }, []);
 
   return (
-    <Container>
+    <div>
       <div>
         <textarea
           value={text}
@@ -50,6 +49,6 @@ export const TextFormTab = ({
           リストを更新
         </Button>
       </div>
-    </Container>
+    </div>
   );
 };
