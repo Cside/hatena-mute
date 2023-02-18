@@ -1,5 +1,4 @@
 import 'bootstrap/scss/bootstrap.scss';
-import React from 'react';
 import { Form } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';

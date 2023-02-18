@@ -1,7 +1,7 @@
 import { fakeStorage } from './fakeStorage';
 
 afterEach(async () => {
-  fakeStorage.clear();
+  await fakeStorage.clear();
 });
 
 describe('get', () => {
