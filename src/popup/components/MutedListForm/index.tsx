@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { storage } from '../../../storage';
+import { mutedList } from '../../../userOption/mutedList';
 
-export const TextForm = ({
+export const MutedListForm = ({
   storageKey,
   actionOnChange,
   placeholder,
 }: {
-  storageKey: StorageKey;
+  storageKey: MutedListsStorageKey;
   actionOnChange: Action;
   placeholder?: string;
 }) => {
@@ -17,11 +17,9 @@ export const TextForm = ({
 
   useEffect(() => {
     (async () => {
-      const text = await storage.getText(storageKey);
-      if (text !== undefined) {
-        setTextInStorage(text);
-        setText(text);
-      }
+      const text = await mutedList.getText(storageKey);
+      setTextInStorage(text);
+      setText(text);
     })();
   }, []);
 
@@ -38,14 +36,16 @@ export const TextForm = ({
         <Form.Check.Input type="checkbox" />
         <Form.Check.Label>
           正規表現を使う
-          <Form.Text muted>（大文字/小文字の区別なし）</Form.Text>
+          <Form.Text muted>
+            ❌大文字小文字が区別できればreである必要性なし
+          </Form.Text>
         </Form.Check.Label>
       </Form.Check>
 
       <Button
         className="block"
         onClick={async () => {
-          await storage.setText(storageKey, text);
+          await mutedList.setText(storageKey, text);
           setTextInStorage(text);
           chrome.tabs.query(
             { url: 'https://b.hatena.ne.jp/*' },

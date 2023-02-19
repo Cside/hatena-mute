@@ -5,7 +5,7 @@
 :where(
     :where(.entrylist-header-main, .entrylist-item)
       > li:not(.entrylist-recommend),
-    .entrylist-readlater-rankimuted-item,
+    .entrylist-readlater-ranking-item,
     .entrylist-3column-items > li
   ):hover
   .mute-button {

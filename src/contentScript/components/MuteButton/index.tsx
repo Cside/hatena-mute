@@ -1,7 +1,7 @@
 /** @jsxImportSource jsx-dom */
-import stylesCommon from '../../styles.module.scss';
+import commonStyles from '../../styles.module.scss';
 import { $ } from '../../utils';
-import stylesMutePulldown from '../MutePulldown/styles.module.scss';
+import mutePulldownStyles from '../MutePulldown/styles.module.scss';
 import styles from './styles.module.scss';
 
 export const MuteButton = () => {
@@ -15,16 +15,18 @@ export const MuteButton = () => {
 
         const parent = (event.target as HTMLElement).parentElement;
         if (!parent) throw new Error(`muteButton.parentElement doesn't exist`);
-        const pulldown = $(parent, '.' + stylesMutePulldown.mutePulldown);
+        const pulldown = $(parent, '.' + mutePulldownStyles.mutePulldown);
 
-        pulldown.classList.toggle(stylesCommon.displayNone);
+        pulldown.classList.toggle(commonStyles.displayNone);
 
-        if (!pulldown.classList.contains(stylesCommon.displayNone)) {
+        if (!pulldown.classList.contains(commonStyles.displayNone)) {
           const listener = (event: MouseEvent) => {
             if (
-              !(event.target as HTMLElement).closest('.' + stylesMutePulldown)
+              !(event.target as HTMLElement).closest(
+                '.' + mutePulldownStyles.mutePulldown,
+              )
             ) {
-              pulldown.classList.add(stylesCommon.displayNone);
+              pulldown.classList.add(commonStyles.displayNone);
               document.removeEventListener('click', listener);
             }
           };

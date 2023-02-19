@@ -1,13 +1,13 @@
 /** @jsxImportSource jsx-dom */
-import { ACTION } from '../constants';
-import { STORAGE_KEY } from '../popup/constants';
-import { storage } from '../storage';
+import { ACTION, STORAGE_KEY } from '../constants';
+import { userOption } from '../userOption';
+import { mutedList } from '../userOption/mutedList';
 import { MuteButton } from './components/MuteButton';
+import muteButtonStyles from './components/MuteButton/styles.module.scss';
 import { MutePulldown } from './components/MutePulldown';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import stylesMuteButton from './components/MuteButton/styles.module.scss';
-import css from './icon.scss?inline';
+import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
 import { $, $$ } from './utils';
 
@@ -58,6 +58,8 @@ const getEntries = ({
 export class EntriesManager {
   entries: Entry[] = [];
 
+  root: HTMLElement | null;
+
   constructor() {
     this.entries = [
       ...getEntries({
@@ -88,14 +90,39 @@ export class EntriesManager {
         },
       }),
     ];
+
+    this.root = document.querySelector('.entrylist-wrapper');
+  }
+  async loadConfig() {
+    if (!this.root) throw new Error(`this.root === null`);
+
+    const lightensVisitedEntry = await userOption.get(
+      STORAGE_KEY.LIGHTENS_VISITED_ENTRY,
+    );
+    const regardsEntryWhoseCommentsHaveBeenVisitedAsVisited =
+      await userOption.get(
+        STORAGE_KEY.REGARDS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED_AS_VISITED,
+      );
+
+    // FIXME: 下記の処理は独立してる必要があるので、切り離す。
+    // lighten... > regards...
+    if (lightensVisitedEntry) {
+      this.root.classList.add(
+        'lightens-visited-entry', // TODO: CSS Modules
+      );
+    } else if (regardsEntryWhoseCommentsHaveBeenVisitedAsVisited) {
+      this.root.classList.add(
+        'regards-entry-whose-comments-have-been-visited-as-visited', // TODO: CSS Modules
+      );
+    }
   }
   injectCss() {
     const style = document.createElement('style');
     style.appendChild(
       document.createTextNode(
-        (css as string)
+        (iconCss as string)
           .replaceAll('__MSG_@@extension_id__', chrome.runtime.id)
-          .replaceAll('mute-button', stylesMuteButton.muteButton),
+          .replaceAll('mute-button', muteButtonStyles.muteButton),
       ),
     );
     document.body.appendChild(style);
@@ -114,9 +141,10 @@ export class EntriesManager {
       entry.hasVisited.comments = visitedMap[entry.commentsLink.href];
     }
   }
+  // depends on loadHistory()
   lightenVisitedEntries() {
     for (const entry of this.entries) {
-      entry.element.classList.add();
+      entry.element.classList.add('visited', 'visited-comments'); // TODO: あとで css modules にする
     }
   }
   private async filterBy({
@@ -124,14 +152,14 @@ export class EntriesManager {
     matchedClassName,
     match,
   }: {
-    storageKey: StorageKey;
+    storageKey: MutedListsStorageKey;
     matchedClassName: string;
     match: (entry: Entry, muted: string) => boolean;
   }) {
-    const ngList = await storage.getLines(storageKey);
+    const list = await mutedList.getList(storageKey);
 
     for (const entry of this.entries) {
-      if (ngList.some((muted) => match(entry, muted))) {
+      if (list.some((muted) => match(entry, muted))) {
         entry.element.classList.add(matchedClassName);
         continue;
       }
@@ -139,7 +167,7 @@ export class EntriesManager {
     }
   }
   exists() {
-    return !!$('.entrylist-wrapper');
+    return !!this.root;
   }
   async filterBySites() {
     await this.filterBy({
@@ -159,7 +187,7 @@ export class EntriesManager {
     });
   }
   async muteSite(domain: string) {
-    await storage.addLine(STORAGE_KEY.MUTED_SITES, domain);
+    await mutedList.addItem(STORAGE_KEY.MUTED_SITES, domain);
     await this.filterBySites();
   }
   async appendMuteButtons() {

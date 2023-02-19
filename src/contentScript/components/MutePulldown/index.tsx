@@ -1,5 +1,5 @@
 /** @jsxImportSource jsx-dom */
-import stylesCommon from '../../styles.module.scss';
+import commonStyles from '../../styles.module.scss';
 import styles from './styles.module.scss';
 
 export const MutePulldown = ({
@@ -11,7 +11,7 @@ export const MutePulldown = ({
 }) => {
   return (
     <div
-      className={`${styles.mutePulldown} ${stylesCommon.displayNone}`}
+      className={`${styles.mutePulldown} ${commonStyles.displayNone}`}
       style={{
         top: '40px',
         right: '0px',

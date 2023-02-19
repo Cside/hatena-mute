@@ -2,10 +2,10 @@ import 'bootstrap/scss/bootstrap.scss';
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { ACTION } from '../../../constants';
-import { EVENT_KEY, STORAGE_KEY } from '../../constants';
+import { ACTION, STORAGE_KEY } from '../../../constants';
+import { EVENT_KEY } from '../../constants';
 import { CheckForm } from '../CheckForm';
-import { TextForm } from '../TextForm';
+import { MutedListForm } from '../MutedListForm';
 import './styles.scss';
 
 export const App = () => {
@@ -15,14 +15,14 @@ export const App = () => {
         <h2>ミュートの設定</h2>
         <Tabs defaultActiveKey={EVENT_KEY.MUTED_SITES}>
           <Tab eventKey={EVENT_KEY.MUTED_SITES} title="サイト">
-            <TextForm
+            <MutedListForm
               placeholder="example.com"
               storageKey={STORAGE_KEY.MUTED_SITES}
               actionOnChange={ACTION.UPDATE_MUTED_SITES}
             />
           </Tab>
           <Tab eventKey={EVENT_KEY.MUTED_WORDS} title="キーワード">
-            <TextForm
+            <MutedListForm
               storageKey={STORAGE_KEY.MUTED_WORDS}
               actionOnChange={ACTION.UPDATE_MUTED_WORDS}
             />
@@ -32,6 +32,7 @@ export const App = () => {
 
       <div className="py-3">
         <h2>その他の設定</h2>
+        {/* TODO: use clasName of CSS Modules */}
         <CheckForm
           id="bs-regards-entry-whose-comments-have-been-visited-as-visited"
           label="ブックマークコメントを見た記事を訪問済みにする"

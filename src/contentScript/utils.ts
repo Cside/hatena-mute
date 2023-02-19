@@ -6,12 +6,20 @@ export const $ = <T extends HTMLElement>(
   ...params: QuerySelectorParameters
 ) => {
   const [elementOrSelector, selector] = params;
-  const result = selector
-    ? (elementOrSelector as HTMLElement).querySelector<T>(selector)
-    : document.querySelector<T>(elementOrSelector as string);
-
-  if (!result) throw new Error(`${selector ?? elementOrSelector} is not found`);
-  return result;
+  if (selector && elementOrSelector instanceof HTMLElement) {
+    const result = (elementOrSelector as HTMLElement).querySelector<T>(
+      selector,
+    );
+    if (!result) {
+      console.error({ targetElement: elementOrSelector });
+      throw new Error(`${selector} is not found`);
+    }
+    return result;
+  } else {
+    const result = document.querySelector<T>(elementOrSelector as string);
+    if (!result) throw new Error(`${elementOrSelector} is not found`);
+    return result;
+  }
 };
 
 export const $$ = <T extends HTMLElement>(

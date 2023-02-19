@@ -1,6 +1,6 @@
-import { fakeStorage } from '../test/chrome/fakeStorage';
-import { STORAGE_KEY } from './popup/constants';
-import { storage } from './storage';
+import { fakeStorage } from '../../test/chrome/fakeStorage';
+import { STORAGE_KEY } from '../constants';
+import { mutedList } from './mutedList';
 
 const KEY = STORAGE_KEY.MUTED_SITES;
 
@@ -9,7 +9,7 @@ afterEach(async () => {
 });
 
 test('getText', async () => {
-  expect(await storage.getText(KEY)).toBe(undefined);
+  expect(await mutedList.getText(KEY)).toBe('');
 });
 
 describe('setText', () => {
@@ -43,12 +43,12 @@ describe('setText', () => {
       expected: 'foo\nbar',
     },
   ])('%o', async ({ input, expected }) => {
-    await storage.setText(KEY, input);
-    expect(await storage.getText(KEY)).toBe(expected);
+    await mutedList.setText(KEY, input);
+    expect(await mutedList.getText(KEY)).toBe(expected);
   });
 });
 
-describe('getLines', () => {
+describe('getList', () => {
   test.each([
     {
       input: 'foo',
@@ -76,11 +76,11 @@ describe('getLines', () => {
     },
   ])('%o', async ({ input, expected }) => {
     await chrome.storage.local.set({ [KEY]: input });
-    expect(await storage.getLines(KEY)).toEqual(expected);
+    expect(await mutedList.getList(KEY)).toEqual(expected);
   });
 });
 
-describe('addLine', () => {
+describe('addItem', () => {
   test.each([
     {
       input: undefined,
@@ -96,7 +96,7 @@ describe('addLine', () => {
     },
   ])('%o', async ({ input, expected }) => {
     if (input !== undefined) await chrome.storage.local.set({ [KEY]: input });
-    await storage.addLine(KEY, 'foo');
-    expect(await storage.getText(KEY)).toEqual(expected);
+    await mutedList.addItem(KEY, 'foo');
+    expect(await mutedList.getText(KEY)).toEqual(expected);
   });
 });
