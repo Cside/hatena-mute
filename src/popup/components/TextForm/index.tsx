@@ -4,11 +4,11 @@ import Button from 'react-bootstrap/Button';
 import { storage } from '../../../storage';
 
 export const TextForm = ({
-  storagekey,
+  storageKey,
   actionOnChange,
   placeholder,
 }: {
-  storagekey: StorageKey;
+  storageKey: StorageKey;
   actionOnChange: Action;
   placeholder?: string;
 }) => {
@@ -17,9 +17,11 @@ export const TextForm = ({
 
   useEffect(() => {
     (async () => {
-      const text = (await storage.getText(storagekey)) ?? '';
-      setTextInStorage(text);
-      setText(text);
+      const text = await storage.getText(storageKey);
+      if (text !== undefined) {
+        setTextInStorage(text);
+        setText(text);
+      }
     })();
   }, []);
 
@@ -43,7 +45,7 @@ export const TextForm = ({
       <Button
         className="block"
         onClick={async () => {
-          await storage.setText(storagekey, text);
+          await storage.setText(storageKey, text);
           setTextInStorage(text);
           chrome.tabs.query(
             { url: 'https://b.hatena.ne.jp/*' },

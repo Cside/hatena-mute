@@ -6,8 +6,14 @@ const normalizeText = (text: string) =>
     .join('\n');
 
 export const storage = {
-  getText: async (key: StorageKey): Promise<string | undefined> =>
-    (await chrome.storage.local.get(key))[key],
+  get: async <T>(key: string): Promise<T | undefined> =>
+    (await chrome.storage.local.get(key))[key] as T,
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  set: async (key: string, value: unknown) =>
+    await chrome.storage.local.set({ [key]: value }),
+
+  getText: async (key: StorageKey) => await storage.get<string>(key),
 
   setText: async (key: StorageKey, text: string) =>
     chrome.storage.local.set({
