@@ -1,6 +1,6 @@
 import { ACTION } from '../constants';
 import { EntriesManager } from './EntriesManager';
-import './styles.scss';
+import './styles.module.scss';
 
 const entryManager = new EntriesManager();
 

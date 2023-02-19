@@ -1,16 +1,4 @@
-.hm-display-none {
-  display: none !important;
-}
-
-.hm-muted-sites-matched {
-  display: none;
-}
-
-.hm-muted-words-matched {
-  display: none;
-}
-
-.hm-mute-button {
+.mute-button {
   --button-size: 28px;
   --image-size: 22px;
 
@@ -39,23 +27,5 @@
   .style-headline & {
     top: 11px;
     right: 37px;
-  }
-}
-
-.hm-mute-pulldown {
-  position: absolute;
-  z-index: 10000;
-  display: block;
-  width: 269px;
-  font-size: 0.85rem;
-  background-color: #f6f7f8;
-  border-radius: 5px;
-
-  div {
-    padding: 12px;
-
-    &:hover {
-      background-color: #ebeced;
-    }
   }
 }

@@ -1,0 +1,17 @@
+.mute-pulldown {
+  position: absolute;
+  z-index: 10000;
+  display: block;
+  width: 269px;
+  font-size: 0.85rem;
+  background-color: #f6f7f8;
+  border-radius: 5px;
+
+  div {
+    padding: 12px;
+
+    &:hover {
+      background-color: #ebeced;
+    }
+  }
+}

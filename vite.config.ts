@@ -16,6 +16,11 @@ export default defineConfig({
     crx({ manifest: manifest as ManifestV3Export }),
     ...(ENABLES_VISUALIZER ? [visualizer() as PluginOption] : []),
   ],
+  css: {
+    modules: {
+      localsConvention: 'camelCaseOnly',
+    },
+  },
 });
 
 // utils

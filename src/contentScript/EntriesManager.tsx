@@ -2,9 +2,13 @@
 import { ACTION } from '../constants';
 import { STORAGE_KEY } from '../popup/constants';
 import { storage } from '../storage';
+import { MuteButton } from './components/MuteButton';
+import { MutePulldown } from './components/MutePulldown';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import css from './dependsExtensionId.scss?inline';
+import stylesMuteButton from './components/MuteButton/styles.module.scss';
+import css from './icon.scss?inline';
+import styles from './styles.module.scss';
 import { $, $$ } from './utils';
 
 type Entry = {
@@ -89,7 +93,9 @@ export class EntriesManager {
     const style = document.createElement('style');
     style.appendChild(
       document.createTextNode(
-        css.replaceAll('__MSG_@@extension_id__', chrome.runtime.id),
+        (css as string)
+          .replaceAll('__MSG_@@extension_id__', chrome.runtime.id)
+          .replaceAll('mute-button', stylesMuteButton.muteButton),
       ),
     );
     document.body.appendChild(style);
@@ -138,7 +144,7 @@ export class EntriesManager {
   async filterBySites() {
     await this.filterBy({
       storageKey: STORAGE_KEY.MUTED_SITES,
-      matchedClassName: 'hm-muted-sites-matched',
+      matchedClassName: styles.mutedSitesMatched,
       match: (entry: Entry, muted: string) =>
         entry.titleLink.href.includes(muted),
     });
@@ -146,7 +152,7 @@ export class EntriesManager {
   async filterByMutedWords() {
     await this.filterBy({
       storageKey: STORAGE_KEY.MUTED_WORDS,
-      matchedClassName: 'hm-muted-words-matched',
+      matchedClassName: styles.mutedWordsMatched,
       match: (entry: Entry, muted: string) =>
         !!entry.titleLink?.textContent?.includes(muted) ||
         !!entry.description?.textContent?.includes(muted),
@@ -157,62 +163,13 @@ export class EntriesManager {
     await this.filterBySites();
   }
   async appendMuteButtons() {
-    const className = {
-      button: 'hm-mute-button',
-      muteSite: 'hm-mute-site',
-      pulldown: 'hm-mute-pulldown',
-      displayNone: 'hm-display-none',
-    } as const;
-
     for (const entry of this.entries) {
-      const muteButton = (
-        <a
-          href="#"
-          className={className.button}
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const parent = muteButton.parentElement;
-            if (!parent)
-              throw new Error(`muteButton.parentElement doesn't exist`);
-            const pulldown = $(parent, '.' + className.pulldown);
-
-            pulldown.classList.toggle(className.displayNone);
-
-            if (!pulldown.classList.contains(className.displayNone)) {
-              const listener = (event: MouseEvent) => {
-                if (
-                  !(event.target as HTMLElement).closest(
-                    '.' + className.pulldown,
-                  )
-                ) {
-                  pulldown.classList.add(className.displayNone);
-                  document.removeEventListener('click', listener);
-                }
-              };
-              document.addEventListener('click', listener);
-            }
-          }}
-        ></a>
-      );
-      entry.element.appendChild(muteButton);
+      entry.element.appendChild(<MuteButton />);
 
       const domain = (entry.domain.textContent ?? '').trim();
-      const pulldown = (
-        <div
-          className={`${className.pulldown} ${className.displayNone}`}
-          style={{
-            top: `${(muteButton as HTMLElement).offsetTop + 29}px`,
-            left: `${(muteButton as HTMLElement).offsetLeft - 209}px`,
-          }}
-          onClick={() => this.muteSite(domain)}
-        >
-          <div className="mute-site">{domain} をミュートする</div>
-          <div>この記事を非表示にする</div>
-        </div>
+      entry.element.appendChild(
+        <MutePulldown domain={domain} onClick={() => this.muteSite(domain)} />,
       );
-      entry.element.appendChild(pulldown);
     }
   }
 }
