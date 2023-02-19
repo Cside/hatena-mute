@@ -51,7 +51,7 @@ const getEntries = ({
   return entries;
 };
 
-export class EntryList {
+export class EntriesManager {
   entries: Entry[] = [];
 
   constructor() {
@@ -106,6 +106,11 @@ export class EntryList {
     for (const entry of this.entries) {
       entry.hasVisited.entry = visitedMap[entry.titleLink.href];
       entry.hasVisited.comments = visitedMap[entry.commentsLink.href];
+    }
+  }
+  lightenVisitedEntries() {
+    for (const entry of this.entries) {
+      entry.element.classList.add();
     }
   }
   private async filterBy({
@@ -167,6 +172,11 @@ export class EntryList {
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
+
+            const parent = muteButton.parentElement;
+            if (!parent)
+              throw new Error(`muteButton.parentElement doesn't exist`);
+            const pulldown = $(parent, '.' + className.pulldown);
 
             pulldown.classList.toggle(className.displayNone);
 
