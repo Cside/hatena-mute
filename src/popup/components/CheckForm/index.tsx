@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { userOption } from '../../../userOption';
 
@@ -6,15 +6,15 @@ export const CheckForm = ({
   id,
   label,
   storageKey,
-  defaultChecked,
+  checked,
+  setChecked,
 }: {
   id: string;
   label: string;
   storageKey: UserOptionsStorageKey;
-  defaultChecked: boolean;
+  checked: boolean;
+  setChecked: SetState<boolean>;
 }) => {
-  const [checked, setChecked] = useState(defaultChecked);
-
   useEffect(() => {
     (async () => {
       const checked = await userOption.get(storageKey);

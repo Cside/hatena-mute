@@ -12,7 +12,7 @@ export const SETTINGS = {
 };
 
 export const userOption = {
-  get: async (key: UserOptionsStorageKey) =>
+  get: async (key: UserOptionsStorageKey): Promise<boolean> =>
     (await chrome.storage.local.get(key))[key] ?? SETTINGS[key].default,
 
   set: async (key: UserOptionsStorageKey, value: boolean) =>

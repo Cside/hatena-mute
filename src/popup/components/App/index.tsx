@@ -1,4 +1,5 @@
 import 'bootstrap/scss/bootstrap.scss';
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -9,6 +10,13 @@ import { MutedListForm } from '../MutedListForm';
 import './styles.scss';
 
 export const App = () => {
+  const [lightensVisitedEntryIsChecked, setLightensVisitedEntryIsChecked] =
+    useState(false);
+  const [
+    regardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked,
+    setRegardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked,
+  ] = useState(false);
+
   return (
     <Container fluid="sm" className="m-1">
       <div className="py-3">
@@ -34,19 +42,25 @@ export const App = () => {
         <h2>その他の設定</h2>
         {/* TODO: use clasName of CSS Modules */}
         <CheckForm
-          id="bs-regards-entry-whose-comments-have-been-visited-as-visited"
-          label="ブックマークコメントを見た記事を訪問済みにする"
-          defaultChecked={false}
-          storageKey={
-            STORAGE_KEY.REGARDS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED_AS_VISITED
-          }
-        />
-        <CheckForm
           id="bs-lightens-visited-entry"
-          label="訪問済みの記事を薄くする"
-          defaultChecked={false}
+          label="訪問済みの記事を目立なくする"
           storageKey={STORAGE_KEY.LIGHTENS_VISITED_ENTRY}
+          checked={lightensVisitedEntryIsChecked}
+          setChecked={setLightensVisitedEntryIsChecked}
         />
+        {lightensVisitedEntryIsChecked && (
+          <CheckForm
+            id="bs-regards-entry-whose-comments-have-been-visited-as-visited"
+            label="ブックマークコメントページを訪問済みの記事を目立たなくする"
+            storageKey={
+              STORAGE_KEY.REGARDS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED_AS_VISITED
+            }
+            checked={regardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked}
+            setChecked={
+              setRegardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked
+            }
+          />
+        )}
       </div>
     </Container>
   );

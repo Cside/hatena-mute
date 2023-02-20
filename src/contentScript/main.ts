@@ -1,27 +1,37 @@
 import { ACTION } from '../constants';
-import { EntriesManager } from './EntriesManager';
+import { getEntries } from './entry';
+import { EntryMuterByList } from './EntryMuterByList';
 import './styles.module.scss';
+import { VisitedEntryLightener } from './VisitedEntryLightener';
 
-const entryManager = new EntriesManager();
+const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
-chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
-  switch (type) {
-    case ACTION.UPDATE_MUTED_SITES:
-      await entryManager.muteBySites();
-      break;
-    case ACTION.UPDATE_MUTED_WORDS:
-      await entryManager.muteByMutedWords();
-      break;
+if (rootElement) {
+  const entries = getEntries();
 
-    default:
-      throw new Error(`Unknown action type: ${type}`);
-  }
-});
+  const entryMuterByList = new EntryMuterByList({ entries });
 
-if (entryManager.exists()) {
-  entryManager.injectCss();
-  await entryManager.loadHistory();
-  await entryManager.muteBySites();
-  await entryManager.muteByMutedWords();
-  await entryManager.appendMuteButtons();
+  chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
+    switch (type) {
+      case ACTION.UPDATE_MUTED_SITES:
+        await entryMuterByList.muteBySites();
+        break;
+      case ACTION.UPDATE_MUTED_WORDS:
+        await entryMuterByList.muteByMutedWords();
+        break;
+
+      default:
+        throw new Error(`Unknown action type: ${type}`);
+    }
+  });
+
+  await entryMuterByList.muteBySites();
+  await entryMuterByList.muteByMutedWords();
+
+  const visitedEntryLightener = new VisitedEntryLightener({
+    entries,
+    rootElement,
+  });
+  await visitedEntryLightener.initialize();
+  await visitedEntryLightener.lighghten();
 }
