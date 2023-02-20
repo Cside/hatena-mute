@@ -41,7 +41,7 @@ export class VisitedEntryLightener {
         throw new Error(
           `url (${entry.titleLink.href}) doesn't exist in visitedMap`,
         );
-      if (visitedMap[entry.titleLink.href])
+      if (visitedMap[entry.commentsLink.href])
         entry.element.classList.add('comments-visited'); // TODO: CSS Modules
     }
   }

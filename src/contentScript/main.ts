@@ -33,5 +33,5 @@ if (rootElement) {
     rootElement,
   });
   await visitedEntryLightener.initialize();
-  await visitedEntryLightener.lighghten();
+  await visitedEntryLightener.mute();
 }
