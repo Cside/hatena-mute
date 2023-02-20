@@ -7,10 +7,10 @@ const entryManager = new EntriesManager();
 chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
   switch (type) {
     case ACTION.UPDATE_MUTED_SITES:
-      await entryManager.filterBySites();
+      await entryManager.muteBySites();
       break;
     case ACTION.UPDATE_MUTED_WORDS:
-      await entryManager.filterByMutedWords();
+      await entryManager.muteByMutedWords();
       break;
 
     default:
@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
 if (entryManager.exists()) {
   entryManager.injectCss();
   await entryManager.loadHistory();
-  await entryManager.filterBySites();
-  await entryManager.filterByMutedWords();
+  await entryManager.muteBySites();
+  await entryManager.muteByMutedWords();
   await entryManager.appendMuteButtons();
 }

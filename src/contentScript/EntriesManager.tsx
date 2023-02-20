@@ -147,7 +147,7 @@ export class EntriesManager {
       entry.element.classList.add('visited', 'visited-comments'); // TODO: あとで css modules にする
     }
   }
-  private async filterBy({
+  private async muteBy({
     storageKey,
     matchedClassName,
     match,
@@ -169,16 +169,16 @@ export class EntriesManager {
   exists() {
     return !!this.root;
   }
-  async filterBySites() {
-    await this.filterBy({
+  async muteBySites() {
+    await this.muteBy({
       storageKey: STORAGE_KEY.MUTED_SITES,
       matchedClassName: styles.mutedSitesMatched,
       match: (entry: Entry, muted: string) =>
         entry.titleLink.href.includes(muted),
     });
   }
-  async filterByMutedWords() {
-    await this.filterBy({
+  async muteByMutedWords() {
+    await this.muteBy({
       storageKey: STORAGE_KEY.MUTED_WORDS,
       matchedClassName: styles.mutedWordsMatched,
       match: (entry: Entry, muted: string) =>
@@ -188,7 +188,7 @@ export class EntriesManager {
   }
   async muteSite(domain: string) {
     await mutedList.addItem(STORAGE_KEY.MUTED_SITES, domain);
-    await this.filterBySites();
+    await this.muteBySites();
   }
   async appendMuteButtons() {
     for (const entry of this.entries) {
