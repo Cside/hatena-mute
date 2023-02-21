@@ -10,7 +10,8 @@
   "content_scripts": [
     {
       "matches": ["https://b.hatena.ne.jp/*"],
-      "js": ["src/contentScript/main.ts"]
+      "js": ["src/contentScript/main.ts"],
+      "run_at": "document_end"
     }
   ],
   "background": {

@@ -24,7 +24,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: 'node_modules'
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: yarn install --immutable --immutable-cache --check-cache # same as `npm ci`

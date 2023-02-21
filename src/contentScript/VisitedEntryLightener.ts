@@ -1,5 +1,6 @@
 import { ACTION, STORAGE_KEY } from '../constants';
 import { userOption } from '../userOption';
+import styles from './visitedEntryLightener.module.scss';
 
 export class VisitedEntryLightener {
   entries: Entry[] = [];
@@ -34,8 +35,7 @@ export class VisitedEntryLightener {
         throw new Error(
           `url (${entry.titleLink.href}) doesn't exist in visitedMap`,
         );
-      if (visitedMap[entry.titleLink.href])
-        entry.element.classList.add('visited'); // TODO: CSS Modules
+      if (visitedMap[entry.titleLink.href]) entry.element.classList.add(styles);
 
       if (!Object.hasOwn(visitedMap, entry.commentsLink.href))
         throw new Error(
