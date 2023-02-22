@@ -3,10 +3,10 @@
   "scripts": {
     "dev": "yarn run clean && run-p dev:*",
     "dev:vite": "vite",
-    "dev:scss": "typed-scss-modules --watch 'src/**/*.module.scss'",
+    "dev:scss-types": "typed-scss-modules --watch 'src/**/*.module.scss'",
     "build": "yarn run clean && run-p build:*",
     "build:vite": "vite build",
-    "build:scss": "typed-scss-modules 'src/**/*.module.scss'",
+    "build:scss-types": "typed-scss-modules 'src/**/*.module.scss'",
     "visualize": "yarn run clean && ENABLES_VISUALIZER=true vite build && open stats.html",
     "clean": "rimraf dist out.zip",
     "test": "jest",

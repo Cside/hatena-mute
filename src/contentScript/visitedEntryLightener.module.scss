@@ -1,0 +1,16 @@
+.lightens-visited-entry {
+  .visited {
+    opacity: 0.5;
+
+    .visited [data-entry-id] {
+      // opacity かけるとタイトルだけ薄くなりすぎるので、未訪問と同じ色にする
+      &:visited {
+        color: #25282b;
+      }
+
+      &:hover {
+        color: #7db4e8;
+      }
+    }
+  }
+}

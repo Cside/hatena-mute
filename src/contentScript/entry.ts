@@ -7,7 +7,6 @@ const _getEntries = ({
 }: {
   selectors: {
     entry: string;
-    titleLink: string;
     commentsLink: string;
     domain: string;
     description?: string;
@@ -17,7 +16,7 @@ const _getEntries = ({
   for (const entry of $$(selectors.entry)) {
     entries.push({
       element: entry,
-      titleLink: $<HTMLAnchorElement>(entry, selectors.titleLink),
+      titleLink: $<HTMLAnchorElement>(entry, '[data-entry-id]'),
       commentsLink: $<HTMLAnchorElement>(entry, selectors.commentsLink),
       domain: $(entry, selectors.domain),
       ...(selectors.description
@@ -34,7 +33,6 @@ export const getEntries = () => {
       selectors: {
         entry:
           ':where(.entrylist-header-main, .entrylist-item) > li:not(.entrylist-recommend)',
-        titleLink: '.entrylist-contents-title a',
         commentsLink:
           ':where(.entrylist-contents-users, .entrylist-contents-body) a',
         description: '.entrylist-contents-description',
@@ -44,7 +42,6 @@ export const getEntries = () => {
     ..._getEntries({
       selectors: {
         entry: '.entrylist-readlater-ranking-item',
-        titleLink: '.entrylist-readlater-ranking-title a',
         commentsLink: 'a.entrylist-readlater-ranking-head',
         domain: '.entrylist-readlater-ranking-domain a',
       },
@@ -52,7 +49,6 @@ export const getEntries = () => {
     ..._getEntries({
       selectors: {
         entry: '.entrylist-3column-items > li',
-        titleLink: '.entrylist-3column-title a',
         commentsLink: '.entrylist-3column-users a',
         domain: '.entrylist-3column-domain a',
       },

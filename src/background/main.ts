@@ -5,7 +5,11 @@ const hasVisited = async (url: string) =>
 
 const handleLoadHistory = async (urls: string[]) =>
   Object.fromEntries(
-    await Promise.all(urls.map(async (url) => [url, await hasVisited(url)])),
+    await Promise.all(
+      urls.map(
+        async (url) => [url, await hasVisited(url)] as [string, boolean],
+      ),
+    ),
   );
 
 chrome.runtime.onMessage.addListener(
@@ -17,9 +21,7 @@ chrome.runtime.onMessage.addListener(
     switch (type) {
       case ACTION.GET_VISITED_MAP:
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        handleLoadHistory(urls).then((result) => {
-          sendResponse(result);
-        });
+        handleLoadHistory(urls).then((result) => sendResponse(result));
         break;
 
       default:

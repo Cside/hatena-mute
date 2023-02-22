@@ -1,2 +1,3 @@
 /public/css/**/*
 /dist/
+/pnpm-lock.yaml
