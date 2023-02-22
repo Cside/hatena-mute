@@ -13,7 +13,7 @@ export const CheckForm = ({
 }: {
   id: string;
   label: string;
-  storageKey: UserOptionsStorageKey;
+  storageKey: StorageKey;
   checked: boolean;
   setChecked: SetState<boolean>;
   actionOnChange: Action;

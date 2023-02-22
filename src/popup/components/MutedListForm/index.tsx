@@ -9,7 +9,7 @@ export const MutedListForm = ({
   actionOnChange,
   placeholder,
 }: {
-  storageKey: MutedListsStorageKey;
+  storageKey: StorageKey;
   actionOnChange: Action;
   placeholder?: string;
 }) => {

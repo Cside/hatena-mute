@@ -47,7 +47,7 @@ export class EntryMuterByList {
     matchedClassName,
     match,
   }: {
-    storageKey: MutedListsStorageKey;
+    storageKey: StorageKey;
     matchedClassName: string;
     match: (entry: Entry, muted: string) => boolean;
   }) {

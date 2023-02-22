@@ -13,21 +13,21 @@ const normalizeText = (text: string) =>
     .join('\n');
 
 export const mutedList = {
-  getText: async (key: MutedListsStorageKey) =>
+  getText: async (key: StorageKey) =>
     ((await chrome.storage.local.get(key))[key] ?? '') as string,
 
-  setText: async (key: MutedListsStorageKey, text: string) =>
+  setText: async (key: StorageKey, text: string) =>
     chrome.storage.local.set({
       [key]: normalizeText(text),
     }),
 
-  getList: async (key: MutedListsStorageKey): Promise<string[]> => {
+  getList: async (key: StorageKey): Promise<string[]> => {
     const text = await mutedList.getText(key);
     if (text === undefined || text === '') return [];
     return normalizeText(text).split('\n');
   },
 
-  addItem: async (key: MutedListsStorageKey, item: string) => {
+  addItem: async (key: StorageKey, item: string) => {
     const text = await mutedList.getText(key);
     await mutedList.setText(
       key,
