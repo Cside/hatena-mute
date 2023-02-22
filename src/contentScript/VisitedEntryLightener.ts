@@ -38,10 +38,9 @@ export class VisitedEntryLightener {
       this.rootElement.classList.remove(styles.lightensVisitedEntry);
     }
 
-    const regardsEntryWhoseCommentsHaveBeenVisitedAsVisited =
-      await userOption.get(
-        STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
-      );
+    const lightenEntryWhoseCommentsHaveBeenVisited = await userOption.get(
+      STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
+    );
 
     for (const entry of this.entries) {
       const hasVisitedEntry = this.visitedMap[entry.titleLink.href];
@@ -58,8 +57,7 @@ export class VisitedEntryLightener {
 
       if (
         hasVisitedEntry ||
-        (regardsEntryWhoseCommentsHaveBeenVisitedAsVisited &&
-          hasVisitedComments)
+        (lightenEntryWhoseCommentsHaveBeenVisited && hasVisitedComments)
       ) {
         entry.element.classList.add(styles.visited);
       } else {
