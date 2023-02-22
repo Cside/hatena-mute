@@ -16,6 +16,8 @@ if (rootElement) {
   });
 
   chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
+    console.info(`action: ${type}`);
+
     switch (type) {
       case ACTION.UPDATE_MUTED_SITES:
         await entryMuterByList.muteBySites();

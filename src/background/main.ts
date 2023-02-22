@@ -18,7 +18,8 @@ chrome.runtime.onMessage.addListener(
     _sender,
     sendResponse,
   ) => {
-    console.log(type);
+    console.info(`action: ${type}`);
+
     switch (type) {
       case ACTION.GET_VISITED_MAP:
         // eslint-disable-next-line @typescript-eslint/no-floating-promises

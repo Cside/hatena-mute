@@ -8,7 +8,7 @@ type StorageKey = valueOf<typeof import('../constants').STORAGE_KEY>;
 type Entry = {
   element: HTMLElement;
   titleLink: HTMLAnchorElement;
-  commentsLink: HTMLAnchorElement;
+  commentsLinks: HTMLAnchorElement[];
   description?: HTMLElement;
   domain: HTMLElement;
 };

@@ -17,7 +17,7 @@ const _getEntries = ({
     entries.push({
       element: entry,
       titleLink: $<HTMLAnchorElement>(entry, '[data-entry-id]'),
-      commentsLink: $<HTMLAnchorElement>(entry, selectors.commentsLink),
+      commentsLinks: $$<HTMLAnchorElement>(entry, selectors.commentsLink),
       domain: $(entry, selectors.domain),
       ...(selectors.description
         ? { description: $(entry, selectors.description) }

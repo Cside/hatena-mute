@@ -2,8 +2,12 @@ import { ACTION, STORAGE_KEY } from '../constants';
 import { userOption } from '../userOption';
 import styles from './visitedEntryLightener.module.scss';
 
+type ExtendedEntry = Entry & {
+  commentsUrl: string;
+};
+
 export class VisitedEntryLightener {
-  entries: Entry[] = [];
+  entries: ExtendedEntry[] = [];
   rootElement: HTMLElement;
   visitedMap: {
     [k: string]: boolean;
@@ -16,7 +20,14 @@ export class VisitedEntryLightener {
     entries: Entry[];
     rootElement: HTMLElement;
   }) {
-    this.entries = entries;
+    for (const entry of entries) {
+      const commentsUrl = entry.commentsLinks[0]?.href;
+      if (!commentsUrl) throw new Error(`entry.commentsLinks === 0`);
+      this.entries.push({
+        ...entry,
+        commentsUrl,
+      });
+    }
     this.rootElement = rootElement;
   }
 
@@ -25,7 +36,7 @@ export class VisitedEntryLightener {
       type: ACTION.GET_VISITED_MAP,
       payload: {
         urls: this.entries
-          .map((entry) => [entry.titleLink.href, entry.commentsLink.href])
+          .map((entry) => [entry.titleLink.href, entry.commentsUrl])
           .flat(),
       },
     });
@@ -44,7 +55,7 @@ export class VisitedEntryLightener {
 
     for (const entry of this.entries) {
       const hasVisitedEntry = this.visitedMap[entry.titleLink.href];
-      const hasVisitedComments = this.visitedMap[entry.commentsLink.href];
+      const hasVisitedComments = this.visitedMap[entry.commentsUrl];
 
       if (hasVisitedEntry === undefined)
         throw new Error(
