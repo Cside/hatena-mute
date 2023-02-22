@@ -6,7 +6,6 @@ import { VisitedEntryLightener } from './VisitedEntryLightener';
 
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
-console.log(1);
 if (rootElement) {
   const entries = getEntries();
 
@@ -38,6 +37,5 @@ if (rootElement) {
   await entryMuterByList.muteBySites();
   await entryMuterByList.muteByMutedWords();
 
-  await visitedEntryLightener.initialize();
   await visitedEntryLightener.lighten();
 }

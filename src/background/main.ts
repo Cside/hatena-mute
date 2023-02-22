@@ -1,14 +1,16 @@
 import { ACTION } from '../constants';
 
 const hasVisited = async (url: string) =>
+  // chrome.history can be used only in bg worker
   (await chrome.history.getVisits({ url })).length > 0;
 
 const handleLoadHistory = async (urls: string[]) =>
   Object.fromEntries(
     await Promise.all(
-      urls.map(
-        async (url) => [url, await hasVisited(url)] as [string, boolean],
-      ),
+      urls.map(async (url) => {
+        // await chrome.history.deleteUrl({ url }); // for development
+        return [url, await hasVisited(url)] as [string, boolean];
+      }),
     ),
   );
 
