@@ -1,4 +1,4 @@
-import { $, $$ } from './utils';
+import { $, $$ } from '../utils';
 
 // 3 種類のデザインの DOM アクセスを抽象化する処理だけ書く
 // それ以外は entry.element.querySelector() で頑張る
