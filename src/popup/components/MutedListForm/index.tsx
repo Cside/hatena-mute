@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { mutedList } from '../../../userOption/mutedList';
+import { executeActionOnContenScripts } from '../../utils';
 
 export const MutedListForm = ({
   storageKey,
@@ -37,7 +38,7 @@ export const MutedListForm = ({
         <Form.Check.Label>
           正規表現を使う
           <Form.Text muted>
-            ❌大文字小文字が区別できればreである必要性なし
+            ❌大文字小文字が区別できればreである必要性なし、全角半角も一緒にしたい
           </Form.Text>
         </Form.Check.Label>
       </Form.Check>
@@ -47,15 +48,7 @@ export const MutedListForm = ({
         onClick={async () => {
           await mutedList.setText(storageKey, text);
           setTextInStorage(text);
-          chrome.tabs.query(
-            { url: 'https://b.hatena.ne.jp/*' },
-            async (tabs) => {
-              for (const tab of tabs)
-                await chrome.tabs.sendMessage(tab.id ?? 0, {
-                  type: actionOnChange,
-                });
-            },
-          );
+          await executeActionOnContenScripts(actionOnChange);
         }}
         variant="primary"
         disabled={text === textInStorage}

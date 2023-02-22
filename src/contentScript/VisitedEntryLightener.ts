@@ -32,12 +32,15 @@ export class VisitedEntryLightener {
   }
 
   async lighten() {
-    if (await userOption.get(STORAGE_KEY.LIGHTENS_VISITED_ENTRY))
+    if (await userOption.get(STORAGE_KEY.LIGHTENS_VISITED_ENTRY)) {
       this.rootElement.classList.add(styles.lightensVisitedEntry);
+    } else {
+      this.rootElement.classList.remove(styles.lightensVisitedEntry);
+    }
 
     const regardsEntryWhoseCommentsHaveBeenVisitedAsVisited =
       await userOption.get(
-        STORAGE_KEY.REGARDS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED_AS_VISITED,
+        STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
       );
 
     for (const entry of this.entries) {
@@ -57,8 +60,11 @@ export class VisitedEntryLightener {
         hasVisitedEntry ||
         (regardsEntryWhoseCommentsHaveBeenVisitedAsVisited &&
           hasVisitedComments)
-      )
+      ) {
         entry.element.classList.add(styles.visited);
+      } else {
+        entry.element.classList.remove(styles.visited);
+      }
     }
   }
 }

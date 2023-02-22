@@ -10,6 +10,10 @@ if (rootElement) {
   const entries = getEntries();
 
   const entryMuterByList = new EntryMuterByList({ entries });
+  const visitedEntryLightener = new VisitedEntryLightener({
+    entries,
+    rootElement,
+  });
 
   chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
     switch (type) {
@@ -18,6 +22,9 @@ if (rootElement) {
         break;
       case ACTION.UPDATE_MUTED_WORDS:
         await entryMuterByList.muteByMutedWords();
+        break;
+      case ACTION.UPDATE_LIGHTENING_OPTIONS:
+        await visitedEntryLightener.lighten();
         break;
 
       default:
@@ -28,10 +35,6 @@ if (rootElement) {
   await entryMuterByList.muteBySites();
   await entryMuterByList.muteByMutedWords();
 
-  const visitedEntryLightener = new VisitedEntryLightener({
-    entries,
-    rootElement,
-  });
   await visitedEntryLightener.initialize();
   await visitedEntryLightener.lighten();
 }

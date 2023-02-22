@@ -4,7 +4,7 @@ export const SETTINGS = {
   [STORAGE_KEY.LIGHTENS_VISITED_ENTRY]: {
     default: false,
   },
-  [STORAGE_KEY.REGARDS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED_AS_VISITED]: {
+  [STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED]: {
     default: false,
   },
 } as const satisfies {

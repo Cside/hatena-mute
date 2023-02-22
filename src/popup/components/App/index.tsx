@@ -13,8 +13,8 @@ export const App = () => {
   const [lightensVisitedEntryIsChecked, setLightensVisitedEntryIsChecked] =
     useState(false);
   const [
-    regardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked,
-    setRegardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked,
+    lightensEntryWhoseCommentsHaveBeenVisited,
+    setLightensEntryWhoseCommentsHaveBeenVisited,
   ] = useState(false);
 
   return (
@@ -40,25 +40,24 @@ export const App = () => {
 
       <div className="py-3">
         <h2>その他の設定</h2>
-        {/* TODO: use clasName of CSS Modules */}
         <CheckForm
-          id="bs-lightens-visited-entry"
+          id="hm-lightens-visited-entry"
           label="訪問済みの記事を目立なくする"
           storageKey={STORAGE_KEY.LIGHTENS_VISITED_ENTRY}
           checked={lightensVisitedEntryIsChecked}
           setChecked={setLightensVisitedEntryIsChecked}
+          actionOnChange={ACTION.UPDATE_LIGHTENING_OPTIONS}
         />
         {lightensVisitedEntryIsChecked && (
           <CheckForm
-            id="bs-regards-entry-whose-comments-have-been-visited-as-visited"
+            id="hm-ligntens-entry-whose-comments-have-been-visited"
             label="ブックマークコメントページを訪問済みの記事を目立たなくする"
             storageKey={
-              STORAGE_KEY.REGARDS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED_AS_VISITED
+              STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED
             }
-            checked={regardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked}
-            setChecked={
-              setRegardsEntryWhoseCommentsHaveBeenVisitedAsVisitedIsChecked
-            }
+            checked={lightensEntryWhoseCommentsHaveBeenVisited}
+            setChecked={setLightensEntryWhoseCommentsHaveBeenVisited}
+            actionOnChange={ACTION.UPDATE_LIGHTENING_OPTIONS}
           />
         )}
       </div>
