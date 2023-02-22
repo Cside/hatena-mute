@@ -6,6 +6,7 @@ import { VisitedEntryLightener } from './VisitedEntryLightener';
 
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
+console.log(1);
 if (rootElement) {
   const entries = getEntries();
 

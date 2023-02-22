@@ -9,9 +9,18 @@ type ExtendedEntry = Entry & {
 export class VisitedEntryLightener {
   entries: ExtendedEntry[] = [];
   rootElement: HTMLElement;
+
   visitedMap: {
     [k: string]: boolean;
   } = {};
+
+  options: {
+    lightensVisitedEntry: boolean;
+    lightenEntryWhoseCommentsHaveBeenVisited: boolean;
+  } = {
+    lightensVisitedEntry: false,
+    lightenEntryWhoseCommentsHaveBeenVisited: false,
+  };
 
   constructor({
     entries,
@@ -27,6 +36,15 @@ export class VisitedEntryLightener {
         ...entry,
         commentsUrl,
       });
+
+      const setVisited = () => entry.element.classList.add(styles.visited);
+      entry.titleLink.addEventListener('click', setVisited);
+      for (const commentsLink of entry.commentsLinks) {
+        commentsLink.addEventListener('click', () => {
+          if (this.options.lightenEntryWhoseCommentsHaveBeenVisited)
+            setVisited();
+        });
+      }
     }
     this.rootElement = rootElement;
   }
@@ -42,16 +60,25 @@ export class VisitedEntryLightener {
     });
   }
 
+  private async setOptions() {
+    this.options = {
+      lightensVisitedEntry: await userOption.get(
+        STORAGE_KEY.LIGHTENS_VISITED_ENTRY,
+      ),
+      lightenEntryWhoseCommentsHaveBeenVisited: await userOption.get(
+        STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
+      ),
+    };
+  }
+
   async lighten() {
-    if (await userOption.get(STORAGE_KEY.LIGHTENS_VISITED_ENTRY)) {
+    await this.setOptions();
+
+    if (this.options.lightensVisitedEntry) {
       this.rootElement.classList.add(styles.lightensVisitedEntry);
     } else {
       this.rootElement.classList.remove(styles.lightensVisitedEntry);
     }
-
-    const lightenEntryWhoseCommentsHaveBeenVisited = await userOption.get(
-      STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
-    );
 
     for (const entry of this.entries) {
       const hasVisitedEntry = this.visitedMap[entry.titleLink.href];
@@ -68,7 +95,8 @@ export class VisitedEntryLightener {
 
       if (
         hasVisitedEntry ||
-        (lightenEntryWhoseCommentsHaveBeenVisited && hasVisitedComments)
+        (this.options.lightenEntryWhoseCommentsHaveBeenVisited &&
+          hasVisitedComments)
       ) {
         entry.element.classList.add(styles.visited);
       } else {
