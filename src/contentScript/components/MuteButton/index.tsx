@@ -10,10 +10,13 @@ export const MuteButton = () => {
       href="#"
       className={styles.muteButton}
       onClick={(event) => {
+        if (!(event.target instanceof HTMLElement))
+          throw new TypeError(`event.target is not HTMLElement`);
+
         event.preventDefault();
         event.stopPropagation();
 
-        const parent = (event.target as HTMLElement).parentElement;
+        const parent = event.target.parentElement;
         if (!parent) throw new Error(`muteButton.parentElement doesn't exist`);
         const pulldown = $(parent, '.' + mutePulldownStyles.mutePulldown);
 
@@ -21,11 +24,10 @@ export const MuteButton = () => {
 
         if (!pulldown.classList.contains(commonStyles.displayNone)) {
           const listener = (event: MouseEvent) => {
-            if (
-              !(event.target as HTMLElement).closest(
-                '.' + mutePulldownStyles.mutePulldown,
-              )
-            ) {
+            if (!(event.target instanceof HTMLElement))
+              throw new TypeError(`event.target is not HTMLElement`);
+
+            if (!event.target.closest('.' + mutePulldownStyles.mutePulldown)) {
               pulldown.classList.add(commonStyles.displayNone);
               document.removeEventListener('click', listener);
             }
