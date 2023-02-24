@@ -1,22 +1,16 @@
 import { ACTION } from '../constants';
-
-const hasVisited = async (url: string) =>
-  // chrome.history can be used only in bg worker
-  (await chrome.history.getVisits({ url })).length > 0;
-
-const handleLoadHistory = async (urls: string[]) =>
-  Object.fromEntries(
-    await Promise.all(
-      urls.map(async (url) => {
-        // await chrome.history.deleteUrl({ url }); // for development
-        return [url, await hasVisited(url)] as [string, boolean];
-      }),
-    ),
-  );
+import './deleteMutedEntryRegularly';
+import { getVisitedMap } from './getVisitedMap';
 
 chrome.runtime.onMessage.addListener(
   (
-    { type, payload: { urls } }: { type: string; payload: { urls: string[] } },
+    {
+      type,
+      payload: { urls },
+    }: {
+      type: string;
+      payload: { urls: string[] };
+    },
     _sender,
     sendResponse,
   ) => {
@@ -25,7 +19,7 @@ chrome.runtime.onMessage.addListener(
     switch (type) {
       case ACTION.GET_VISITED_MAP:
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        handleLoadHistory(urls).then((result) => sendResponse(result));
+        getVisitedMap(urls).then((result) => sendResponse(result));
         break;
 
       default:

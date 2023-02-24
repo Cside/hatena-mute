@@ -6,7 +6,6 @@ const DB = {
 };
 export const OBJECT_STORE = {
   NAME: 'mutedUrls',
-  VERSION: 1,
   PROPERTY: {
     URL: 'url',
     CREATED_AT: 'created',
@@ -22,12 +21,15 @@ type Record = {
 export class MutedEntryDb {
   _db: Awaited<ReturnType<typeof idb.openDB>> | null = null;
 
-  get rawDb() {
+  get plainDb() {
     const db = this._db;
     if (!db) throw new Error(`open() is not called yet`);
     return db;
   }
 
+  private constructor() {}
+
+  /** コンストラクタは使わず、このクラスメソッドでインスタンスを作成する */
   static async open() {
     const _this = new MutedEntryDb();
     _this._db = await idb.openDB(DB.NAME, DB.VERSION, {
@@ -40,12 +42,29 @@ export class MutedEntryDb {
           OBJECT_STORE.PROPERTY.CREATED_AT,
         );
       },
+      blocked(currentVersion, blockedVersion) {
+        console.error(
+          `Older versions of the database open on the origin, so this version cannot open`,
+          { currentVersion, blockedVersion },
+        );
+      },
+      blocking(currentVersion, blockedVersion) {
+        console.error(
+          `This connection is blocking a future version of the database from opening`,
+          { currentVersion, blockedVersion },
+        );
+      },
+      terminated() {
+        console.error(
+          `The browser abnormally terminates the connection, but db.close() hasn't called`,
+        );
+      },
     });
     return _this;
   }
 
   async get(url: string) {
-    const tx = this.rawDb.transaction(OBJECT_STORE.NAME, 'readonly');
+    const tx = this.plainDb.transaction(OBJECT_STORE.NAME, 'readonly');
 
     const mutedUrls = tx.objectStore(OBJECT_STORE.NAME);
     const record = await mutedUrls.get(url);
@@ -54,7 +73,7 @@ export class MutedEntryDb {
   }
 
   async put(record: Record) {
-    const tx = this.rawDb.transaction(OBJECT_STORE.NAME, 'readwrite');
+    const tx = this.plainDb.transaction(OBJECT_STORE.NAME, 'readwrite');
 
     const mutedUrls = tx.objectStore(OBJECT_STORE.NAME);
     await mutedUrls.put(record);
@@ -62,19 +81,23 @@ export class MutedEntryDb {
     await tx.done;
   }
 
-  async deleteOld({ olderBoundDate }: { olderBoundDate: Date }) {
-    const tx = this.rawDb.transaction(OBJECT_STORE.NAME, 'readwrite');
+  async deleteAll({ olderThan }: { olderThan: Date }) {
+    const tx = this.plainDb.transaction(OBJECT_STORE.NAME, 'readwrite');
 
     const mutedUrls = tx.objectStore(OBJECT_STORE.NAME);
 
     const createdIndex = mutedUrls.index(OBJECT_STORE.INDEX.CREATED_AT);
     const keys = await createdIndex.getAllKeys(
-      IDBKeyRange.upperBound(olderBoundDate, false),
+      IDBKeyRange.upperBound(olderThan, false),
     );
     if (keys.length > 0)
       await Promise.all([keys.map((key) => mutedUrls.delete(key))]);
 
     await tx.done;
     return keys.length;
+  }
+
+  close() {
+    this.plainDb.close();
   }
 }

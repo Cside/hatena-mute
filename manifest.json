@@ -18,7 +18,7 @@
     "service_worker": "src/background/main.ts",
     "type": "module"
   },
-  "permissions": ["storage", "unlimitedStorage", "tabs", "history"],
+  "permissions": ["storage", "unlimitedStorage", "tabs", "history", "alarms"],
   "icons": {
     "16": "images/icon16.png",
     "32": "images/icon32.png",

@@ -15,7 +15,7 @@ const transaction = async (
   db: MutedEntryDb,
   fn: (record: ObjectStore) => Promise<void>,
 ) => {
-  const tx = db.rawDb.transaction(OBJECT_STORE.NAME, 'readwrite');
+  const tx = db.plainDb.transaction(OBJECT_STORE.NAME, 'readwrite');
   await fn(tx.objectStore(OBJECT_STORE.NAME) as ObjectStore);
   await tx.done;
 };
@@ -49,16 +49,16 @@ describe('put()', () => {
   });
 });
 
-describe('deleteOld', () => {
+describe('deleteAll()', () => {
   test('no records', async () => {
-    expect(await DB.deleteOld({ olderBoundDate: new Date() })).toBe(0);
+    expect(await DB.deleteAll({ olderThan: new Date() })).toBe(0);
   });
 
   test('out of range', async () => {
     await DB.put({ url: URL, created: new Date() });
     expect(
-      await DB.deleteOld({
-        olderBoundDate: new Date('2000/01/01 00:00:00'),
+      await DB.deleteAll({
+        olderThan: new Date('2000/01/01 00:00:00'),
       }),
     ).toBe(0);
   });
@@ -72,8 +72,8 @@ describe('deleteOld', () => {
       DB.put({ url: `${URL}5`, created: new Date('2000/01/01 00:00:05') }),
     ]);
     expect(
-      await DB.deleteOld({
-        olderBoundDate: new Date('2000/01/01 00:00:03'),
+      await DB.deleteAll({
+        olderThan: new Date('2000/01/01 00:00:03'),
       }),
     ).toBe(3);
 
