@@ -6,7 +6,7 @@ const ALARM_NAME = 'delete-muted-entry';
 chrome.alarms.onAlarm.addListener(async () => {
   const db = await MutedEntryDb.open();
 
-  console.log(`deletion started at ${new Date().toLocaleString('ja-JP')}`);
+  console.info(`deletion started at ${new Date().toLocaleString('ja-JP')}`);
 
   const length = await db.deleteAll({
     olderThan: new Date(Date.now() - OLDER_THAN * 60 * 1000),
