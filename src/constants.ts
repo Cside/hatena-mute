@@ -3,6 +3,8 @@ export const ACTION = {
   UPDATE_MUTED_WORDS: 'update-muted-words',
   GET_VISITED_MAP: 'get-visited-map',
   UPDATE_LIGHTENING_OPTIONS: 'update-lightening-options',
+  ADD_MUTED_ENTRY: 'add-muted-entry',
+  EXISTS_IN_MUTED_ENTRIES: 'exists-in-muted-entries',
 } as const;
 
 export const STORAGE_KEY = {
@@ -12,3 +14,16 @@ export const STORAGE_KEY = {
     'ligntens-entry-whose-comments-have-been-visited',
   LIGHTENS_VISITED_ENTRY: 'lightens-visited-entry',
 } as const;
+
+export const INDEXED_DB_OPTIONS = {
+  db: {
+    name: 'hatenaMute',
+    version: 1,
+  },
+  objectStore: {
+    name: 'mutedUrls',
+    keyPath: 'url',
+    indexName: 'by_created',
+    indexPath: 'created',
+  },
+};

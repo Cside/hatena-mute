@@ -18,8 +18,13 @@ export const MutePulldown = ({
       }}
       onClick={onClick}
     >
-      <div className="mute-site">{domain} をミュートする</div>
-      <div>この記事を非表示にする</div>
+      <div className="mute-site">{domain} をミュート</div>
+      {domain.includes('/') && (
+        <div className="mute-site">
+          {domain.replace(/\/.+$/, '')} をミュート
+        </div>
+      )}
+      <div>この記事だけを非表示</div>
     </div>
   );
 };

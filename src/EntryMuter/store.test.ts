@@ -1,12 +1,24 @@
 import 'fake-indexeddb/auto';
 import type { IDBPObjectStore } from 'idb';
-import { MutedEntryDb, OBJECT_STORE } from './store';
+import { MutedEntryDb } from './store';
 
 const URL = 'https://example.com/';
+const OBJECT_STORE_NAME = 'mutedUrls';
 
 let DB: MutedEntryDb;
 beforeAll(async () => {
-  DB = await MutedEntryDb.open();
+  DB = await MutedEntryDb.openDb({
+    db: {
+      name: 'hatenaMute',
+      version: 1,
+    },
+    objectStore: {
+      name: OBJECT_STORE_NAME,
+      keyPath: 'url',
+      indexName: 'by_created',
+      indexPath: 'created',
+    },
+  });
 });
 
 type ObjectStore = IDBPObjectStore<unknown, [string], string, 'readwrite'>;
@@ -15,8 +27,8 @@ const transaction = async (
   db: MutedEntryDb,
   fn: (record: ObjectStore) => Promise<void>,
 ) => {
-  const tx = db.plainDb.transaction(OBJECT_STORE.NAME, 'readwrite');
-  await fn(tx.objectStore(OBJECT_STORE.NAME) as ObjectStore);
+  const tx = db.plainDb.transaction(OBJECT_STORE_NAME, 'readwrite');
+  await fn(tx.objectStore(OBJECT_STORE_NAME) as ObjectStore);
   await tx.done;
 };
 

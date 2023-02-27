@@ -9,7 +9,8 @@ import { MutePulldown } from './components/MutePulldown';
 import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
 
-export class EntryMuterByList {
+// TODO 名前かぶってるけど大丈夫...
+export class EntryMuter {
   entries: Entry[] = [];
 
   constructor({ entries }: { entries: Entry[] }) {
@@ -42,6 +43,12 @@ export class EntryMuterByList {
     }
   }
 
+  async mute() {
+    await this.muteBySites();
+    await this.muteByWords();
+    // await entryMuterByList.muteByUrls();
+  }
+
   private async muteBy({
     storageKey,
     matchedClassName,
@@ -71,7 +78,7 @@ export class EntryMuterByList {
     });
   }
 
-  async muteByMutedWords() {
+  async muteByWords() {
     await this.muteBy({
       storageKey: STORAGE_KEY.MUTED_WORDS,
       matchedClassName: styles.mutedWordsMatched,

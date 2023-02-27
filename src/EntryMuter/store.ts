@@ -1,16 +1,10 @@
 import * as idb from 'idb';
 
-const DB = {
-  NAME: 'hatenaMute',
-  VERSION: 1,
-};
-export const OBJECT_STORE = {
-  NAME: 'mutedUrls',
-  PROPERTY: {
-    URL: 'url',
-    CREATED_AT: 'created',
-  },
-  INDEX: { CREATED_AT: 'by_created' },
+type ObjectStore = {
+  name: string;
+  keyPath: string;
+  indexName: string;
+  indexPath: string;
 };
 
 type Record = {
@@ -18,8 +12,20 @@ type Record = {
   created: Date;
 };
 
+type Db = {
+  name: string;
+  version: number;
+};
+
 export class MutedEntryDb {
   _db: Awaited<ReturnType<typeof idb.openDB>> | null = null;
+
+  objectStore: ObjectStore = {
+    name: '',
+    keyPath: '',
+    indexName: '',
+    indexPath: '',
+  };
 
   get plainDb() {
     const db = this._db;
@@ -27,20 +33,23 @@ export class MutedEntryDb {
     return db;
   }
 
-  private constructor() {}
-
   /** コンストラクタは使わず、このクラスメソッドでインスタンスを作成する */
-  static async open() {
+  static async openDb({
+    db,
+    objectStore,
+  }: {
+    db: Db;
+    objectStore: ObjectStore;
+  }) {
     const _this = new MutedEntryDb();
-    _this._db = await idb.openDB(DB.NAME, DB.VERSION, {
+    _this.objectStore = objectStore;
+
+    _this._db = await idb.openDB(db.name, db.version, {
       upgrade(db) {
-        const store = db.createObjectStore(OBJECT_STORE.NAME, {
-          keyPath: OBJECT_STORE.PROPERTY.URL,
+        const store = db.createObjectStore(objectStore.name, {
+          keyPath: objectStore.keyPath,
         });
-        store.createIndex(
-          OBJECT_STORE.INDEX.CREATED_AT,
-          OBJECT_STORE.PROPERTY.CREATED_AT,
-        );
+        store.createIndex(objectStore.indexName, objectStore.indexPath);
       },
       blocked(currentVersion, blockedVersion) {
         console.error(
@@ -64,29 +73,29 @@ export class MutedEntryDb {
   }
 
   async get(url: string) {
-    const tx = this.plainDb.transaction(OBJECT_STORE.NAME, 'readonly');
+    const tx = this.plainDb.transaction(this.objectStore.name, 'readonly');
 
-    const mutedUrls = tx.objectStore(OBJECT_STORE.NAME);
+    const mutedUrls = tx.objectStore(this.objectStore.name);
     const record = await mutedUrls.get(url);
 
     return record ? (record as Record) : undefined;
   }
 
   async put(record: Record) {
-    const tx = this.plainDb.transaction(OBJECT_STORE.NAME, 'readwrite');
+    const tx = this.plainDb.transaction(this.objectStore.name, 'readwrite');
 
-    const mutedUrls = tx.objectStore(OBJECT_STORE.NAME);
+    const mutedUrls = tx.objectStore(this.objectStore.name);
     await mutedUrls.put(record);
 
     await tx.done;
   }
 
   async deleteAll({ olderThan }: { olderThan: Date }) {
-    const tx = this.plainDb.transaction(OBJECT_STORE.NAME, 'readwrite');
+    const tx = this.plainDb.transaction(this.objectStore.name, 'readwrite');
 
-    const mutedUrls = tx.objectStore(OBJECT_STORE.NAME);
+    const mutedUrls = tx.objectStore(this.objectStore.name);
 
-    const createdIndex = mutedUrls.index(OBJECT_STORE.INDEX.CREATED_AT);
+    const createdIndex = mutedUrls.index(this.objectStore.indexName);
     const keys = await createdIndex.getAllKeys(
       IDBKeyRange.upperBound(olderThan, false),
     );
