@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { mutedList } from '../../../userOption/mutedList';
+import { userOption } from '../../../userOption';
 import { executeActionOnContenScripts } from '../../utils';
 
 export const MutedListForm = ({
@@ -18,7 +18,7 @@ export const MutedListForm = ({
 
   useEffect(() => {
     (async () => {
-      const text = await mutedList.getText(storageKey);
+      const text = await userOption.text.getPlain(storageKey);
       setTextInStorage(text);
       setText(text);
     })();
@@ -35,18 +35,12 @@ export const MutedListForm = ({
       />
       <Form.Check type="switch" id="bs-uses-regexp-for-mute">
         <Form.Check.Input type="checkbox" />
-        <Form.Check.Label>
-          正規表現を使う
-          <Form.Text muted>
-            ❌大文字小文字が区別できればreである必要性なし、全角半角も一緒にしたい
-          </Form.Text>
-        </Form.Check.Label>
       </Form.Check>
 
       <Button
         className="block"
         onClick={async () => {
-          await mutedList.setText(storageKey, text);
+          await userOption.text.setPlain(storageKey, text);
           setTextInStorage(text);
           await executeActionOnContenScripts(actionOnChange);
         }}

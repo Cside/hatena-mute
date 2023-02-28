@@ -20,7 +20,7 @@ export const CheckForm = ({
 }) => {
   useEffect(() => {
     (async () => {
-      const checked = await userOption.get(storageKey);
+      const checked = await userOption.get<boolean>(storageKey);
       if (checked !== undefined) setChecked(checked);
     })();
   }, []);

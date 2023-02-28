@@ -18,14 +18,6 @@ export default defineConfig({
     ...(ENABLES_VISUALIZER ? [visualizer() as PluginOption] : []),
     topLevelAwait(),
   ],
-  // TODO: rm later
-  build: {
-    rollupOptions: {
-      input: {
-        debug: 'debug.html',
-      },
-    },
-  },
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',

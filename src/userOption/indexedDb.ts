@@ -17,7 +17,7 @@ type Db = {
   version: number;
 };
 
-export class MutedEntryDb {
+export class indexedDb {
   _db: Awaited<ReturnType<typeof idb.openDB>> | null = null;
 
   objectStore: ObjectStore = {
@@ -41,7 +41,7 @@ export class MutedEntryDb {
     db: Db;
     objectStore: ObjectStore;
   }) {
-    const _this = new MutedEntryDb();
+    const _this = new indexedDb();
     _this.objectStore = objectStore;
 
     _this._db = await idb.openDB(db.name, db.version, {

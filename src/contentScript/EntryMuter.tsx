@@ -1,6 +1,6 @@
 /** @jsxImportSource jsx-dom */
 import { STORAGE_KEY } from '../constants';
-import { mutedList } from '../userOption/mutedList';
+import { userOption } from '../userOption';
 import { MuteButton } from './components/MuteButton';
 import muteButtonStyles from './components/MuteButton/styles.module.scss';
 import { MutePulldown } from './components/MutePulldown';
@@ -58,7 +58,7 @@ export class EntryMuter {
     matchedClassName: string;
     match: (entry: Entry, muted: string) => boolean;
   }) {
-    const list = await mutedList.getList(storageKey);
+    const list = await userOption.text.getLines(storageKey);
 
     for (const entry of this.entries) {
       if (list.some((muted) => match(entry, muted))) {
@@ -89,7 +89,7 @@ export class EntryMuter {
   }
 
   async muteSite(domain: string) {
-    await mutedList.addItem(STORAGE_KEY.MUTED_SITES, domain);
+    await userOption.text.appendLine(STORAGE_KEY.MUTED_SITES, domain);
     await this.muteBySites();
   }
 }

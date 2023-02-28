@@ -1,6 +1,6 @@
+import { userOption } from '.';
 import { fakeStorage } from '../../test/chrome/fakeStorage';
 import { STORAGE_KEY } from '../constants';
-import { mutedList } from './mutedList';
 
 const KEY = STORAGE_KEY.MUTED_SITES;
 
@@ -9,7 +9,7 @@ afterEach(async () => {
 });
 
 test('getText', async () => {
-  expect(await mutedList.getText(KEY)).toBe('');
+  expect(await userOption.text.getPlain(KEY)).toBe('');
 });
 
 describe('setText', () => {
@@ -43,8 +43,8 @@ describe('setText', () => {
       expected: 'foo\nbar',
     },
   ])('%o', async ({ input, expected }) => {
-    await mutedList.setText(KEY, input);
-    expect(await mutedList.getText(KEY)).toBe(expected);
+    await userOption.text.setPlain(KEY, input);
+    expect(await userOption.text.getPlain(KEY)).toBe(expected);
   });
 });
 
@@ -76,7 +76,7 @@ describe('getList', () => {
     },
   ])('%o', async ({ input, expected }) => {
     await chrome.storage.local.set({ [KEY]: input });
-    expect(await mutedList.getList(KEY)).toEqual(expected);
+    expect(await userOption.text.getLines(KEY)).toEqual(expected);
   });
 });
 
@@ -96,7 +96,7 @@ describe('addItem', () => {
     },
   ])('%o', async ({ input, expected }) => {
     if (input !== undefined) await chrome.storage.local.set({ [KEY]: input });
-    await mutedList.addItem(KEY, 'foo');
-    expect(await mutedList.getText(KEY)).toEqual(expected);
+    await userOption.text.appendLine(KEY, 'foo');
+    expect(await userOption.text.getPlain(KEY)).toEqual(expected);
   });
 });
