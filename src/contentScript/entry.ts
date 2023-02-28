@@ -32,12 +32,22 @@ export const getEntries = () => {
   return [
     ..._getEntries({
       selectors: {
-        entry:
-          ':where(.entrylist-header-main, .entrylist-item) > li:not(.entrylist-recommend)',
+        // TODO: このセレクタもう少しどうにかならんかね...。li とか div とか壊れやすそう。
+        // cat-*, js-keyboard-selectable-item あたりで絞るとか
+        // ここをいじったら icon.scss も変えること
+        entry: `
+          :where(
+            .entrylist-header-main,
+            .entrylist-item
+          ) > li:not(.entrylist-recommend),
+          .entrylist-header-sub > div`, // 右上の広告 (遅延ロードなので今は意味ない TODO )
         // [data-entry-id] は遅延的に生える場合があるため使えない
         titleLink: '.entrylist-contents-title a',
-        commentsLink:
-          ':where(.entrylist-contents-users, .entrylist-contents-body) a',
+        commentsLink: `
+          :where(
+            .entrylist-contents-users,
+            .entrylist-contents-body
+          ) a`,
         description: '.entrylist-contents-description',
         domain: '.entrylist-contents-domain a',
       },

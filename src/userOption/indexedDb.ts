@@ -1,5 +1,6 @@
 import * as idb from 'idb';
 import zip from 'lodash.zip';
+import { INDEXED_DB_OPTIONS } from '../constants';
 
 type ObjectStore = {
   name: string;
@@ -27,6 +28,14 @@ export class indexedDb {
     const db = this._db;
     if (!db) throw new Error(`open() is not called yet`);
     return db;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static async execute(fn: (db: indexedDb) => Promise<any>) {
+    const db = await indexedDb.openDb(INDEXED_DB_OPTIONS);
+    const result = await fn(db);
+    db.close();
+    return result;
   }
 
   /** コンストラクタは使わず、このクラスメソッドでインスタンスを作成する */
@@ -72,14 +81,22 @@ export class indexedDb {
     const tx = this.plainDb.transaction(this.objectStore.name, 'readonly');
     const objectStore = tx.objectStore(this.objectStore.name);
 
-    return new Map(
-      zip(
-        urls,
-        await Promise.all(
-          urls.map(async (url) => !!(await objectStore.get(url))),
-        ),
-      ) as [string, boolean][],
-    );
+    return zip(
+      urls,
+      await Promise.all(
+        urls.map(async (url) => !!(await objectStore.get(url))),
+      ),
+    ) as [string, boolean][];
+  }
+
+  // debug usage only
+  async getAll() {
+    const tx = this.plainDb.transaction(this.objectStore.name, 'readonly');
+    const objectStore = tx.objectStore(this.objectStore.name);
+    const records = await objectStore.getAll();
+    await tx.done;
+
+    return records;
   }
 
   async put(url: string) {

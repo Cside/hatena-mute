@@ -1,7 +1,6 @@
 /** @jsxImportSource jsx-dom */
-import { INDEXED_DB_OPTIONS, STORAGE_KEY } from '../../constants';
+import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
-import { indexedDb } from '../../userOption/indexedDb';
 import { MuteButton } from '../components/MuteButton';
 import muteButtonStyles from '../components/MuteButton/styles.module.scss';
 import { MutePulldown } from '../components/MutePulldown';
@@ -13,21 +12,13 @@ import styles from './styles.module.scss';
 export class EntryMuter {
   entries: Entry[] = [];
 
-  _db: indexedDb | undefined = undefined;
-
   constructor({ entries }: { entries: Entry[] }) {
     this.entries = entries;
-  }
-
-  get db() {
-    if (!this._db) throw new Error(`indexedDb.openDb() is not called yet`);
-    return this._db;
   }
 
   async initialize() {
     this.injectCss();
     this.appendMuteButtons();
-    this._db = await userOption.indexedDb.openDb(INDEXED_DB_OPTIONS);
   }
 
   private injectCss() {
@@ -103,11 +94,17 @@ export class EntryMuter {
   }
 
   async muteByEntries() {
-    const map = await this.db.getMap(
-      this.entries.map((entry) => entry.titleLink.href),
+    const map: Map<string, boolean> = new Map(
+      await chrome.runtime.sendMessage({
+        type: ACTION.GET_MUTED_ENTRY_MAP,
+        payload: {
+          urls: this.entries.map((entry) => entry.titleLink.href),
+        },
+      }),
     );
     for (const entry of this.entries) {
-      if (map.get(entry.titleLink.href)) console.log(1);
+      if (map.get(entry.titleLink.href))
+        entry.element.classList.add(styles.mutedEntryMatched);
     }
   }
 
@@ -117,7 +114,10 @@ export class EntryMuter {
   }
 
   async muteEntry(url: string) {
-    await this.db.put(url);
+    await chrome.runtime.sendMessage({
+      type: ACTION.ADD_MUTED_ENTRY,
+      payload: { url },
+    });
     await this.muteByEntries();
   }
 }

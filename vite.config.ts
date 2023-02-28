@@ -23,6 +23,13 @@ export default defineConfig({
       localsConvention: 'camelCaseOnly',
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        debug: 'debug.html',
+      },
+    },
+  },
 });
 
 // utils

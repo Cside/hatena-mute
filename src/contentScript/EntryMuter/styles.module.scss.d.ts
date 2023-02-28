@@ -1,4 +1,5 @@
 export type Styles = {
+  mutedEntryMatched: string;
   mutedSitesMatched: string;
   mutedWordsMatched: string;
 };

@@ -4,7 +4,7 @@ export const ACTION = {
   GET_VISITED_MAP: 'get-visited-map',
   UPDATE_LIGHTENING_OPTIONS: 'update-lightening-options',
   ADD_MUTED_ENTRY: 'add-muted-entry',
-  EXISTS_IN_MUTED_ENTRIES: 'exists-in-muted-entries',
+  GET_MUTED_ENTRY_MAP: 'get-muted-entry-map',
 } as const;
 
 export const STORAGE_KEY = {

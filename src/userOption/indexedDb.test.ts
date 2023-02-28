@@ -62,7 +62,7 @@ describe('getMap()', () => {
   test('basic', async () => {
     const url2 = 'https://example.com/2';
     await DB.put(URL);
-    const map = await DB.getMap([URL, url2]);
+    const map = new Map(await DB.getMap([URL, url2]));
     expect(map.get(URL)).toBe(true);
     expect(map.get(url2)).toBe(false);
   });

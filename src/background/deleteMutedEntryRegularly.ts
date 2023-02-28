@@ -1,20 +1,18 @@
-import { INDEXED_DB_OPTIONS } from '../constants';
 import { userOption } from '../userOption';
 // const INTERVAL = 24 * 60; // minutes
 const INTERVAL = 6 * 60; // minutes
 const OLDER_THAN = 7 * 24 * 60; // minutes
-const ALARM_NAME = 'delete-muted-entry';
+const ALARM_NAME = 'delete-muted-entries';
 
 chrome.alarms.onAlarm.addListener(async () => {
-  const db = await userOption.indexedDb.openDb(INDEXED_DB_OPTIONS);
   const now = new Date();
+  const length = await userOption.indexedDb.execute(async (db) => {
+    console.info(`deletion started at ${now.toLocaleString('ja-JP')}`);
 
-  console.info(`deletion started at ${now.toLocaleString('ja-JP')}`);
-
-  const length = await db.deleteAll({
-    olderThan: new Date(Date.now() - OLDER_THAN * 60 * 1000),
+    return await db.deleteAll({
+      olderThan: new Date(Date.now() - OLDER_THAN * 60 * 1000),
+    });
   });
-  db.close();
 
   console.info(`  deleted ${length} records`);
 
