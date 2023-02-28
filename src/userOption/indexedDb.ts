@@ -75,17 +75,16 @@ export class indexedDb {
   async get(url: string) {
     const tx = this.plainDb.transaction(this.objectStore.name, 'readonly');
 
-    const mutedUrls = tx.objectStore(this.objectStore.name);
-    const record = await mutedUrls.get(url);
+    const objectStore = tx.objectStore(this.objectStore.name);
+    const record = await objectStore.get(url);
 
     return record ? (record as Record) : undefined;
   }
 
-  async put(record: Record) {
+  async put(url: string) {
     const tx = this.plainDb.transaction(this.objectStore.name, 'readwrite');
-
-    const mutedUrls = tx.objectStore(this.objectStore.name);
-    await mutedUrls.put(record);
+    const objectStore = tx.objectStore(this.objectStore.name);
+    await objectStore.put({ url, created: new Date() });
 
     await tx.done;
   }
@@ -93,14 +92,14 @@ export class indexedDb {
   async deleteAll({ olderThan }: { olderThan: Date }) {
     const tx = this.plainDb.transaction(this.objectStore.name, 'readwrite');
 
-    const mutedUrls = tx.objectStore(this.objectStore.name);
+    const objectStore = tx.objectStore(this.objectStore.name);
 
-    const createdIndex = mutedUrls.index(this.objectStore.indexName);
+    const createdIndex = objectStore.index(this.objectStore.indexName);
     const keys = await createdIndex.getAllKeys(
       IDBKeyRange.upperBound(olderThan, false),
     );
     if (keys.length > 0)
-      await Promise.all([keys.map((key) => mutedUrls.delete(key))]);
+      await Promise.all([keys.map((key) => objectStore.delete(key))]);
 
     await tx.done;
     return keys.length;

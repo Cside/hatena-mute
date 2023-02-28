@@ -1,6 +1,7 @@
 /** @jsxImportSource jsx-dom */
-import { STORAGE_KEY } from '../constants';
+import { INDEXED_DB_OPTIONS, STORAGE_KEY } from '../constants';
 import { userOption } from '../userOption';
+import { indexedDb } from '../userOption/indexedDb';
 import { MuteButton } from './components/MuteButton';
 import muteButtonStyles from './components/MuteButton/styles.module.scss';
 import { MutePulldown } from './components/MutePulldown';
@@ -9,15 +10,24 @@ import { MutePulldown } from './components/MutePulldown';
 import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
 
-// TODO 名前かぶってるけど大丈夫...
 export class EntryMuter {
   entries: Entry[] = [];
 
+  _db: indexedDb | undefined = undefined;
+
   constructor({ entries }: { entries: Entry[] }) {
     this.entries = entries;
+  }
 
+  get db() {
+    if (!this._db) throw new Error(`indexedDb.openDb() is not called yet`);
+    return this._db;
+  }
+
+  async initialize() {
     this.injectCss();
     this.appendMuteButtons();
+    this._db = await userOption.indexedDb.openDb(INDEXED_DB_OPTIONS);
   }
 
   private injectCss() {
@@ -38,7 +48,10 @@ export class EntryMuter {
 
       const domain = (entry.domain.textContent ?? '').trim();
       entry.element.appendChild(
-        <MutePulldown domain={domain} onClick={() => this.muteSite(domain)} />,
+        <MutePulldown
+          domain={domain}
+          muteSite={(domain: string) => this.muteSite(domain)}
+        />,
       );
     }
   }
@@ -46,7 +59,6 @@ export class EntryMuter {
   async mute() {
     await this.muteBySites();
     await this.muteByWords();
-    // await entryMuterByList.muteByUrls();
   }
 
   private async muteBy({
@@ -92,4 +104,9 @@ export class EntryMuter {
     await userOption.text.appendLine(STORAGE_KEY.MUTED_SITES, domain);
     await this.muteBySites();
   }
+
+  // async muteEntry(url: string) {
+  //   // this.db.put(url)
+  // }
+  // TODO: async getMutedEntryMap {}
 }

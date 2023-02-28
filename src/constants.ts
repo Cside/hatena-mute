@@ -21,7 +21,7 @@ export const INDEXED_DB_OPTIONS = {
     version: 1,
   },
   objectStore: {
-    name: 'mutedUrls',
+    name: 'mutedEntries',
     keyPath: 'url',
     indexName: 'by_created',
     indexPath: 'created',

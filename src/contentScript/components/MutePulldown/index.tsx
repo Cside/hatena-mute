@@ -4,11 +4,14 @@ import styles from './styles.module.scss';
 
 export const MutePulldown = ({
   domain,
-  onClick,
+  muteSite,
 }: {
   domain: string;
-  onClick: (event: MouseEvent) => void;
+  muteSite: (domain: string) => void;
 }) => {
+  let pathlessDomain: string | undefined = undefined;
+  if (domain.includes('/')) pathlessDomain = domain.replace(/\/.+$/, '');
+
   return (
     <div
       className={`${styles.mutePulldown} ${commonStyles.displayNone}`}
@@ -16,12 +19,11 @@ export const MutePulldown = ({
         top: '40px',
         right: '0px',
       }}
-      onClick={onClick}
     >
-      <div className="mute-site">{domain} をミュート</div>
-      {domain.includes('/') && (
-        <div className="mute-site">
-          {domain.replace(/\/.+$/, '')} をミュート
+      <div onClick={() => muteSite(domain)}>{domain} をミュート</div>
+      {pathlessDomain && (
+        <div onClick={() => muteSite(pathlessDomain ?? '')}>
+          {pathlessDomain} をミュート
         </div>
       )}
       <div>この記事だけを非表示</div>

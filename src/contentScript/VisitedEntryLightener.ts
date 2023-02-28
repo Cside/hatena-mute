@@ -36,7 +36,12 @@ export class VisitedEntryLightener {
         ...entry,
         commentsUrl,
       });
+    }
+    this.rootElement = rootElement;
+  }
 
+  addClickListeners() {
+    for (const entry of this.entries) {
       const setVisited = () => entry.element.classList.add(styles.visited);
       entry.titleLink.addEventListener('click', setVisited);
       for (const commentsLink of entry.commentsLinks) {
@@ -46,7 +51,6 @@ export class VisitedEntryLightener {
         });
       }
     }
-    this.rootElement = rootElement;
   }
 
   private async setOptions() {
