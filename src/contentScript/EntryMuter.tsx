@@ -105,8 +105,8 @@ export class EntryMuter {
     await this.muteBySites();
   }
 
-  // async muteEntry(url: string) {
-  //   // this.db.put(url)
-  // }
+  async muteEntry(url: string) {
+    await this.db.put(url);
+  }
   // TODO: async getMutedEntryMap {}
 }

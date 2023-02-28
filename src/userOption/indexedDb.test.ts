@@ -28,33 +28,50 @@ beforeAll(async () => {
   });
 });
 
-afterAll(() => jest.useRealTimers());
-
-const transaction = async (
-  db: indexedDb,
-  fn: (record: ObjectStore) => Promise<void>,
-) => {
-  const tx = db.plainDb.transaction(OBJECT_STORE_NAME, 'readwrite');
-  await fn(tx.objectStore(OBJECT_STORE_NAME) as ObjectStore);
-  await tx.done;
-};
-
 afterEach(async () => {
   await transaction(DB, async (objectStore) => {
     await objectStore.clear();
   });
 });
 
+afterAll(() => jest.useRealTimers());
+
+const transaction = async (
+  db: indexedDb,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fn: (record: ObjectStore) => Promise<any>,
+) => {
+  const tx = db.plainDb.transaction(OBJECT_STORE_NAME, 'readwrite');
+  const result = await fn(tx.objectStore(OBJECT_STORE_NAME) as ObjectStore);
+  await tx.done;
+  return result;
+};
+
+const get = async (url: string) =>
+  await transaction(DB, async (objectStore) => {
+    return await objectStore.get(url);
+  });
+
 describe('get()', () => {
   test('empty result', async () => {
-    expect(await DB.get(URL)).toBeUndefined();
+    expect(await get(URL)).toBeUndefined();
+  });
+});
+
+describe('getMap()', () => {
+  test('basic', async () => {
+    const url2 = 'https://example.com/2';
+    await DB.put(URL);
+    const map = await DB.getMap([URL, url2]);
+    expect(map.get(URL)).toBe(true);
+    expect(map.get(url2)).toBe(false);
   });
 });
 
 describe('put()', () => {
   test('adds new object', async () => {
     await DB.put(URL);
-    expect(await DB.get(URL)).toEqual({
+    expect(await get(URL)).toEqual({
       url: URL,
       created: new Date(1600000000000),
     });
@@ -64,7 +81,7 @@ describe('put()', () => {
     await DB.put(URL);
     jest.advanceTimersByTime(1000);
     await DB.put(URL);
-    expect((await DB.get(URL))?.created).toEqual(new Date(NOW + 1000));
+    expect((await get(URL))?.created).toEqual(new Date(NOW + 1000));
   });
 });
 

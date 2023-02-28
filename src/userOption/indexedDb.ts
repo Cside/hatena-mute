@@ -1,15 +1,11 @@
 import * as idb from 'idb';
+import zip from 'lodash.zip';
 
 type ObjectStore = {
   name: string;
   keyPath: string;
   indexName: string;
   indexPath: string;
-};
-
-type Record = {
-  url: string;
-  created: Date;
 };
 
 type Db = {
@@ -72,13 +68,18 @@ export class indexedDb {
     return _this;
   }
 
-  async get(url: string) {
+  async getMap(urls: string[]) {
     const tx = this.plainDb.transaction(this.objectStore.name, 'readonly');
-
     const objectStore = tx.objectStore(this.objectStore.name);
-    const record = await objectStore.get(url);
 
-    return record ? (record as Record) : undefined;
+    return new Map(
+      zip(
+        urls,
+        await Promise.all(
+          urls.map(async (url) => !!(await objectStore.get(url))),
+        ),
+      ) as [string, boolean][],
+    );
   }
 
   async put(url: string) {
