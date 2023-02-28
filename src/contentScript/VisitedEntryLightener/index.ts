@@ -1,6 +1,6 @@
-import { ACTION, STORAGE_KEY } from '../constants';
-import { userOption } from '../userOption';
-import styles from './visitedEntryLightener.module.scss';
+import { ACTION, STORAGE_KEY } from '../../constants';
+import { userOption } from '../../userOption';
+import styles from './styles.module.scss';
 
 type ExtendedEntry = Entry & {
   commentsUrl: string;

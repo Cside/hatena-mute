@@ -1,10 +1,10 @@
 /** @jsxImportSource jsx-dom */
-import { INDEXED_DB_OPTIONS, STORAGE_KEY } from '../constants';
-import { userOption } from '../userOption';
-import { indexedDb } from '../userOption/indexedDb';
-import { MuteButton } from './components/MuteButton';
-import muteButtonStyles from './components/MuteButton/styles.module.scss';
-import { MutePulldown } from './components/MutePulldown';
+import { INDEXED_DB_OPTIONS, STORAGE_KEY } from '../../constants';
+import { userOption } from '../../userOption';
+import { indexedDb } from '../../userOption/indexedDb';
+import { MuteButton } from '../components/MuteButton';
+import muteButtonStyles from '../components/MuteButton/styles.module.scss';
+import { MutePulldown } from '../components/MutePulldown';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import iconCss from './icon.scss?inline';
@@ -51,6 +51,7 @@ export class EntryMuter {
         <MutePulldown
           domain={domain}
           muteSite={(domain: string) => this.muteSite(domain)}
+          muteEntry={() => this.muteEntry(entry.titleLink.href)}
         />,
       );
     }
@@ -59,6 +60,7 @@ export class EntryMuter {
   async mute() {
     await this.muteBySites();
     await this.muteByWords();
+    await this.muteByEntries();
   }
 
   private async muteBy({
@@ -100,6 +102,15 @@ export class EntryMuter {
     });
   }
 
+  async muteByEntries() {
+    const map = await this.db.getMap(
+      this.entries.map((entry) => entry.titleLink.href),
+    );
+    for (const entry of this.entries) {
+      if (map.get(entry.titleLink.href)) console.log(1);
+    }
+  }
+
   async muteSite(domain: string) {
     await userOption.text.appendLine(STORAGE_KEY.MUTED_SITES, domain);
     await this.muteBySites();
@@ -107,6 +118,6 @@ export class EntryMuter {
 
   async muteEntry(url: string) {
     await this.db.put(url);
+    await this.muteByEntries();
   }
-  // TODO: async getMutedEntryMap {}
 }

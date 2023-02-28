@@ -25,6 +25,7 @@ if (rootElement) {
       case ACTION.UPDATE_MUTED_SITES:
         await entryMuter.muteBySites();
         break;
+
       case ACTION.UPDATE_MUTED_WORDS:
         await entryMuter.muteByWords();
         break;

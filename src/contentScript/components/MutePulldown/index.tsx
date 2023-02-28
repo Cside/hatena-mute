@@ -5,9 +5,11 @@ import styles from './styles.module.scss';
 export const MutePulldown = ({
   domain,
   muteSite,
+  muteEntry,
 }: {
   domain: string;
   muteSite: (domain: string) => void;
+  muteEntry: () => void;
 }) => {
   let pathlessDomain: string | undefined = undefined;
   if (domain.includes('/')) pathlessDomain = domain.replace(/\/.+$/, '');
@@ -26,7 +28,7 @@ export const MutePulldown = ({
           {pathlessDomain} をミュート
         </div>
       )}
-      <div>この記事だけを非表示</div>
+      <div onClick={muteEntry}>この記事だけを非表示</div>
     </div>
   );
 };
