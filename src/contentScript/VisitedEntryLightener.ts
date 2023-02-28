@@ -64,15 +64,17 @@ export class VisitedEntryLightener {
     await this.setOptions();
 
     // コンストラクタでやると、再呼び出しされたときに、
-    // バックグランドで開いた URL の .visited がリセットされてしまう
-    const visitedMap = await chrome.runtime.sendMessage({
-      type: ACTION.GET_VISITED_MAP,
-      payload: {
-        urls: this.entries
-          .map((entry) => [entry.titleLink.href, entry.commentsUrl])
-          .flat(),
-      },
-    });
+    // バックグランドで開いた URL の .visited がリセットされてしまうため、都度呼ぶ
+    const visitedMap: Map<string, boolean> = new Map(
+      await chrome.runtime.sendMessage({
+        type: ACTION.GET_VISITED_MAP,
+        payload: {
+          urls: this.entries
+            .map((entry) => [entry.titleLink.href, entry.commentsUrl])
+            .flat(),
+        },
+      }),
+    );
 
     if (this.options.lightensVisitedEntry) {
       this.rootElement.classList.add(styles.lightensVisitedEntry);
@@ -81,8 +83,8 @@ export class VisitedEntryLightener {
     }
 
     for (const entry of this.entries) {
-      const hasVisitedEntry = visitedMap[entry.titleLink.href];
-      const hasVisitedComments = visitedMap[entry.commentsUrl];
+      const hasVisitedEntry = visitedMap.get(entry.titleLink.href);
+      const hasVisitedComments = visitedMap.get(entry.commentsUrl);
 
       if (hasVisitedEntry === undefined)
         throw new Error(
