@@ -8,10 +8,12 @@ export const MutedListForm = ({
   storageKey,
   actionOnChange,
   placeholder,
+  description,
 }: {
   storageKey: StorageKey;
   actionOnChange: Action;
   placeholder?: string;
+  description?: string;
 }) => {
   const [text, setText] = useState('');
   const [textInStorage, setTextInStorage] = useState('');
@@ -26,6 +28,11 @@ export const MutedListForm = ({
 
   return (
     <div>
+      {description !== undefined && (
+        <div className="py-1">
+          <Form.Text className="text-muted">※ {description}</Form.Text>
+        </div>
+      )}
       <textarea
         className="w-100 block"
         style={{ height: '130px' }}
@@ -33,9 +40,6 @@ export const MutedListForm = ({
         {...(placeholder && { placeholder })}
         onChange={(event) => setText(event.target.value)}
       />
-      <Form.Check type="switch" id="bs-uses-regexp-for-mute">
-        <Form.Check.Input type="checkbox" />
-      </Form.Check>
 
       <Button
         className="block"

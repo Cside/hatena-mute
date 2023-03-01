@@ -8,6 +8,7 @@ import { MutePulldown } from '../components/MutePulldown';
 // @ts-ignore
 import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
+import { matchesLoosely } from './utils';
 
 export class EntryMuter {
   entries: Entry[] = [];
@@ -79,7 +80,7 @@ export class EntryMuter {
       storageKey: STORAGE_KEY.MUTED_SITES,
       matchedClassName: styles.mutedSitesMatched,
       match: (entry: Entry, muted: string) =>
-        entry.titleLink.href.includes(muted),
+        matchesLoosely(entry.titleLink.href, muted),
     });
   }
 
@@ -88,8 +89,8 @@ export class EntryMuter {
       storageKey: STORAGE_KEY.MUTED_WORDS,
       matchedClassName: styles.mutedWordsMatched,
       match: (entry: Entry, muted: string) =>
-        !!entry.titleLink?.textContent?.includes(muted) ||
-        !!entry.description?.textContent?.includes(muted),
+        !!matchesLoosely(entry.titleLink?.textContent || '', muted) ||
+        !!matchesLoosely(entry.description?.textContent || '', muted),
     });
   }
 

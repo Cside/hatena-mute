@@ -1,6 +1,6 @@
 import { userOption } from '../userOption';
 const INTERVAL = 24 * 60; // minutes
-const OLDER_THAN = 7 * 24 * 60; // minutes
+const OLDER_THAN = 1 * 24 * 60; // minutes
 const ALARM_NAME = 'delete-muted-entries';
 
 chrome.alarms.onAlarm.addListener(async () => {
