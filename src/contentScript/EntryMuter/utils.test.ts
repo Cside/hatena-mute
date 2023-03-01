@@ -8,16 +8,12 @@ describe('matchesLoosely', () => {
         expected: true,
       },
       {
-        input: ['foobarbaz', 'ba_r'],
+        input: ['foobarbaz', 'foobarbaz'],
+        expected: true,
+      },
+      {
+        input: ['foobarbaz', 'barr'],
         expected: false,
-      },
-      {
-        input: ['foobarbaz', 'BAR'],
-        expected: true,
-      },
-      {
-        input: ['FOOBARBAZ', 'bar'],
-        expected: true,
       },
       {
         input: ['0123', '12'],
@@ -26,6 +22,24 @@ describe('matchesLoosely', () => {
       {
         input: ['0123', '34'],
         expected: false,
+      },
+    ],
+    'Uppercase characters': [
+      {
+        input: ['foobarbaz', 'BAR'],
+        expected: true,
+      },
+      {
+        input: ['foobarbaz', 'BARR'],
+        expected: false,
+      },
+      {
+        input: ['FOOBARBAZ', 'bar'],
+        expected: true,
+      },
+      {
+        input: ['FOOBARBAZ', 'BAR'],
+        expected: true,
       },
     ],
     Kanji: [
