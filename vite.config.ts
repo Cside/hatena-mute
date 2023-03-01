@@ -8,10 +8,14 @@ import manifest from './manifest.json';
 import { version } from './package.json';
 
 const ENABLES_VISUALIZER = getEnv<boolean>('ENABLES_VISUALIZER') ?? false;
+const ENABLES_SENTRY = getEnv<boolean>('ENABLES_SENTRY') ?? true;
 
 manifest.version = version;
 
 export default defineConfig({
+  define: {
+    ENABLES_SENTRY,
+  },
   plugins: [
     react(),
     crx({ manifest: manifest as ManifestV3Export }),

@@ -12,3 +12,5 @@ type Entry = {
   description?: HTMLElement;
   domain: HTMLElement;
 };
+
+declare const ENABLES_SENTRY: boolean;
