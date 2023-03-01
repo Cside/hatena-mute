@@ -27,12 +27,14 @@ export const App = () => {
               placeholder="example.com"
               storageKey={STORAGE_KEY.MUTED_SITES}
               actionOnChange={ACTION.UPDATE_MUTED_SITES}
+              description="URL は部分一致で表示されなくなります"
             />
           </Tab>
           <Tab eventKey={EVENT_KEY.MUTED_WORDS} title="キーワード">
             <MutedListForm
               storageKey={STORAGE_KEY.MUTED_WORDS}
               actionOnChange={ACTION.UPDATE_MUTED_WORDS}
+              description="大文字小文字は区別されません"
             />
           </Tab>
         </Tabs>
