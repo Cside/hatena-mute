@@ -1,6 +1,5 @@
 import { userOption } from '../userOption';
-// const INTERVAL = 24 * 60; // minutes
-const INTERVAL = 6 * 60; // minutes
+const INTERVAL = 24 * 60; // minutes
 const OLDER_THAN = 7 * 24 * 60; // minutes
 const ALARM_NAME = 'delete-muted-entries';
 
