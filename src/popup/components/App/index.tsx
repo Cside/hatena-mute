@@ -1,4 +1,3 @@
-import 'bootstrap/scss/bootstrap.scss';
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
@@ -7,6 +6,7 @@ import { ACTION, STORAGE_KEY } from '../../../constants';
 import { EVENT_KEY } from '../../constants';
 import { CheckForm } from '../CheckForm';
 import { MutedListForm } from '../MutedListForm';
+import './bootstrap.scss';
 import './styles.scss';
 
 export const App = () => {

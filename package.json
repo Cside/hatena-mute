@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "yarn run clean && run-p dev:*",
     "dev:vite": "ENABLES_SENTRY=false vite",
-    "dev:scss-types": "typed-scss-modules --watch 'src/**/*.module.scss'",
+    "dev:scss-types": "typed-scss-modules --watch 'src/**/*.scss' --ignore src/popup/components/App/bootstrap.scss",
     "build": "yarn run clean && vite build",
     "visualize": "yarn run clean && ENABLES_VISUALIZER=true vite build && open stats.html",
     "clean": "rimraf dist out.zip",

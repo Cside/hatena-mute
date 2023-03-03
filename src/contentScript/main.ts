@@ -1,7 +1,6 @@
 import { ACTION } from '../constants';
 import { getEntries } from './entry';
 import { EntryMuter } from './EntryMuter';
-import './styles.module.scss';
 import { VisitedEntryLightener } from './VisitedEntryLightener';
 
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
