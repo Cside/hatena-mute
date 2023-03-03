@@ -2,7 +2,7 @@
   "version": "",
   "manifest_version": 3,
   "name": "はてなミュート",
-  "description": "はてなブックマークの気に入らない記事を非表示にする",
+  "description": "はてなブックマークの記事をキーワードやURLでミュート",
   "action": {
     "default_icon": "images/icon38.png",
     "default_popup": "popup.html"
