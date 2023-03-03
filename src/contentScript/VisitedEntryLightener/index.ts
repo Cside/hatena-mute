@@ -6,6 +6,8 @@ type ExtendedEntry = Entry & {
   commentsUrl: string;
 };
 
+const GA_PARAM = '_gl';
+
 export class VisitedEntryLightener {
   entries: ExtendedEntry[] = [];
   rootElement: HTMLElement;
@@ -43,7 +45,20 @@ export class VisitedEntryLightener {
   addClickListeners() {
     for (const entry of this.entries) {
       const setVisited = () => entry.element.classList.add(styles.visited);
-      entry.titleLink.addEventListener('click', setVisited);
+      entry.titleLink.addEventListener('click', async (event) => {
+        if (!(event.target instanceof HTMLAnchorElement))
+          throw new TypeError(`event.target is not HTMLAnchorElement`);
+
+        const url = new URL(event.target.href);
+        if (url.searchParams.has(GA_PARAM)) {
+          url.searchParams.delete(GA_PARAM);
+          await chrome.runtime.sendMessage({
+            type: ACTION.ADD_HISTORY,
+            payload: { url: url.toString() },
+          });
+        }
+        setVisited();
+      });
       for (const commentsLink of entry.commentsLinks) {
         commentsLink.addEventListener('click', () => {
           if (this.options.lightenEntryWhoseCommentsHaveBeenVisited)

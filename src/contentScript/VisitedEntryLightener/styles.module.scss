@@ -1,8 +1,5 @@
 .lightens-visited-entry {
-  // .visited:not(:global .following-bookmark-popup) {
   .visited {
-    opacity: 0.5;
-
     [data-entry-id] {
       // opacity かけるとタイトルだけ薄くなりすぎるので、未訪問と同じ色にする
       &:visited {
@@ -13,5 +10,16 @@
         color: #7db4e8;
       }
     }
+  }
+
+  // TODO: エントリーの root エントリに共通クラス振ったほうがいい...のか...？
+  // したらば icon.scss も浄化できる気が
+  .visited
+    :global(.entrylist-contents-main)
+    > *:not(:global(.following-bookmarks-container)),
+  .visited:global(.entrylist-readlater-ranking-item),
+  :global(.entrylist-3column-items) > li.visited,
+  .visited :global(.following-bookmark-icon) {
+    opacity: 0.5;
   }
 }

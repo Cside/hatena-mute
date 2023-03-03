@@ -35,12 +35,13 @@ export const getEntries = () => {
         // TODO: このセレクタもう少しどうにかならんかね...。li とか div とか壊れやすそう。
         // cat-*, js-keyboard-selectable-item あたりで絞るとか
         // ここをいじったら icon.scss も変えること
+        // .entrylist-recommend ->「人気エントリーもどうぞ」
         entry: `
           :where(
             .entrylist-header-main,
             .entrylist-item
           ) > li:not(.entrylist-recommend),
-          .entrylist-header-sub > div`, // 右上の広告 (遅延ロードなので今は意味ない TODO )
+          .entrylist-header-sub > div`, // TODO: 広告。遅延ロードにつき現状意味ない
         // [data-entry-id] は遅延的に生える場合があるため使えない
         titleLink: '.entrylist-contents-title a',
         commentsLink: `

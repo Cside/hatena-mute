@@ -7,6 +7,10 @@ type MessageParams =
       payload: { urls: string[] };
     }
   | {
+      type: typeof ACTION.ADD_HISTORY;
+      payload: { url: string };
+    }
+  | {
       type: typeof ACTION.ADD_MUTED_ENTRY;
       payload: { url: string };
     }
@@ -32,6 +36,9 @@ chrome.runtime.onMessage.addListener(
                 ],
             ),
           );
+        case ACTION.ADD_HISTORY:
+          return await chrome.history.addUrl({ url: payload.url });
+
         case ACTION.ADD_MUTED_ENTRY:
           return await userOption.indexedDb.execute(
             async (db) => await db.put(payload.url),

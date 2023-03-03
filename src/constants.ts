@@ -2,6 +2,7 @@ export const ACTION = {
   UPDATE_MUTED_SITES: 'update-muted-sites',
   UPDATE_MUTED_WORDS: 'update-muted-words',
   GET_VISITED_MAP: 'get-visited-map',
+  ADD_HISTORY: 'add-history',
   UPDATE_LIGHTENING_OPTIONS: 'update-lightening-options',
   ADD_MUTED_ENTRY: 'add-muted-entry',
   GET_MUTED_ENTRY_MAP: 'get-muted-entry-map',
