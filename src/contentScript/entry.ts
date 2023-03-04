@@ -15,15 +15,19 @@ const _getEntries = ({
 }) => {
   const entries: Entry[] = [];
   for (const entry of $$(selectors.entry)) {
-    entries.push({
-      element: entry,
-      titleLink: $<HTMLAnchorElement>(entry, selectors.titleLink),
-      commentsLinks: $$<HTMLAnchorElement>(entry, selectors.commentsLink),
-      domain: $(entry, selectors.domain),
-      ...(selectors.description
-        ? { description: $(entry, selectors.description) }
-        : {}),
-    });
+    try {
+      entries.push({
+        element: entry,
+        titleLink: $<HTMLAnchorElement>(entry, selectors.titleLink),
+        commentsLinks: $$<HTMLAnchorElement>(entry, selectors.commentsLink),
+        domain: $(entry, selectors.domain),
+        ...(selectors.description
+          ? { description: $(entry, selectors.description) }
+          : {}),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
   return entries;
 };
