@@ -6,8 +6,9 @@
   font-size: 0.85rem;
   background-color: #f6f7f8;
   border-radius: 5px;
+  outline: 1px solid #b6b6b7;
 
-  div {
+  .item {
     padding: 12px;
 
     &:hover {

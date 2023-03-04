@@ -1,4 +1,5 @@
 export type Styles = {
+  item: string;
   mutePulldown: string;
 };
 

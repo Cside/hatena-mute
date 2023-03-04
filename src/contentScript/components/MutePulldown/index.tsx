@@ -22,13 +22,20 @@ export const MutePulldown = ({
         right: '0px',
       }}
     >
-      <div onClick={() => muteSite(domain)}>{domain} をミュート</div>
+      <div className={styles.item} onClick={() => muteSite(domain)}>
+        {domain} をミュート
+      </div>
       {pathlessDomain && (
-        <div onClick={() => muteSite(pathlessDomain ?? '')}>
+        <div
+          className={styles.item}
+          onClick={() => muteSite(pathlessDomain ?? '')}
+        >
           {pathlessDomain} をミュート
         </div>
       )}
-      <div onClick={muteEntry}>この記事だけを非表示</div>
+      <div className={styles.item} onClick={muteEntry}>
+        この記事だけを非表示
+      </div>
     </div>
   );
 };
