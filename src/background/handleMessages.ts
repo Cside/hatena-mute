@@ -28,13 +28,13 @@ chrome.runtime.onMessage.addListener(
       switch (type) {
         case ACTION.GET_VISITED_MAP:
           return await Promise.all(
-            payload.urls.map(
-              async (url) =>
-                [url, (await chrome.history.getVisits({ url })).length > 0] as [
-                  string,
-                  boolean,
-                ],
-            ),
+            payload.urls.map(async (url) => {
+              // await chrome.history.deleteUrl({ url }); // for debug
+              return [
+                url,
+                (await chrome.history.getVisits({ url })).length > 0,
+              ] as [string, boolean];
+            }),
           );
         case ACTION.ADD_HISTORY:
           return await chrome.history.addUrl({ url: payload.url });
