@@ -5,4 +5,12 @@ const result = document.getElementById('result');
 if (!result) throw new Error('#result is not found');
 
 const db = await userOption.indexedDb.openDb(INDEXED_DB_OPTIONS);
-result.innerText = JSON.stringify(await db.getAll(), null, 4);
+result.innerText = JSON.stringify(
+  (await db.getAll<{ url: string; created: Date }>())
+    .reverse()
+    .map(
+      (record) => record.created.toLocaleString('ja-JP') + '    ' + record.url,
+    ),
+  null,
+  4,
+);

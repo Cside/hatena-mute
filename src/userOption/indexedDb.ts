@@ -90,7 +90,7 @@ export class indexedDb {
   }
 
   // debug usage only
-  async getAll() {
+  async getAll<T>(): Promise<T[]> {
     const tx = this.plainDb.transaction(this.objectStore.name, 'readonly');
     const objectStore = tx.objectStore(this.objectStore.name);
     const records = await objectStore.getAll();
