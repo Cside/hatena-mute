@@ -1,4 +1,4 @@
-.mute-pulldown {
+:global(.mute-pulldown) {
   position: absolute;
   z-index: 10000;
   display: block;
@@ -7,12 +7,12 @@
   background-color: #f6f7f8;
   border-radius: 5px;
   outline: 1px solid #b6b6b7;
+}
 
-  .item {
-    padding: 12px;
+.item {
+  padding: 12px;
 
-    &:hover {
-      background-color: #ebeced;
-    }
+  &:hover {
+    background-color: #ebeced;
   }
 }

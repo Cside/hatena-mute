@@ -1,6 +1,5 @@
 export type Styles = {
   item: string;
-  mutePulldown: string;
 };
 
 export type ClassNames = keyof Styles;

@@ -17,8 +17,11 @@
   .visited
     :global(.entrylist-contents-main)
     > *:not(:global(.following-bookmarks-container)),
-  .visited:global(.entrylist-readlater-ranking-item),
-  :global(.entrylist-3column-items) > li.visited,
+  .visited:global(.entrylist-readlater-ranking-item)
+    > *:not(:global(.mute-pulldown)),
+  :global(.entrylist-3column-items)
+    > li.visited
+    > *:not(:global(.mute-pulldown)),
   .visited :global(.following-bookmark-icon) {
     opacity: 0.5;
   }
