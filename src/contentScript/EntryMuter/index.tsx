@@ -2,10 +2,7 @@
 import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
 import { MuteButton } from '../components/MuteButton';
-import muteButtonStyles from '../components/MuteButton/styles.module.scss';
 import { MutePulldown } from '../components/MutePulldown';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
 import { matchesLoosely } from './utils';
@@ -26,9 +23,10 @@ export class EntryMuter {
     const style = document.createElement('style');
     style.appendChild(
       document.createTextNode(
-        (iconCss as string)
-          .replaceAll('__MSG_@@extension_id__', chrome.runtime.id)
-          .replaceAll('mute-button', muteButtonStyles.muteButton),
+        (iconCss as string).replaceAll(
+          '__MSG_@@extension_id__',
+          chrome.runtime.id,
+        ),
       ),
     );
     document.body.appendChild(style);

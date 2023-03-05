@@ -1,5 +1,4 @@
 export type Styles = {
-  muteButton: string;
   styleHeadline: string;
   styleList: string;
 };
