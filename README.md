@@ -1,4 +1,4 @@
-# はてなミュート (Chrome Extension)
+# はてなミュート ( Chrome 拡張)
 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf)
 
