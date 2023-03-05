@@ -1,8 +1,8 @@
 # はてな Hide (Chrome Extension)
 
-[Chrome Web Store](TODO)
+[Chrome Web Store](https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf)
 
-TODO
+<a href="https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf" target="_blank"><img src="https://lh3.googleusercontent.com/yGrvuFzlzWu_ZGq8IMQio8LhcbLZw8u8PwzbITpshVklTtqR_Gqfsr9dQXAsZZq27diOmQegWl-GPx7JXQs31OvhFw=w640-h400-e365-rj-sc0x00ffffff" /></a>
 
 ## How to Build
 
