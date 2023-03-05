@@ -7,8 +7,8 @@
 ## How to Build
 
 ```
-yarn install
-yarn run build
+pnpm install
+pnpm run build
 ```
 
 ## Release Notes
