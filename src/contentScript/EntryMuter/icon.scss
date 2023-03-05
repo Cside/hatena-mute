@@ -1,4 +1,4 @@
-.mute-button:hover {
+.hm-mute-button:hover {
   background-image: url('chrome-extension://__MSG_@@extension_id__/images/mute-hover.svg') !important;
 }
 
@@ -9,6 +9,6 @@
     .entrylist-readlater-ranking-item,
     .entrylist-3column-items > li
   ):hover
-  .mute-button {
+  .hm-mute-button {
   background-image: url('chrome-extension://__MSG_@@extension_id__/images/mute.svg');
 }

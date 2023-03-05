@@ -16,7 +16,7 @@ export const MutePulldown = ({
 
   return (
     <div
-      className={`mute-pulldown ${commonStyles.displayNone}`}
+      className={`hm-mute-pulldown ${commonStyles.displayNone}`}
       style={{
         top: '40px',
         right: '0px',
