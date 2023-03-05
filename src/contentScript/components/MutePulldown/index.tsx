@@ -16,7 +16,7 @@ export const MutePulldown = ({
 
   return (
     <div
-      className={`${styles.mutePulldown} ${commonStyles.displayNone}`}
+      className={`mute-pulldown ${commonStyles.displayNone}`}
       style={{
         top: '40px',
         right: '0px',
@@ -34,7 +34,7 @@ export const MutePulldown = ({
         </div>
       )}
       <div className={styles.item} onClick={muteEntry}>
-        この記事だけを非表示
+        この記事を非表示
       </div>
     </div>
   );
