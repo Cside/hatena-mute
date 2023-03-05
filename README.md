@@ -1,4 +1,4 @@
-# はてな Hide (Chrome Extension)
+# はてなミュート (Chrome Extension)
 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf)
 
