@@ -1,13 +1,13 @@
 /** @jsxImportSource jsx-dom */
 import { $ } from '../../../utils';
 import commonStyles from '../../styles.module.scss';
-import styles from './styles.module.scss';
+import './styles.module.scss';
 
 export const MuteButton = () => {
   return (
     <a
       href="#"
-      className={styles.muteButton}
+      className="mute-button"
       onClick={(event) => {
         if (!(event.target instanceof HTMLElement))
           throw new TypeError(`event.target is not HTMLElement`);
