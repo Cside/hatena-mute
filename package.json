@@ -69,6 +69,7 @@
     "vite-plugin-top-level-await": "^1.2.4"
   },
   "dependencies": {
+    "@sentry/browser": "^7.40.0",
     "@sentry/integrations": "^7.39.0",
     "@sentry/react": "^7.39.0",
     "@sentry/tracing": "^7.39.0",

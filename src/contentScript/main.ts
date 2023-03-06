@@ -1,4 +1,5 @@
 import { ACTION } from '../constants';
+import { initSentry } from '../sentry';
 import { getEntries } from './entry';
 import { EntryMuter } from './EntryMuter';
 import { VisitedEntryLightener } from './VisitedEntryLightener';
@@ -6,6 +7,13 @@ import { VisitedEntryLightener } from './VisitedEntryLightener';
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
 if (rootElement) {
+  // FIXME: 今日やること:
+  //  - captureConsole はいらんやろ（野良エラー拾わないなら）
+  //  - ⭐⭐野良エラーを拾っちまうか確かエメル
+  //
+  //
+  initSentry({ type: 'browser', capturesConsole: false });
+
   const entries = getEntries();
 
   const entryMuter = new EntryMuter({ entries });
@@ -40,6 +48,4 @@ if (rootElement) {
   await entryMuter.mute();
 
   await visitedEntryLightener.lighten();
-
-  // entryMuter.mute();
 }
