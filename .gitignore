@@ -3,5 +3,6 @@
 /out.zip
 /.extension-id
 /dist/
+/dist_firefox/
 .git-pr-release
 /stats.html
