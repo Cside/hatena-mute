@@ -10,13 +10,7 @@ const sentry = async () =>
     ? import('@sentry/browser')
     : import('@sentry/react'));
 
-export const initSentry = async ({
-  type,
-  capturesConsole,
-}: {
-  type: Type;
-  capturesConsole: boolean;
-}) => {
+export const initSentry = async ({ type }: { type: Type }) => {
   if (!ENABLES_SENTRY) return;
 
   TYPE = type;
@@ -28,15 +22,7 @@ export const initSentry = async ({
     release: chrome.runtime.getManifest().version,
     integrations: [
       new BrowserTracing(),
-      ...(capturesConsole
-        ? [new CaptureConsoleIntegration({ levels: ['warn', 'error'] })]
-        : []),
+      new CaptureConsoleIntegration({ levels: ['warn', 'error'] }),
     ],
   });
-};
-
-export const sendError = async (error: unknown) => {
-  if (!ENABLES_SENTRY) return;
-
-  if (ENABLES_SENTRY) (await sentry()).captureException(error);
 };

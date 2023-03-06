@@ -7,12 +7,7 @@ import { VisitedEntryLightener } from './VisitedEntryLightener';
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
 if (rootElement) {
-  // FIXME: 今日やること:
-  //  - captureConsole はいらんやろ（野良エラー拾わないなら）
-  //  - ⭐⭐野良エラーを拾っちまうか確かエメル
-  //
-  //
-  initSentry({ type: 'browser', capturesConsole: false });
+  await initSentry({ type: 'browser' });
 
   const entries = getEntries();
 

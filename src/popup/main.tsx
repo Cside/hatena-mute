@@ -3,5 +3,5 @@ import { initSentry } from '../sentry';
 import { $ } from '../utils';
 import { App } from './components/App';
 
-initSentry();
+await initSentry({ type: 'react' });
 createRoot($('.react-root')).render(<App />);
