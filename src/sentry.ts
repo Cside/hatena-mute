@@ -14,6 +14,8 @@ export const initSentry = async ({ type }: { type: Type }) => {
   if (!ENABLES_SENTRY) return;
 
   TYPE = type;
+  console.log('####### Sentry');
+  // FIXME: 🔥worker で dynamic import できないので、sentry.ts 根本的に直さないと駄目
 
   (await sentry()).init({
     dsn: import.meta.env.DEV
