@@ -2,6 +2,8 @@
 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf)
 
+[Firefox Addon](https://addons.mozilla.org/ja/firefox/addon/%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%9F%E3%83%A5%E3%83%BC%E3%83%88/)
+
 <a href="https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf" target="_blank"><img src="https://lh3.googleusercontent.com/yGrvuFzlzWu_ZGq8IMQio8LhcbLZw8u8PwzbITpshVklTtqR_Gqfsr9dQXAsZZq27diOmQegWl-GPx7JXQs31OvhFw=w640-h400-e365-rj-sc0x00ffffff" /></a>
 
 ## How to Build
