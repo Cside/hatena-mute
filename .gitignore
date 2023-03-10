@@ -1,6 +1,7 @@
 /node_modules/
 /yarn-error.log
 /dist.zip
+/dist_firefox.zip
 /.extension-id
 /dist/
 /dist_firefox/
