@@ -13,7 +13,7 @@ pnpm run build
 
 ## Release Notes
 
-[/releases](https://github.com/Cside/chrome-hatena-mute/releases)
+[/releases](https://github.com/Cside/hatena-mute/releases)
 
 ## How to Contribute
 
