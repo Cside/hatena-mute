@@ -1,4 +1,4 @@
-import { matchesLoosely } from './utils';
+import { matchesLoosely, replaceCssUrls } from './utils';
 
 describe('matchesLoosely', () => {
   for (const [name, tests] of Object.entries({
@@ -95,4 +95,65 @@ describe('matchesLoosely', () => {
       });
     });
   }
+});
+
+describe('replaceCssUrls', () => {
+  test.each([
+    {
+      name: 'double quotes',
+      input: `
+        .foo {
+          background-image: url("images/foo.svg");
+        }
+        .bar {
+          background-image: url("images/bar.svg");
+        }`,
+      expected: `
+        .foo {
+          background-image: url('chrome://<extension-id>/images/foo.svg');
+        }
+        .bar {
+          background-image: url('chrome://<extension-id>/images/bar.svg');
+        }
+      `,
+    },
+    {
+      name: 'single quotes',
+      input: `
+        .foo {
+          background-image: url('images/foo.svg');
+        }
+        .bar {
+          background-image: url('images/bar.svg');
+        }`,
+      expected: `
+        .foo {
+          background-image: url('chrome://<extension-id>/images/foo.svg');
+        }
+        .bar {
+          background-image: url('chrome://<extension-id>/images/bar.svg');
+        }
+      `,
+    },
+    {
+      name: 'no quotes',
+      input: `
+        .foo {
+          background-image: url(images/foo.svg);
+        }
+        .bar {
+          background-image: url(images/bar.svg);
+        }`,
+      expected: `
+        .foo {
+          background-image: url('chrome://<extension-id>/images/foo.svg');
+        }
+        .bar {
+          background-image: url('chrome://<extension-id>/images/bar.svg');
+        }
+      `,
+    },
+  ])('$name', ({ input, expected }) => {
+    expect(replaceCssUrls(input.trim())).toBe(expected.trim());
+  });
 });

@@ -1,5 +1,5 @@
 .mute-button:hover {
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/mute-hover.svg') !important;
+  background-image: url('images/mute-hover.svg') !important;
 }
 
 /* TODO: セレクタが二重定義になってるので共通化したさがある */
@@ -10,5 +10,5 @@
     .entrylist-3column-items > li
   ):hover
   .mute-button {
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/mute.svg');
+  background-image: url('images/mute.svg');
 }
