@@ -114,8 +114,7 @@ describe('replaceCssUrls', () => {
         }
         .bar {
           background-image: url('chrome://<extension-id>/images/bar.svg');
-        }
-      `,
+        }`,
     },
     {
       name: 'single quotes',
@@ -132,8 +131,7 @@ describe('replaceCssUrls', () => {
         }
         .bar {
           background-image: url('chrome://<extension-id>/images/bar.svg');
-        }
-      `,
+        }`,
     },
     {
       name: 'no quotes',
@@ -150,8 +148,7 @@ describe('replaceCssUrls', () => {
         }
         .bar {
           background-image: url('chrome://<extension-id>/images/bar.svg');
-        }
-      `,
+        }`,
     },
   ])('$name', ({ input, expected }) => {
     expect(replaceCssUrls(input.trim())).toBe(expected.trim());
