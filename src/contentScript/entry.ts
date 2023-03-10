@@ -45,8 +45,7 @@ export const getEntries = () => {
           :where(
             .entrylist-header-main,
             .entrylist-item
-          ) > li:not(.entrylist-recommend),
-          .entrylist-header-sub > div`, // TODO: 広告。遅延ロードにつき現状意味ない
+          ) > li:not(.entrylist-recommend)`,
         // [data-entry-id] は遅延的に生える場合があるため使えない
         titleLink: '.entrylist-contents-title a',
         commentsLink: `
