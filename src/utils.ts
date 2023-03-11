@@ -13,8 +13,9 @@ export const $ = <T extends HTMLElement>(
       selector,
     );
     if (!result) {
-      console.error({ targetElement: elementOrSelector });
-      throw new Error(`${selector} is not found`);
+      const message = `${selector} is not found`;
+      console.info(`${message}. targetElement: `, elementOrSelector);
+      throw new Error(message);
     }
     return result;
   } else {

@@ -14,3 +14,7 @@ type Entry = {
 };
 
 declare const ENABLES_SENTRY: boolean;
+
+interface Sentry {
+  init(args: typeof import('@sentry/browser').BrowserOptions): void;
+}

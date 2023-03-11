@@ -19,41 +19,43 @@ type MessageParams =
       payload: { urls: string[] };
     };
 
-chrome.runtime.onMessage.addListener(
-  ({ type, payload }: MessageParams, _sender, sendResponse) => {
-    console.info(`action: ${type}`);
+export const run = () => {
+  chrome.runtime.onMessage.addListener(
+    ({ type, payload }: MessageParams, _sender, sendResponse) => {
+      console.info(`action: ${type}`);
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    (async () => {
-      switch (type) {
-        case ACTION.GET_VISITED_MAP:
-          return await Promise.all(
-            payload.urls.map(async (url) => {
-              // await chrome.history.deleteUrl({ url }); // for debug
-              return [
-                url,
-                (await chrome.history.getVisits({ url })).length > 0,
-              ] as [string, boolean];
-            }),
-          );
-        case ACTION.ADD_HISTORY:
-          return await chrome.history.addUrl({ url: payload.url });
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      (async () => {
+        switch (type) {
+          case ACTION.GET_VISITED_MAP:
+            return await Promise.all(
+              payload.urls.map(async (url) => {
+                // await chrome.history.deleteUrl({ url }); // for debug
+                return [
+                  url,
+                  (await chrome.history.getVisits({ url })).length > 0,
+                ] as [string, boolean];
+              }),
+            );
+          case ACTION.ADD_HISTORY:
+            return await chrome.history.addUrl({ url: payload.url });
 
-        case ACTION.ADD_MUTED_ENTRY:
-          return await userOption.indexedDb.execute(
-            async (db) => await db.put(payload.url),
-          );
+          case ACTION.ADD_MUTED_ENTRY:
+            return await userOption.indexedDb.execute(
+              async (db) => await db.put(payload.url),
+            );
 
-        case ACTION.GET_MUTED_ENTRY_MAP:
-          return await userOption.indexedDb.execute(
-            async (db) => await db.getMap(payload.urls),
-          );
+          case ACTION.GET_MUTED_ENTRY_MAP:
+            return await userOption.indexedDb.execute(
+              async (db) => await db.getMap(payload.urls),
+            );
 
-        default:
-          throw new Error(`Unknown action type: ${type}`);
-      }
-    })().then((result) => sendResponse(result));
+          default:
+            throw new Error(`Unknown action type: ${type}`);
+        }
+      })().then((result) => sendResponse(result));
 
-    return true;
-  },
-);
+      return true;
+    },
+  );
+};

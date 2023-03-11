@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "dev": "pnpm run clean && run-p dev:*",
     "dev:vite": "ENABLES_SENTRY=false vite",
@@ -10,7 +10,7 @@
     "clean": "rimraf dist dist_firefox dist.zip",
     "test": "jest",
     "release": "pnpm install && pnpm run build && zip -r dist.zip dist",
-    "release:firefox": "pnpm install && pnpm run build:firefox && zip -r -FS ./dist_firefox.zip ./dist_firefox/*",
+    "release:firefox": "pnpm install && pnpm run build:firefox && cd dist_firefox && zip -r -FS ../dist_firefox.zip * && cd ..;",
     "lint:eslint": "eslint './{src,test}/**/*.{ts,tsx}'",
     "lint-fix:eslint": "eslint --fix './{src,test}/**/*.{ts,tsx}'",
     "lint:prettier": "prettier --check .",
@@ -71,6 +71,7 @@
     "vite-plugin-top-level-await": "^1.2.4"
   },
   "dependencies": {
+    "@sentry/browser": "^7.40.0",
     "@sentry/integrations": "^7.39.0",
     "@sentry/react": "^7.39.0",
     "@sentry/tracing": "^7.39.0",
