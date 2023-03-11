@@ -1,8 +1,11 @@
+import * as sentry from '@sentry/browser';
 import { ACTION } from '../constants';
-import '../sentry/browser';
+import { initSentry } from '../sentry';
 import { getEntries } from './entry';
 import { EntryMuter } from './EntryMuter';
 import { VisitedEntryLightener } from './VisitedEntryLightener';
+
+initSentry(sentry);
 
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
