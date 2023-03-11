@@ -1,13 +1,9 @@
-import manifest from '../../manifest.json';
+import { getOrigin } from '../utils';
 
 export const executeActionOnContenScripts = async (action: Action) => {
-  const url = manifest.content_scripts[0]?.matches;
-  if (!url)
-    throw new Error(`manifestJson.content_scripts[0].matches is not found`);
-
   await Promise.all(
     (
-      await chrome.tabs.query({ url })
+      await chrome.tabs.query({ url: getOrigin() })
     ).map(async (tab) => {
       try {
         await chrome.tabs.sendMessage(tab.id ?? 0, {
