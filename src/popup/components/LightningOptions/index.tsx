@@ -14,7 +14,7 @@ export const LighteningOptions = () => {
       <h2>その他の設定</h2>
       <CheckForm
         id="hm-lightens-visited-entry"
-        label="訪問済みの記事を目立なくする"
+        label="訪問済みの記事を目立たなくする"
         storageKey={STORAGE_KEY.LIGHTENS_VISITED_ENTRY}
         checked={lightensVisitedEntryIsChecked}
         setChecked={setLightensVisitedEntryIsChecked}
