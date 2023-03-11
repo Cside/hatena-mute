@@ -19,7 +19,7 @@ type MessageParams =
       payload: { urls: string[] };
     };
 
-export const execute = () => {
+export const run = () => {
   chrome.runtime.onMessage.addListener(
     ({ type, payload }: MessageParams, _sender, sendResponse) => {
       console.info(`action: ${type}`);
@@ -58,5 +58,4 @@ export const execute = () => {
       return true;
     },
   );
-  console.error('error in worker');
 };

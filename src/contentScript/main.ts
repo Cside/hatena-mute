@@ -1,5 +1,5 @@
 import { ACTION } from '../constants';
-import { initSentry } from '../sentry';
+import '../sentry/browser';
 import { getEntries } from './entry';
 import { EntryMuter } from './EntryMuter';
 import { VisitedEntryLightener } from './VisitedEntryLightener';
@@ -7,8 +7,6 @@ import { VisitedEntryLightener } from './VisitedEntryLightener';
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
 if (rootElement) {
-  await initSentry({ type: 'browser' });
-
   const entries = getEntries();
 
   const entryMuter = new EntryMuter({ entries });
