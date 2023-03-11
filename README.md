@@ -1,4 +1,4 @@
-# はてなミュート ( Chrome 拡張 / Firefox アドオン)
+# はてなミュート ( Google Chrome 拡張 / Firefox アドオン)
 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf)
 
