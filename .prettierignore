@@ -1,3 +1,4 @@
 /public/css/**/*
 /dist/
+/dist_firefox/
 /pnpm-lock.yaml
