@@ -1,5 +1,7 @@
 # はてなミュート ( Google Chrome 拡張 / Firefox アドオン)
 
+はてなブックマークの記事をキーワードやURLでミュート
+
 [Chrome Web Store](https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf)
 
 [Firefox Addon](https://addons.mozilla.org/ja/firefox/addon/%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%9F%E3%83%A5%E3%83%BC%E3%83%88/)
