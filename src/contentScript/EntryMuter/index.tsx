@@ -5,7 +5,7 @@ import { MuteButton } from '../components/MuteButton';
 import { MutePulldown } from '../components/MutePulldown';
 import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
-import { matchesLoosely } from './utils';
+import { matchesLoosely, replaceCssUrls } from './utils';
 
 export class EntryMuter {
   entries: Entry[] = [];
@@ -22,12 +22,7 @@ export class EntryMuter {
   private injectCss() {
     const style = document.createElement('style');
     style.appendChild(
-      document.createTextNode(
-        (iconCss as string).replaceAll(
-          '__MSG_@@extension_id__',
-          chrome.runtime.id,
-        ),
-      ),
+      document.createTextNode(replaceCssUrls(iconCss as string)),
     );
     document.body.appendChild(style);
   }
