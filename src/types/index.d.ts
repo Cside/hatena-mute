@@ -14,6 +14,7 @@ type Entry = {
 };
 
 declare const ENABLES_SENTRY: boolean;
+declare const IS_FIREFOX: boolean;
 
 interface Sentry {
   init(args: typeof import('@sentry/browser').BrowserOptions): void;

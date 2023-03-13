@@ -5,7 +5,7 @@ import { getEntries } from './entry';
 import { EntryMuter } from './EntryMuter';
 import { VisitedEntryLightener } from './VisitedEntryLightener';
 
-initSentry(sentry);
+if (!IS_FIREFOX) initSentry(sentry);
 
 const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
