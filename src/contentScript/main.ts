@@ -41,7 +41,6 @@ if (rootElement) {
     }
   });
 
-  await entryMuter.mute();
-
   await visitedEntryLightener.lighten();
+  await entryMuter.mute();
 }
