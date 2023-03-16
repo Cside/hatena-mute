@@ -7,14 +7,11 @@ cd dist_firefox;
 zip -r -FS ../dist_firefox.zip *;
 cd ..;
 
-rm -rf ../hatena-mute-source ../hatena-mute-source.zip;
-mkdir ../hatena-mute-source;
+rm -rf source_code source-code.zip;
+mkdir source_code;
 for file in $(git ls-files . | sed 's|/.*||' | uniq); do
-    cp -r "$file" ../hatena-mute-source/;
+    cp -r "$file" source_code/;
 done
 
-pwd=$PWD;
-cd ..;
-zip -r hatena-mute-source.zip hatena-mute-source;
-rm -rf hatena-mute-source;
-cd "$pwd";
+zip -r source-code.zip source_code;
+rm -rf source_code;
