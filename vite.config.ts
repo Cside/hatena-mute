@@ -9,12 +9,14 @@ import { version } from './package.json';
 
 const ENABLES_VISUALIZER = getEnv<boolean>('ENABLES_VISUALIZER') ?? false;
 const ENABLES_SENTRY = getEnv<boolean>('ENABLES_SENTRY') ?? true;
+const IS_FIREFOX = getEnv<boolean>('IS_FIREFOX') ?? false;
 
 manifest.version = version;
 
 export default defineConfig({
   define: {
     ENABLES_SENTRY,
+    IS_FIREFOX,
   },
   plugins: [
     react(),

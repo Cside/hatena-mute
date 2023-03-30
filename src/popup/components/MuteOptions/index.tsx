@@ -9,7 +9,7 @@ export const MuteOptions = () => {
     <div className="py-3">
       <h2>ミュートの設定</h2>
       <Tabs defaultActiveKey={EVENT_KEY.MUTED_SITES}>
-        <Tab eventKey={EVENT_KEY.MUTED_SITES} title="サイト">
+        <Tab eventKey={EVENT_KEY.MUTED_SITES} title="URL">
           <MutedListForm
             placeholder="example.com"
             storageKey={STORAGE_KEY.MUTED_SITES}
