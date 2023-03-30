@@ -10,7 +10,7 @@ export const LighteningOptions = () => {
     setLightensEntryWhoseCommentsHaveBeenVisited,
   ] = useState(false);
   return (
-    <div className="py-3">
+    <div className="pt-3">
       <h2>その他の設定</h2>
       <CheckForm
         id="hm-lightens-visited-entry"
