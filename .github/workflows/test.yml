@@ -2,23 +2,32 @@ name: Test
 
 on:
   - push
+  - pull_request_target
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: macos-latest
+    if: |
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+      (github.event_name == 'push'                && github.actor != 'dependabot[bot]')
     steps:
-      - uses: actions/checkout@v3
+      - if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v3
+
+      - if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
         id: node_modules_cache_id
         env:
           cache-name: cache-node-modules
@@ -28,6 +37,9 @@ jobs:
 
       - if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: yarn install --immutable --immutable-cache --check-cache # same as `npm ci`
+
+      - if: ${{ github.event_name == 'pull_request_target' }}
+        run: yarn run build
 
       - run: yarn run check
 
