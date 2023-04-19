@@ -25,7 +25,7 @@
     "check": "run-p -c test lint check:*"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "https://gitpkg.now.sh/Cside/chrome-extension-tools/packages/vite-plugin?62e01267f0e3c2681fee3e8e3bedac4e629461bd",
+    "@crxjs/vite-plugin": "^1.0.14",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
