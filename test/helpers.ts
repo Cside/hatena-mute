@@ -2,8 +2,8 @@ import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 export const userEventSetup = (
-  options: Parameters<(typeof userEvent)['setup']>[0] = {},
-): ReturnType<(typeof userEvent)['setup']> => {
+  options: Parameters<typeof userEvent['setup']>[0] = {},
+): ReturnType<typeof userEvent['setup']> => {
   // https://testing-library.com/docs/user-event/options
   return userEvent.setup(options);
 };
