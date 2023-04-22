@@ -21,7 +21,7 @@ pnpm run build
 
 ## How to Contribute
 
-⚠️機能の要望がある場合は pull request を送る前にまずは /issues で私に相談してください。
+⚠️機能の要望がある場合は pull request を送る前にまずは `/issues` で私に相談してください。
 
 Create a branch from `develop` and make a pull request to `develop` .
 
