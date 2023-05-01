@@ -27,7 +27,7 @@
   "devDependencies": {
     "@crxjs/vite-plugin": "https://gitpkg.now.sh/Cside/chrome-extension-tools/packages/vite-plugin?62e01267f0e3c2681fee3e8e3bedac4e629461bd",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/chrome": "^0.0.212",
     "@types/jest": "^29.4.0",
