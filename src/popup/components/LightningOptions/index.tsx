@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { ACTION, STORAGE_KEY } from '../../../constants';
 import { CheckForm } from '../CheckForm';
 
+import './styles.scss';
+
 export const LighteningOptions = () => {
   const [lightensVisitedEntryIsChecked, setLightensVisitedEntryIsChecked] =
     useState(false);
@@ -23,7 +25,7 @@ export const LighteningOptions = () => {
       {lightensVisitedEntryIsChecked && (
         <CheckForm
           id="hm-ligntens-entry-whose-comments-have-been-visited"
-          label="ブックマークコメントページを訪問済みの記事を目立たなくする"
+          label="ブックマークコメントのページを訪問済みの記事を目立たなくする"
           storageKey={
             STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED
           }
