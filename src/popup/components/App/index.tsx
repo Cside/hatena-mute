@@ -8,7 +8,7 @@ import './styles.scss';
 
 export const App = () => {
   return (
-    <Container fluid="sm" className="m-1">
+    <Container fluid="sm">
       <PermissionRequest />
       <MuteOptions />
       <LighteningOptions />
