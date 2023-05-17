@@ -15,7 +15,7 @@ export const Footer = () => {
             }}
             className="link-secondary"
           >
-            要望・バグ報告
+            質問・要望・バグ報告
           </a>
           {openFeedback && (
             <>
