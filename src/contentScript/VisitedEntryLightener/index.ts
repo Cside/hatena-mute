@@ -1,4 +1,5 @@
 import { ACTION, STORAGE_KEY } from '../../constants';
+import type { Entry } from '../../types';
 import { userOption } from '../../userOption';
 import styles from './styles.module.scss';
 

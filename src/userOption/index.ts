@@ -1,4 +1,5 @@
 import { STORAGE_KEY } from '../constants';
+import type { StorageKey } from '../types';
 import { indexedDb } from './indexedDb';
 import { text } from './text';
 

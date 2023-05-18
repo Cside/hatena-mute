@@ -1,6 +1,7 @@
+import type { Action } from '../types';
 import { getOrigin } from '../utils';
 
-export const executeActionOnContenScripts = async (action: Action) => {
+export const executeActionOnContentScripts = async (action: Action) => {
   await Promise.all(
     (
       await chrome.tabs.query({ url: getOrigin() })
