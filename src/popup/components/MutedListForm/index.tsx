@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import type { Action, StorageKey } from '../../../types';
 import { userOption } from '../../../userOption';
-import { executeActionOnContenScripts } from '../../utils';
+import { executeActionOnContentScripts } from '../../utils';
 
 export const MutedListForm = ({
   storageKey,
@@ -46,7 +47,7 @@ export const MutedListForm = ({
         onClick={async () => {
           await userOption.text.setPlain(storageKey, text);
           setTextInStorage(text);
-          await executeActionOnContenScripts(actionOnChange);
+          await executeActionOnContentScripts(actionOnChange);
         }}
         variant="primary"
         disabled={text === textInStorage}

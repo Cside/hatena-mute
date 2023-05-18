@@ -1,5 +1,6 @@
 /** @jsxImportSource jsx-dom */
 import { ACTION, STORAGE_KEY } from '../../constants';
+import type { Entry, StorageKey } from '../../types';
 import { userOption } from '../../userOption';
 import { MuteButton } from '../components/MuteButton';
 import { MutePulldown } from '../components/MutePulldown';

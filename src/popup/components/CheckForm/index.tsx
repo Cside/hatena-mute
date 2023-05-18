@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
+import type { Action, SetState, StorageKey } from '../../../types';
 import { userOption } from '../../../userOption';
-import { executeActionOnContenScripts } from '../../utils';
+import { executeActionOnContentScripts } from '../../utils';
 
 export const CheckForm = ({
   id,
@@ -35,7 +36,7 @@ export const CheckForm = ({
         const value = event.target.checked;
         await userOption.set(storageKey, value);
         setChecked(value);
-        await executeActionOnContenScripts(actionOnChange);
+        await executeActionOnContentScripts(actionOnChange);
       }}
     />
   );
