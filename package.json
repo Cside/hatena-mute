@@ -6,7 +6,7 @@
     "dev:_scss-types": "typed-scss-modules --watch 'src/**/*.module.scss'",
     "build:chrome": "pnpm run clean:chrome && vite build --outDir dist-chrome",
     "build:firefox": "./scripts/build-firefox.sh",
-    "visualize": "pnpm run clean:chrome && ENABLES_VISUALIZER=true vite build:chrome && open stats.html",
+    "visualize": "ENABLES_VISUALIZER=true pnpm run build:chrome && open stats.html",
     "clean:chrome": "rimraf dist-chrome dist-chrome-*.zip",
     "clean:firefox": "rimraf dist-firefox dist-firefox-*.zip source-code-*.zip",
     "test": "jest",
