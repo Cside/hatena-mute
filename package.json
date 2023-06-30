@@ -21,7 +21,7 @@
     "lint": "run-p -c lint:*",
     "lint-fix": "run-p -c lint-fix:*",
     "check:types": "tsc --noEmit",
-    "check:ngword": "if git grep -rE \"console\\.(log|dir)|FIXME\" -- ':!package.json'; then exit 1; else echo \"All good\"; fi",
+    "check:ngword": "./scripts/check-ng-words.sh",
     "check": "run-p -c test lint check:*"
   },
   "devDependencies": {
