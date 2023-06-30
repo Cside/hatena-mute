@@ -39,6 +39,7 @@
     "@vitejs/plugin-react": "^3.1.0",
     "better-typescript-lib": "^2.2.1",
     "browserslist": "^4.21.5",
+    "caniuse-lite": "^1.0.30001509",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-jest": "^27.2.1",
