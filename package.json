@@ -53,7 +53,7 @@
     "jsdom": "^21.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.1",
-    "rimraf": "^4.1.2",
+    "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.58.1",
     "stylelint": "^15.6.2",
