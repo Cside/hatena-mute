@@ -7,7 +7,9 @@ const PERMISSION = {
 };
 
 export const PermissionRequest = () => {
-  const [hasPermitted, setHasPermitted] = useState(false);
+  const [hasPermitted, setHasPermitted] = useState<boolean | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     (async () => {
@@ -15,7 +17,7 @@ export const PermissionRequest = () => {
     })();
   }, []);
 
-  return hasPermitted ? null : (
+  return hasPermitted === false ? (
     <Alert variant="danger" className="mt-2">
       <Alert.Heading>初期設定が未完了です</Alert.Heading>
       <Alert.Link
@@ -31,5 +33,5 @@ export const PermissionRequest = () => {
         にアクセスする権限を許可してください。
       </Alert.Link>
     </Alert>
-  );
+  ) : null;
 };

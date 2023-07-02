@@ -1,5 +1,7 @@
 /public/css/**/*
 /dist/
-/dist_firefox/
+/dist-firefox/
+/dist-chrome/
 /pnpm-lock.yaml
 /README.md
+/stats.html
