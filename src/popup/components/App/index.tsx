@@ -1,5 +1,4 @@
 import Container from 'react-bootstrap/Container';
-import { Footer } from '../Footer';
 import { LighteningOptions } from '../LightningOptions';
 import { MuteOptions } from '../MuteOptions';
 import { PermissionRequest } from '../PermissionRequest';
@@ -12,7 +11,6 @@ export const App = () => {
       <PermissionRequest />
       <MuteOptions />
       <LighteningOptions />
-      <Footer />
     </Container>
   );
 };
