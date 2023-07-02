@@ -96,11 +96,9 @@ export class VisitedEntryLightener {
       }),
     );
 
-    if (this.options.lightensVisitedEntry) {
-      this.rootElement.classList.add(styles.lightensVisitedEntry);
-    } else {
-      this.rootElement.classList.remove(styles.lightensVisitedEntry);
-    }
+    this.rootElement.classList[
+      this.options.lightensVisitedEntry ? 'add' : 'remove'
+    ](styles.lightensVisitedEntry);
 
     for (const entry of this.entries) {
       const hasVisitedEntry = visitedMap.get(entry.titleLink.href);
@@ -115,15 +113,13 @@ export class VisitedEntryLightener {
           `key (${entry.titleLink.href}) doesn't exist in visitedMap`,
         );
 
-      if (
+      entry.element.classList[
         hasVisitedEntry ||
         (this.options.lightenEntryWhoseCommentsHaveBeenVisited &&
           hasVisitedComments)
-      ) {
-        entry.element.classList.add(styles.visited);
-      } else {
-        entry.element.classList.remove(styles.visited);
-      }
+          ? 'add'
+          : 'remove'
+      ](styles.visited);
     }
   }
 }
