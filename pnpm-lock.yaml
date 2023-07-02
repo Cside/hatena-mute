@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^14.4.3
     version: 14.4.3(@testing-library/dom@9.3.0)
   '@types/chrome':
-    specifier: ^0.0.236
-    version: 0.0.236
+    specifier: ^0.0.239
+    version: 0.0.239
   '@types/jest':
     specifier: ^29.4.0
     version: 29.4.0
@@ -692,7 +692,7 @@ packages:
       rollup: 2.79.1
       vite: 4.0.4(@types/node@20.3.3)(sass@1.58.1)
     optionalDependencies:
-      '@vitejs/plugin-react': 3.1.0(vite@4.0.4)
+      '@vitejs/plugin-react': 4.0.1(vite@4.0.4)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1686,8 +1686,8 @@ packages:
       '@types/har-format': 1.2.10
     dev: true
 
-  /@types/chrome@0.0.236:
-    resolution: {integrity: sha512-ArQoxO9WtDY6GWcT2cpo+D+hyASPeFt7PHQEUDXwQhRS00Rbop07rnEOA046yws0HkM83Tcew/hW6Dgvnj4iMQ==}
+  /@types/chrome@0.0.239:
+    resolution: {integrity: sha512-s/v0pAdpjqfYdwYPDIRiIQDyXfaLi5u+OyHW2NexhqoTm/KZVqKqS1isK11DVu/iUrAUULtbfKtzLKt3+kHgXQ==}
     dependencies:
       '@types/filesystem': 0.0.32
       '@types/har-format': 1.2.10
@@ -2024,24 +2024,6 @@ packages:
       '@typescript-eslint/types': 5.59.6
       eslint-visitor-keys: 3.4.1
     dev: true
-
-  /@vitejs/plugin-react@3.1.0(vite@4.0.4):
-    resolution: {integrity: sha512-AfgcRL8ZBhAlc3BFdigClmTUMISmmzHn7sB2h9U1odvc5U/MjWXsAaz18b/WoppUTDBzxOJwo2VdClfUcItu9g==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    requiresBuild: true
-    peerDependencies:
-      vite: ^4.1.0-beta.0
-    dependencies:
-      '@babel/core': 7.22.5
-      '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.5)
-      '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.5)
-      magic-string: 0.27.0
-      react-refresh: 0.14.0
-      vite: 4.0.4(@types/node@20.3.3)(sass@1.58.1)
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-    optional: true
 
   /@vitejs/plugin-react@4.0.1(vite@4.0.4):
     resolution: {integrity: sha512-g25lL98essfeSj43HJ0o4DMp0325XK0ITkxpgChzJU/CyemgyChtlxfnRbjfwxDGCTRxTiXtQAsdebQXKMRSOA==}
@@ -5229,14 +5211,6 @@ packages:
     dependencies:
       sourcemap-codec: 1.4.8
     dev: true
-
-  /magic-string@0.27.0:
-    resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
-    dev: true
-    optional: true
 
   /make-dir@3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
