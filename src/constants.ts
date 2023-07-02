@@ -9,6 +9,7 @@ export const ACTION = {
 } as const;
 
 export const STORAGE_KEY = {
+  ALL_ENABLED: 'all-enabled',
   MUTED_SITES: 'muted-sites',
   MUTED_WORDS: 'muted-words',
   LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED:
