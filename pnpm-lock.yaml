@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^14.4.3
     version: 14.4.3(@testing-library/dom@9.3.1)
   '@types/chrome':
-    specifier: ^0.0.236
-    version: 0.0.236
+    specifier: ^0.0.239
+    version: 0.0.239
   '@types/jest':
     specifier: ^29.4.0
     version: 29.4.0
@@ -1691,8 +1691,8 @@ packages:
       '@types/har-format': 1.2.11
     dev: true
 
-  /@types/chrome@0.0.236:
-    resolution: {integrity: sha512-ArQoxO9WtDY6GWcT2cpo+D+hyASPeFt7PHQEUDXwQhRS00Rbop07rnEOA046yws0HkM83Tcew/hW6Dgvnj4iMQ==}
+  /@types/chrome@0.0.239:
+    resolution: {integrity: sha512-s/v0pAdpjqfYdwYPDIRiIQDyXfaLi5u+OyHW2NexhqoTm/KZVqKqS1isK11DVu/iUrAUULtbfKtzLKt3+kHgXQ==}
     dependencies:
       '@types/filesystem': 0.0.32
       '@types/har-format': 1.2.11
