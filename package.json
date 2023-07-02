@@ -37,7 +37,7 @@
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.0.1",
     "better-typescript-lib": "^2.2.1",
     "browserslist": "^4.21.5",
     "caniuse-lite": "^1.0.30001509",
