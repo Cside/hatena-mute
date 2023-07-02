@@ -1,9 +1,10 @@
 import * as sentry from '@sentry/browser';
 import { ACTION } from '../constants';
 import { initSentry } from '../sentry';
-import { getEntries } from './entry';
+import { AllEnabler } from './AllEnabler';
 import { EntryMuter } from './EntryMuter';
 import { VisitedEntryLightener } from './VisitedEntryLightener';
+import { getEntries } from './entry';
 
 if (!IS_FIREFOX) initSentry(sentry);
 
@@ -11,6 +12,11 @@ const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 
 if (rootElement) {
   const entries = getEntries();
+
+  const allEnabler = new AllEnabler({
+    rootElement,
+  });
+  await allEnabler.initialize();
 
   const entryMuter = new EntryMuter({ entries });
   await entryMuter.initialize();
@@ -25,6 +31,10 @@ if (rootElement) {
     console.info(`action: ${type}`);
 
     switch (type) {
+      case ACTION.UPDATE_ALL_ENABLED:
+        await allEnabler.update();
+        break;
+
       case ACTION.UPDATE_MUTED_SITES:
         await entryMuter.muteBySites();
         break;
@@ -32,6 +42,7 @@ if (rootElement) {
       case ACTION.UPDATE_MUTED_WORDS:
         await entryMuter.muteByWords();
         break;
+
       case ACTION.UPDATE_LIGHTENING_OPTIONS:
         await visitedEntryLightener.lighten();
         break;

@@ -13,7 +13,7 @@ export const CheckForm = ({
   actionOnChange,
 }: {
   id: string;
-  label: string;
+  label?: string;
   storageKey: StorageKey;
   checked: boolean;
   setChecked: SetState<boolean>;
@@ -31,7 +31,7 @@ export const CheckForm = ({
       checked={checked}
       id={id}
       type="switch"
-      label={label}
+      {...(label && { label })}
       onChange={async (event) => {
         const value = event.target.checked;
         await userOption.set(storageKey, value);
