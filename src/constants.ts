@@ -1,5 +1,5 @@
 export const ACTION = {
-  UPDATE_ALL_ENABLED: 'update-all-enabled',
+  UPDATE_IS_EXTENSION_ENABLED: 'update-is-extension-enabled',
   UPDATE_MUTED_SITES: 'update-muted-sites',
   UPDATE_MUTED_WORDS: 'update-muted-words',
   GET_VISITED_MAP: 'get-visited-map',
@@ -10,7 +10,7 @@ export const ACTION = {
 } as const;
 
 export const STORAGE_KEY = {
-  ALL_ENABLED: 'all-enabled',
+  IS_EXTENSION_ENABLED: 'is-extension-enabled',
   MUTED_SITES: 'muted-sites',
   MUTED_WORDS: 'muted-words',
   LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED:

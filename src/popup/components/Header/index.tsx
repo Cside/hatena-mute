@@ -18,10 +18,10 @@ export const Header = memo(
       </span>
       <CheckForm
         id="enable-all"
-        storageKey={STORAGE_KEY.ALL_ENABLED}
+        storageKey={STORAGE_KEY.IS_EXTENSION_ENABLED}
         checked={checked}
         setChecked={setChecked}
-        actionOnChange={ACTION.UPDATE_ALL_ENABLED}
+        actionOnChange={ACTION.UPDATE_IS_EXTENSION_ENABLED}
       />
     </h1>
   ),

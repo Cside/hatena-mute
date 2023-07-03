@@ -1,8 +1,8 @@
 import * as sentry from '@sentry/browser';
 import { ACTION } from '../constants';
 import { initSentry } from '../sentry';
-import { AllEnabler } from './AllEnabler';
 import { EntryMuter } from './EntryMuter';
+import { ExtensionEnabler } from './ExtensionEnabler';
 import { VisitedEntryLightener } from './VisitedEntryLightener';
 import { getEntries } from './entry';
 
@@ -13,10 +13,10 @@ const rootElement = document.querySelector<HTMLElement>('.entrylist-wrapper');
 if (rootElement) {
   const entries = getEntries();
 
-  const allEnabler = new AllEnabler({
+  const extensionEnabler = new ExtensionEnabler({
     rootElement,
   });
-  await allEnabler.initialize();
+  await extensionEnabler.initialize();
 
   const entryMuter = new EntryMuter({ entries });
   await entryMuter.initialize();
@@ -31,8 +31,8 @@ if (rootElement) {
     console.info(`action: ${type}`);
 
     switch (type) {
-      case ACTION.UPDATE_ALL_ENABLED:
-        await allEnabler.update();
+      case ACTION.UPDATE_IS_EXTENSION_ENABLED:
+        await extensionEnabler.update();
         break;
 
       case ACTION.UPDATE_MUTED_SITES:

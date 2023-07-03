@@ -1,7 +1,7 @@
 import { STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
 
-export class AllEnabler {
+export class ExtensionEnabler {
   rootElement: HTMLElement;
   static className = 'is-hatena-mute-enabled';
 
@@ -10,13 +10,15 @@ export class AllEnabler {
   }
 
   async initialize() {
-    if (await userOption.get(STORAGE_KEY.ALL_ENABLED))
-      this.rootElement.classList.add(AllEnabler.className);
+    if (await userOption.get(STORAGE_KEY.IS_EXTENSION_ENABLED))
+      this.rootElement.classList.add(ExtensionEnabler.className);
   }
 
   async update() {
     this.rootElement.classList[
-      (await userOption.get(STORAGE_KEY.ALL_ENABLED)) ? 'add' : 'remove'
-    ](AllEnabler.className);
+      (await userOption.get(STORAGE_KEY.IS_EXTENSION_ENABLED))
+        ? 'add'
+        : 'remove'
+    ](ExtensionEnabler.className);
   }
 }

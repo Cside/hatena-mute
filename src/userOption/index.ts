@@ -4,7 +4,7 @@ import { indexedDb } from './indexedDb';
 import { text } from './text';
 
 export const DEFAULTS = {
-  [STORAGE_KEY.ALL_ENABLED]: true,
+  [STORAGE_KEY.IS_EXTENSION_ENABLED]: true,
   [STORAGE_KEY.LIGHTENS_VISITED_ENTRY]: false,
   [STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED]: false,
 } as const;

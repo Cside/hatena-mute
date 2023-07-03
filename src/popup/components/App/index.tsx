@@ -10,13 +10,13 @@ import './bootstrap.scss';
 import './styles.scss';
 
 export const App = () => {
-  const [allEnabled, setAllEnabled] = useState(false);
+  const [isExtensionEnabled, setIsExtensionEnabled] = useState(false);
 
   return (
     <Container fluid="sm">
-      <Header checked={allEnabled} setChecked={setAllEnabled} />
+      <Header checked={isExtensionEnabled} setChecked={setIsExtensionEnabled} />
       <PermissionRequest />
-      <div className={allEnabled ? '' : 'opacity-50'}>
+      <div className={isExtensionEnabled ? '' : 'opacity-50'}>
         <MuteOptions />
         <LighteningOptions />
         <Footer />
