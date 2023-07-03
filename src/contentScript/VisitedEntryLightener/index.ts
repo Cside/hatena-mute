@@ -103,22 +103,22 @@ export class VisitedEntryLightener {
     ](styles.lightensVisitedEntry);
 
     for (const entry of this.entries) {
-      const hasVisitedEntry = visitedMap.get(entry.titleLink.href);
-      const hasVisitedComments = visitedMap.get(entry.commentsUrl);
+      const isEntryVisited = visitedMap.get(entry.titleLink.href);
+      const isCommentVisited = visitedMap.get(entry.commentsUrl);
 
-      if (hasVisitedEntry === undefined)
+      if (isEntryVisited === undefined)
         throw new Error(
           `key (${entry.titleLink.href}) doesn't exist in visitedMap`,
         );
-      if (hasVisitedComments === undefined)
+      if (isCommentVisited === undefined)
         throw new Error(
           `key (${entry.titleLink.href}) doesn't exist in visitedMap`,
         );
 
       entry.element.classList[
-        hasVisitedEntry ||
+        isEntryVisited ||
         (this.options.lightenEntryWhoseCommentsHaveBeenVisited &&
-          hasVisitedComments)
+          isCommentVisited)
           ? 'add'
           : 'remove'
       ](styles.visited);
