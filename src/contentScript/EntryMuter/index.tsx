@@ -1,12 +1,14 @@
 /** @jsxImportSource jsx-dom */
-import { ACTION, STORAGE_KEY } from '../../constants';
 import type { Entry, StorageKey } from '../../types';
+
+import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
 import { MuteButton } from '../components/MuteButton';
 import { MutePulldown } from '../components/MutePulldown';
+import { matchesLoosely, replaceCssUrls } from './utils';
+
 import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
-import { matchesLoosely, replaceCssUrls } from './utils';
 
 export class EntryMuter {
   entries: Entry[] = [];

@@ -1,4 +1,5 @@
 import type { Action } from '../types';
+
 import { getOrigin } from '../utils';
 
 export const executeActionOnContentScripts = async (action: Action) => {

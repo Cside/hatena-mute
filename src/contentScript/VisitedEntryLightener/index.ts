@@ -1,6 +1,8 @@
-import { ACTION, STORAGE_KEY } from '../../constants';
 import type { Entry } from '../../types';
+
+import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
+
 import styles from './styles.module.scss';
 
 type ExtendedEntry = Entry & {

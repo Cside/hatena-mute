@@ -1,4 +1,5 @@
 import type { Entry } from '../types';
+
 import { $, $$ } from '../utils';
 
 // 3 種類のデザインの DOM アクセスを抽象化する処理だけ書く
