@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
+import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { LighteningOptions } from '../LightningOptions';
 import { MuteOptions } from '../MuteOptions';
@@ -18,6 +19,7 @@ export const App = () => {
       <div className={allEnabled ? '' : 'opacity-50'}>
         <MuteOptions />
         <LighteningOptions />
+        <Footer />
       </div>
     </Container>
   );
