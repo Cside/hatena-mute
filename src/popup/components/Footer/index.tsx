@@ -6,8 +6,8 @@ export const Footer = () => {
   return (
     <>
       <hr className="mt-4" />
-      <div className="">
-        <ul className="ps-1 list-inline d-flex gap-1">
+      <div className="mb-3">
+        <ul className="ps-1 list-inline d-flex gap-1 m-0">
           <li className="list-inline-item">
             <a
               href="#"
