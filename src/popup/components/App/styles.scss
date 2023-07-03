@@ -5,11 +5,11 @@ body {
   font-size: 100%;
 }
 
-.form-switch:has(> #disable-all) {
+.form-switch:has(> #enable-all) {
   padding-left: 0;
 }
 
-#disable-all {
+#enable-all {
   width: 50px;
   height: 25px;
   margin-left: 0;

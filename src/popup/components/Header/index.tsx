@@ -17,7 +17,7 @@ export const Header = memo(
         <span className="fs-4 fw-bold">はてなミュート</span>
       </span>
       <CheckForm
-        id="disable-all"
+        id="enable-all"
         storageKey={STORAGE_KEY.ALL_ENABLED}
         checked={checked}
         setChecked={setChecked}
