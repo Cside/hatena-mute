@@ -22,7 +22,7 @@ chrome.alarms.onAlarm.addListener(async () => {
 
 export const run = async () => {
   await chrome.alarms.clear(ALARM_NAME);
-  chrome.alarms.create(ALARM_NAME, {
+  await chrome.alarms.create(ALARM_NAME, {
     delayInMinutes: 0,
     periodInMinutes: INTERVAL,
   });

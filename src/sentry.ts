@@ -1,8 +1,11 @@
+import type { BrowserOptions } from '@sentry/browser';
 import { CaptureConsole } from '@sentry/integrations';
 import { BrowserTracing } from '@sentry/tracing';
 
 export const initSentry = (
-  sentry: Sentry,
+  sentry: {
+    init(args: BrowserOptions): void;
+  },
   { worker }: { worker: boolean } = { worker: false },
 ) => {
   if (!ENABLES_SENTRY) return;

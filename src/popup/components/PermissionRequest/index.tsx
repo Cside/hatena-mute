@@ -7,15 +7,17 @@ const PERMISSION = {
 };
 
 export const PermissionRequest = () => {
-  const [hasPermitted, setHasPermitted] = useState(false);
+  const [isPermitted, setIsPermitted] = useState<boolean | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     (async () => {
-      setHasPermitted(await chrome.permissions.contains(PERMISSION));
+      setIsPermitted(await chrome.permissions.contains(PERMISSION));
     })();
   }, []);
 
-  return hasPermitted ? null : (
+  return isPermitted === false ? (
     <Alert variant="danger" className="mt-2">
       <Alert.Heading>初期設定が未完了です</Alert.Heading>
       <Alert.Link
@@ -23,7 +25,7 @@ export const PermissionRequest = () => {
         onClick={async (
           event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
         ) => {
-          setHasPermitted(await chrome.permissions.request(PERMISSION));
+          setIsPermitted(await chrome.permissions.request(PERMISSION));
           event.preventDefault();
         }}
       >
@@ -31,5 +33,5 @@ export const PermissionRequest = () => {
         にアクセスする権限を許可してください。
       </Alert.Link>
     </Alert>
-  );
+  ) : null;
 };

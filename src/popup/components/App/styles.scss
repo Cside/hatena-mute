@@ -1,7 +1,16 @@
 // reset injected styles
-
 body {
   width: 300px;
   font-family: sans-serif;
   font-size: 100%;
+}
+
+.form-switch:has(> #enable-all) {
+  padding-left: 0;
+}
+
+#enable-all {
+  width: 50px;
+  height: 25px;
+  margin-left: 0;
 }

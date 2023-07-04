@@ -1,9 +1,10 @@
 /node_modules/
-/dist.zip
-/dist_firefox.zip
 /.extension-id
 /dist/
-/dist_firefox/
+/dist-chrome/
+/dist-firefox/
 .git-pr-release
 /stats.html
-/source-code.zip
+/dist-chrome-*.zip
+/dist-firefox-*.zip
+/source-code-*.zip
