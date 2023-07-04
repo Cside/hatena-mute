@@ -1,12 +1,14 @@
 /** @jsxImportSource jsx-dom */
-import { ACTION, STORAGE_KEY } from '../../constants';
 import type { Entry, StorageKey } from '../../types';
+
+import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
 import { MuteButton } from '../components/MuteButton';
 import { MutePulldown } from '../components/MutePulldown';
+import { matchesLoosely, replaceCssUrls } from './utils';
+
 import iconCss from './icon.scss?inline';
 import styles from './styles.module.scss';
-import { matchesLoosely, replaceCssUrls } from './utils';
 
 export class EntryMuter {
   entries: Entry[] = [];
@@ -61,11 +63,9 @@ export class EntryMuter {
     const list = await userOption.text.getLines(storageKey);
 
     for (const entry of this.entries) {
-      if (list.some((muted) => match(entry, muted))) {
-        entry.element.classList.add(matchedClassName);
-        continue;
-      }
-      entry.element.classList.remove(matchedClassName);
+      entry.element.classList[
+        list.some((muted) => match(entry, muted)) ? 'add' : 'remove'
+      ](matchedClassName);
     }
   }
 
@@ -97,10 +97,10 @@ export class EntryMuter {
         },
       }),
     );
-    for (const entry of this.entries) {
-      if (map.get(entry.titleLink.href))
-        entry.element.classList.add(styles.mutedEntryMatched);
-    }
+    for (const entry of this.entries)
+      entry.element.classList[map.get(entry.titleLink.href) ? 'add' : 'remove'](
+        styles.mutedEntryMatched,
+      );
   }
 
   async muteSite(domain: string) {

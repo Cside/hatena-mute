@@ -32,6 +32,7 @@
     ],
     "react/react-in-jsx-scope": "off",
     "react-hooks/exhaustive-deps": "off",
+    "react/display-name": "off",
     "jest/valid-title": "off",
     "jest/no-conditional-expect": "off"
   }

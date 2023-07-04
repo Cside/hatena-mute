@@ -1,43 +1,46 @@
-import { useEffect } from 'react';
-import { Form } from 'react-bootstrap';
 import type { Action, SetState, StorageKey } from '../../../types';
+
+import { memo, useEffect } from 'react';
+import { Form } from 'react-bootstrap';
 import { userOption } from '../../../userOption';
 import { executeActionOnContentScripts } from '../../utils';
 
-export const CheckForm = ({
-  id,
-  label,
-  storageKey,
-  checked,
-  setChecked,
-  actionOnChange,
-}: {
-  id: string;
-  label: string;
-  storageKey: StorageKey;
-  checked: boolean;
-  setChecked: SetState<boolean>;
-  actionOnChange: Action;
-}) => {
-  useEffect(() => {
-    (async () => {
-      const checked = await userOption.get<boolean>(storageKey);
-      if (checked !== undefined) setChecked(checked);
-    })();
-  }, []);
+export const CheckForm = memo(
+  ({
+    id,
+    label,
+    storageKey,
+    checked,
+    setChecked,
+    actionOnChange,
+  }: {
+    id: string;
+    label?: string;
+    storageKey: StorageKey;
+    checked: boolean;
+    setChecked: SetState<boolean>;
+    actionOnChange: Action;
+  }) => {
+    useEffect(() => {
+      (async () => {
+        const checked = await userOption.get<boolean>(storageKey);
+        if (checked !== undefined) setChecked(checked);
+      })();
+    }, []);
 
-  return (
-    <Form.Check
-      checked={checked}
-      id={id}
-      type="switch"
-      label={label}
-      onChange={async (event) => {
-        const value = event.target.checked;
-        await userOption.set(storageKey, value);
-        setChecked(value);
-        await executeActionOnContentScripts(actionOnChange);
-      }}
-    />
-  );
-};
+    return (
+      <Form.Check
+        checked={checked}
+        id={id}
+        type="switch"
+        {...(label && { label })}
+        onChange={async (event) => {
+          const value = event.target.checked;
+          await userOption.set(storageKey, value);
+          setChecked(value);
+          await executeActionOnContentScripts(actionOnChange);
+        }}
+      />
+    );
+  },
+);

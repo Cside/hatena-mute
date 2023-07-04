@@ -1,4 +1,4 @@
-.lightens-visited-entry {
+:global(.is-hatena-mute-enabled).lightens-visited-entry {
   .visited {
     [data-entry-id] {
       // opacity かけるとタイトルだけ薄くなりすぎるので、未訪問と同じ色にする

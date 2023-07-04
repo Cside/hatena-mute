@@ -1,6 +1,8 @@
-import { ACTION, STORAGE_KEY } from '../../constants';
 import type { Entry } from '../../types';
+
+import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
+
 import styles from './styles.module.scss';
 
 type ExtendedEntry = Entry & {
@@ -96,34 +98,30 @@ export class VisitedEntryLightener {
       }),
     );
 
-    if (this.options.lightensVisitedEntry) {
-      this.rootElement.classList.add(styles.lightensVisitedEntry);
-    } else {
-      this.rootElement.classList.remove(styles.lightensVisitedEntry);
-    }
+    this.rootElement.classList[
+      this.options.lightensVisitedEntry ? 'add' : 'remove'
+    ](styles.lightensVisitedEntry);
 
     for (const entry of this.entries) {
-      const hasVisitedEntry = visitedMap.get(entry.titleLink.href);
-      const hasVisitedComments = visitedMap.get(entry.commentsUrl);
+      const isEntryVisited = visitedMap.get(entry.titleLink.href);
+      const isCommentVisited = visitedMap.get(entry.commentsUrl);
 
-      if (hasVisitedEntry === undefined)
+      if (isEntryVisited === undefined)
         throw new Error(
           `key (${entry.titleLink.href}) doesn't exist in visitedMap`,
         );
-      if (hasVisitedComments === undefined)
+      if (isCommentVisited === undefined)
         throw new Error(
           `key (${entry.titleLink.href}) doesn't exist in visitedMap`,
         );
 
-      if (
-        hasVisitedEntry ||
+      entry.element.classList[
+        isEntryVisited ||
         (this.options.lightenEntryWhoseCommentsHaveBeenVisited &&
-          hasVisitedComments)
-      ) {
-        entry.element.classList.add(styles.visited);
-      } else {
-        entry.element.classList.remove(styles.visited);
-      }
+          isCommentVisited)
+          ? 'add'
+          : 'remove'
+      ](styles.visited);
     }
   }
 }
