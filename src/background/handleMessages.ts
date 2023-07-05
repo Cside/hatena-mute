@@ -20,14 +20,17 @@ type MessageParams =
     };
 
 export const run = () => {
+  console.log('# handleMessage.run() --------------------------------');
+
   chrome.runtime.onMessage.addListener(
     ({ type, payload }: MessageParams, _sender, sendResponse) => {
-      console.info(`action: ${type}`);
+      console.info(`action: ${type} - - - - - - - - - - - - - -`);
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       (async () => {
         switch (type) {
           case ACTION.GET_VISITED_MAP:
+            console.log('# before chrome.history.getVisits()');
             return await Promise.all(
               payload.urls.map(async (url) => {
                 // await chrome.history.deleteUrl({ url }); // for debug
@@ -46,6 +49,7 @@ export const run = () => {
             );
 
           case ACTION.GET_MUTED_ENTRY_MAP:
+            console.log('# before userOption.indexedDb.execute()');
             return await userOption.indexedDb.execute(
               async (db) => await db.getMap(payload.urls),
             );
@@ -53,7 +57,10 @@ export const run = () => {
           default:
             throw new Error(`Unknown action type: ${type}`);
         }
-      })().then((result) => sendResponse(result));
+      })().then((result) => {
+        console.log(`# after then of ${type}`, result);
+        sendResponse(result);
+      });
 
       return true;
     },
