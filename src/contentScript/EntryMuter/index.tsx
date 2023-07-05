@@ -48,6 +48,7 @@ export class EntryMuter {
   async mute() {
     await this.muteBySites();
     await this.muteByWords();
+    // sendMessage が返ってこなくてエラーになるケースがあるので、一番最後でなければならない
     await this.muteByEntries();
   }
 
