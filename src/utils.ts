@@ -1,5 +1,3 @@
-import manifest from '../manifest.json';
-
 type QuerySelectorParameters =
   | [element: HTMLElement, selector: string]
   | [selector: string];
@@ -34,11 +32,4 @@ export const $$ = <T extends HTMLElement>(
       ? (elementOrSelector as HTMLElement).querySelectorAll<T>(selector)
       : document.querySelectorAll<T>(elementOrSelector as string)),
   ];
-};
-
-export const getOrigin = () => {
-  const origin = manifest.content_scripts[0]?.matches;
-  if (!origin || !origin[0])
-    throw new Error(`manifestJson.content_scripts[0].matches[0] is not found`);
-  return origin[0];
 };

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
-import { getOrigin } from '../../../utils';
+import { URL_PATTERN } from '../../constants';
 
 const PERMISSION = {
-  origins: [getOrigin()],
+  origins: [URL_PATTERN],
 };
 
 export const PermissionRequest = () => {
