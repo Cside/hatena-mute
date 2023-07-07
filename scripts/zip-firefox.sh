@@ -3,6 +3,7 @@ set -eux
 
 pnpm install
 pnpm run build:firefox
+npx rimraf dist-firefox-*.zip source-code-*.zip
 
 version=$(jq -r .version <package.json | sed 's/\./-/g')
 
