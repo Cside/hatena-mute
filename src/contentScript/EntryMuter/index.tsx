@@ -3,8 +3,7 @@ import type { Entry, StorageKey } from '../../types';
 
 import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
-import { MuteButton } from '../components/MuteButton';
-import { MutePulldown } from '../components/MutePulldown';
+import { MuteButtonContainer } from '../components/MuteButtonContainer';
 import { matchesLoosely, replaceCssUrls } from './utils';
 
 import iconCss from './icon.scss?inline';
@@ -32,11 +31,9 @@ export class EntryMuter {
 
   private appendMuteButtons() {
     for (const entry of this.entries) {
-      entry.element.appendChild(<MuteButton />);
-
       const domain = (entry.domain.textContent ?? '').trim();
       entry.element.appendChild(
-        <MutePulldown
+        <MuteButtonContainer
           domain={domain}
           muteSite={(domain: string) => this.muteSite(domain)}
           muteEntry={() => this.muteEntry(entry.titleLink.href)}
@@ -48,6 +45,7 @@ export class EntryMuter {
   async mute() {
     await this.muteBySites();
     await this.muteByWords();
+    // sendMessage が返ってこなくてエラーになるケースがあるので、一番最後でなければならない
     await this.muteByEntries();
   }
 

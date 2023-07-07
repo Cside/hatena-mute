@@ -52,6 +52,17 @@ if (rootElement) {
     }
   });
 
-  await visitedEntryLightener.lighten();
-  await entryMuter.mute();
+  // sendMessage が返ってこなくてエラーになるケースがあるので、敢えて floating promise にする
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  visitedEntryLightener.lighten().catch((e) => {
+    console.error(e);
+    console.trace(e);
+    alert(e);
+  });
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  entryMuter.mute().catch((e) => {
+    console.error(e);
+    console.trace(e);
+    alert(e);
+  });
 }

@@ -48,10 +48,13 @@ export class VisitedEntryLightener {
   addClickListeners() {
     for (const entry of this.entries) {
       const setVisited = () => entry.element.classList.add(styles.visited);
+
       entry.titleLink.addEventListener('click', async (event) => {
         if (!(event.target instanceof HTMLAnchorElement))
           throw new TypeError(`event.target is not HTMLAnchorElement`);
 
+        // GA のクエリパラメータが付けられた URL は
+        // GA のクエリパラメータを除去して履歴に追加する
         const url = new URL(event.target.href);
         if (url.searchParams.has(GA_PARAM)) {
           url.searchParams.delete(GA_PARAM);
@@ -71,7 +74,7 @@ export class VisitedEntryLightener {
     }
   }
 
-  private async setOptions() {
+  private async loadOptions() {
     this.options = {
       lightensVisitedEntry: await userOption.get(
         STORAGE_KEY.LIGHTENS_VISITED_ENTRY,
@@ -83,9 +86,14 @@ export class VisitedEntryLightener {
   }
 
   async lighten() {
-    await this.setOptions();
+    await this.loadOptions();
 
-    // コンストラクタでやると、再呼び出しされたときに、
+    this.rootElement.classList[
+      this.options.lightensVisitedEntry ? 'add' : 'remove'
+    ](styles.lightensVisitedEntry);
+
+    // NOTE: たまに sendMessage が返ってこないケースがある ( = これ以降の処理が実行されないケースがある)
+    // コンストラクタでやると、popup から再呼び出しされたときに、
     // バックグランドで開いた URL の .visited がリセットされてしまうため、都度呼ぶ
     const visitedMap: Map<string, boolean> = new Map(
       await chrome.runtime.sendMessage({
@@ -97,10 +105,6 @@ export class VisitedEntryLightener {
         },
       }),
     );
-
-    this.rootElement.classList[
-      this.options.lightensVisitedEntry ? 'add' : 'remove'
-    ](styles.lightensVisitedEntry);
 
     for (const entry of this.entries) {
       const isEntryVisited = visitedMap.get(entry.titleLink.href);

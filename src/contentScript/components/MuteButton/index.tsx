@@ -22,6 +22,7 @@ export const MuteButton = () => {
 
         pulldown.classList.toggle(commonStyles.displayNone);
 
+        // pulldown 意外をクリックされたら消すやつ
         if (!pulldown.classList.contains(commonStyles.displayNone)) {
           const listener = (event: MouseEvent) => {
             if (!(event.target instanceof HTMLElement))
