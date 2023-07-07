@@ -1,6 +1,6 @@
 import { userOption } from '../userOption';
-const INTERVAL = 24 * 60; // minutes (24 hours)
-const OLDER_THAN = 30 * 24 * 60; // minutes (30 days)
+const INTERVAL_MINUTES = 24 * 60; // 24 hours
+const OLDER_THAN = 30 * 24 * 60 * 60 * 1000; // 30 days
 const ALARM_NAME = 'delete-muted-entries';
 
 chrome.alarms.onAlarm.addListener(async () => {
@@ -9,21 +9,22 @@ chrome.alarms.onAlarm.addListener(async () => {
     console.info(`deletion started at ${now.toLocaleString('ja-JP')}`);
 
     return await db.deleteAll({
-      olderThan: new Date(Date.now() - OLDER_THAN * 60 * 1000),
+      olderThan: new Date(Date.now() - OLDER_THAN),
     });
   });
 
   console.info(`  deleted ${length} records`);
 
   const nextScheduled = new Date(now.getTime());
-  nextScheduled.setMinutes(now.getMinutes() + INTERVAL);
+  nextScheduled.setMinutes(now.getMinutes() + INTERVAL_MINUTES);
   console.info(`  next scheduled: ${nextScheduled.toLocaleString('ja-JP')}`);
 });
 
-export const run = async () => {
-  await chrome.alarms.clear(ALARM_NAME);
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+  if (reason !== chrome.runtime.OnInstalledReason.INSTALL) return;
+
   await chrome.alarms.create(ALARM_NAME, {
     delayInMinutes: 0,
-    periodInMinutes: INTERVAL,
+    periodInMinutes: INTERVAL_MINUTES,
   });
-};
+});
