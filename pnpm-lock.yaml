@@ -44,8 +44,8 @@ dependencies:
 
 devDependencies:
   '@crxjs/vite-plugin':
-    specifier: ^1.0.14
-    version: 1.0.14(vite@4.0.4)
+    specifier: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4
+    version: '@gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4'
   '@testing-library/jest-dom':
     specifier: ^5.16.5
     version: 5.16.5
@@ -673,33 +673,6 @@ packages:
       typescript: '>=4.5.2'
     dependencies:
       typescript: 4.9.3
-    dev: true
-
-  /@crxjs/vite-plugin@1.0.14(vite@4.0.4):
-    resolution: {integrity: sha512-emOueVCqFRFmpcfT80Xsm4mfuFw9VSp5GY4eh5qeLDeiP81g0hddlobVQCo0pE2ZvNnWbyhLrXEYAaMAXjNL6A==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      vite: ^2.9.0
-    dependencies:
-      '@rollup/pluginutils': 4.2.1
-      '@webcomponents/custom-elements': 1.6.0
-      acorn-walk: 8.2.0
-      cheerio: 1.0.0-rc.12
-      connect-injector: 0.4.4
-      debug: 4.3.4
-      es-module-lexer: 0.10.5
-      fast-glob: 3.3.0
-      fs-extra: 10.1.0
-      jsesc: 3.0.2
-      magic-string: 0.26.7
-      picocolors: 1.0.0
-      react-refresh: 0.13.0
-      rollup: 2.79.1
-      vite: 4.0.4(@types/node@20.2.5)(sass@1.58.1)
-    optionalDependencies:
-      '@vitejs/plugin-react': 4.0.1(vite@4.0.4)
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@csstools/css-parser-algorithms@2.2.0(@csstools/css-tokenizer@2.1.1):
@@ -6171,8 +6144,8 @@ packages:
       yargs: 17.7.2
     dev: true
 
-  /rollup@2.79.1:
-    resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
+  /rollup@2.78.1:
+    resolution: {integrity: sha512-VeeCgtGi4P+o9hIg+xz4qQpRl6R401LWEXBmxYKOV4zlF82lyhgh2hTZnheFUbANE8l2A41F458iwj2vEYaXJg==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -6195,6 +6168,12 @@ packages:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
       queue-microtask: 1.2.3
+    dev: true
+
+  /rxjs@7.5.7:
+    resolution: {integrity: sha512-z9MzKh/UcOqB3i20H6rtrlaE/CgjLOvheWK/9ILrbhROGTweAi1BaFsTT9FbwZi5Trr1qNRs+MXkhmR06awzQA==}
+    dependencies:
+      tslib: 2.6.0
     dev: true
 
   /safe-buffer@5.2.1:
@@ -7399,4 +7378,29 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  '@gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4':
+    resolution: {tarball: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4}
+    name: '@crxjs/vite-plugin'
+    version: 2.0.0-beta.202307072012
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      '@webcomponents/custom-elements': 1.6.0
+      acorn-walk: 8.2.0
+      cheerio: 1.0.0-rc.12
+      connect-injector: 0.4.4
+      convert-source-map: 1.9.0
+      debug: 4.3.4
+      es-module-lexer: 0.10.5
+      fast-glob: 3.3.0
+      fs-extra: 10.1.0
+      jsesc: 3.0.2
+      magic-string: 0.26.7
+      picocolors: 1.0.0
+      react-refresh: 0.13.0
+      rollup: 2.78.1
+      rxjs: 7.5.7
+    transitivePeerDependencies:
+      - supports-color
     dev: true

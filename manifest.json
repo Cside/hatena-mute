@@ -9,7 +9,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://b.hatena.ne.jp/*"],
+      "matches": [
+        "https://b.hatena.ne.jp/",
+        "https://b.hatena.ne.jp/?*",
+        "https://b.hatena.ne.jp/hotentry*",
+        "https://b.hatena.ne.jp/entrylist*"
+      ],
       "js": ["src/contentScript/main.ts"],
       "run_at": "document_end"
     }
