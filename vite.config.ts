@@ -1,6 +1,9 @@
 import type { ManifestV3Export } from '@crxjs/vite-plugin';
+
 import { crx } from '@crxjs/vite-plugin';
 import react from '@vitejs/plugin-react';
+import autoprefixer from 'autoprefixer';
+import postcssNested from 'postcss-nested';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, PluginOption } from 'vite';
 import topLevelAwait from 'vite-plugin-top-level-await';
@@ -25,6 +28,9 @@ export default defineConfig({
     topLevelAwait(),
   ],
   css: {
+    postcss: {
+      plugins: [autoprefixer, postcssNested],
+    },
     modules: {
       localsConvention: 'camelCaseOnly',
     },

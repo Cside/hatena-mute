@@ -6,8 +6,8 @@ import { userOption } from '../../userOption';
 import { MuteButtonContainer } from '../components/MuteButtonContainer';
 import { matchesLoosely, replaceCssUrls } from './utils';
 
-import iconCss from './icon.scss?inline';
-import styles from './styles.module.scss';
+import iconCss from './icon.pcss?inline';
+import styles from './styles.module.pcss';
 
 export class EntryMuter {
   entries: Entry[] = [];

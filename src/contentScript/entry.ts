@@ -41,7 +41,7 @@ export const getEntries = () => {
         // TODO: このセレクタもう少しどうにかならんかね...。li とか div とか壊れやすそう。
         // cat-*, js-keyboard-selectable-item あたりで絞るとか
         //  -> cat-* は後で読むランキングに無い
-        // ここをいじったら icon.scss も変えること
+        // ここをいじったら icon.pcss も変えること
         // .entrylist-recommend ->「人気エントリーもどうぞ」
         entry: `
           :where(

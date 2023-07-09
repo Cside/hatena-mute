@@ -1,8 +1,8 @@
 /** @jsxImportSource jsx-dom */
 import { $ } from '../../../utils';
 
-import commonStyles from '../../styles.module.scss';
-import './styles.module.scss';
+import commonStyles from '../../styles.module.pcss';
+import './styles.module.pcss';
 
 export const MuteButton = () => {
   return (
