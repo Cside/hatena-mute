@@ -1,10 +1,6 @@
-export type Styles = {
-  styleHeadline: string;
-  styleList: string;
+declare const styles: {
+  readonly "styleList": string;
+  readonly "styleHeadline": string;
 };
+export = styles;
 
-export type ClassNames = keyof Styles;
-
-declare const styles: Styles;
-
-export default styles;

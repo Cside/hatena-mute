@@ -1,11 +1,7 @@
-export type Styles = {
-  mutedEntryMatched: string;
-  mutedSitesMatched: string;
-  mutedWordsMatched: string;
+declare const styles: {
+  readonly "mutedSitesMatched": string;
+  readonly "mutedWordsMatched": string;
+  readonly "mutedEntryMatched": string;
 };
+export = styles;
 
-export type ClassNames = keyof Styles;
-
-declare const styles: Styles;
-
-export default styles;

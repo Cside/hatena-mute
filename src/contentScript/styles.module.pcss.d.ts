@@ -1,9 +1,5 @@
-export type Styles = {
-  displayNone: string;
+declare const styles: {
+  readonly "displayNone": string;
 };
+export = styles;
 
-export type ClassNames = keyof Styles;
-
-declare const styles: Styles;
-
-export default styles;

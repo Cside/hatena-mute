@@ -1,8 +1,12 @@
-// reset injected styles
+/* reset injected styles */
 body {
   width: 300px;
   font-family: sans-serif;
   font-size: 100%;
+}
+
+.nav-link[aria-selected='false'] {
+  background-color: var(--bs-gray-300) !important;
 }
 
 .form-switch:has(> #enable-all) {

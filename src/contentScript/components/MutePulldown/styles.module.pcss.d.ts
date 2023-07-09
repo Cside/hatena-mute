@@ -1,9 +1,5 @@
-export type Styles = {
-  item: string;
+declare const styles: {
+  readonly "item": string;
 };
+export = styles;
 
-export type ClassNames = keyof Styles;
-
-declare const styles: Styles;
-
-export default styles;

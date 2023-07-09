@@ -1,9 +1,5 @@
-export type Styles = {
-  muteButtonContainer: string;
+declare const styles: {
+  readonly "muteButtonContainer": string;
 };
+export = styles;
 
-export type ClassNames = keyof Styles;
-
-declare const styles: Styles;
-
-export default styles;

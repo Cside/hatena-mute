@@ -1,6 +1,6 @@
 /** @jsxImportSource jsx-dom */
-import commonStyles from '../../styles.module.scss';
-import styles from './styles.module.scss';
+import commonStyles from '../../styles.module.pcss';
+import styles from './styles.module.pcss';
 
 export const MutePulldown = ({
   domain,

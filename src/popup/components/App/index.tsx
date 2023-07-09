@@ -6,8 +6,8 @@ import { LighteningOptions } from '../LightningOptions';
 import { MuteOptions } from '../MuteOptions';
 import { PermissionRequest } from '../PermissionRequest';
 
-import './bootstrap.scss';
-import './styles.scss';
+import 'bootstrap/dist/css/bootstrap.css';
+import './styles.pcss';
 
 export const App = () => {
   const [isExtensionEnabled, setIsExtensionEnabled] = useState(false);

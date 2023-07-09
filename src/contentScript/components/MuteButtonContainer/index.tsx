@@ -2,7 +2,7 @@
 import { MuteButton } from '../../components/MuteButton';
 import { MutePulldown } from '../../components/MutePulldown';
 
-import styles from './styles.module.scss';
+import styles from './styles.module.pcss';
 
 export const MuteButtonContainer = ({
   domain,

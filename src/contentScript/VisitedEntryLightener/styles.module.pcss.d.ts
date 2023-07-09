@@ -1,10 +1,6 @@
-export type Styles = {
-  lightensVisitedEntry: string;
-  visited: string;
+declare const styles: {
+  readonly "lightensVisitedEntry": string;
+  readonly "visited": string;
 };
+export = styles;
 
-export type ClassNames = keyof Styles;
-
-declare const styles: Styles;
-
-export default styles;

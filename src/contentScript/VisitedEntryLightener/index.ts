@@ -3,7 +3,7 @@ import type { Entry } from '../../types';
 import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
 
-import styles from './styles.module.scss';
+import styles from './styles.module.pcss';
 
 type ExtendedEntry = Entry & {
   commentsUrl: string;
