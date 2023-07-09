@@ -1,11 +1,13 @@
 /** @jsxImportSource jsx-dom */
+import type { Entry, StorageKey } from '../../types';
+
 import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
-import { MuteButton } from '../components/MuteButton';
-import { MutePulldown } from '../components/MutePulldown';
-import iconCss from './icon.scss?inline';
-import styles from './styles.module.scss';
-import { matchesLoosely } from './utils';
+import { MuteButtonContainer } from '../components/MuteButtonContainer';
+import { matchesLoosely, replaceCssUrls } from './utils';
+
+import iconCss from './icon.pcss?inline';
+import styles from './styles.module.pcss';
 
 export class EntryMuter {
   entries: Entry[] = [];
@@ -22,23 +24,16 @@ export class EntryMuter {
   private injectCss() {
     const style = document.createElement('style');
     style.appendChild(
-      document.createTextNode(
-        (iconCss as string).replaceAll(
-          '__MSG_@@extension_id__',
-          chrome.runtime.id,
-        ),
-      ),
+      document.createTextNode(replaceCssUrls(iconCss as string)),
     );
     document.body.appendChild(style);
   }
 
   private appendMuteButtons() {
     for (const entry of this.entries) {
-      entry.element.appendChild(<MuteButton />);
-
       const domain = (entry.domain.textContent ?? '').trim();
       entry.element.appendChild(
-        <MutePulldown
+        <MuteButtonContainer
           domain={domain}
           muteSite={(domain: string) => this.muteSite(domain)}
           muteEntry={() => this.muteEntry(entry.titleLink.href)}
@@ -50,6 +45,7 @@ export class EntryMuter {
   async mute() {
     await this.muteBySites();
     await this.muteByWords();
+    // sendMessage が返ってこなくてエラーになるケースがあるので、一番最後でなければならない
     await this.muteByEntries();
   }
 
@@ -65,11 +61,9 @@ export class EntryMuter {
     const list = await userOption.text.getLines(storageKey);
 
     for (const entry of this.entries) {
-      if (list.some((muted) => match(entry, muted))) {
-        entry.element.classList.add(matchedClassName);
-        continue;
-      }
-      entry.element.classList.remove(matchedClassName);
+      entry.element.classList[
+        list.some((muted) => match(entry, muted)) ? 'add' : 'remove'
+      ](matchedClassName);
     }
   }
 
@@ -101,10 +95,10 @@ export class EntryMuter {
         },
       }),
     );
-    for (const entry of this.entries) {
-      if (map.get(entry.titleLink.href))
-        entry.element.classList.add(styles.mutedEntryMatched);
-    }
+    for (const entry of this.entries)
+      entry.element.classList[map.get(entry.titleLink.href) ? 'add' : 'remove'](
+        styles.mutedEntryMatched,
+      );
   }
 
   async muteSite(domain: string) {

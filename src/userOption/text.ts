@@ -1,3 +1,5 @@
+import type { StorageKey } from '../types';
+
 const normalizeText = (text: string) =>
   text
     .split(/\n+/)

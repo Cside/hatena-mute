@@ -1,3 +1,8 @@
 /public/css/**/*
 /dist/
+/dist-firefox/
+/dist-chrome/
 /pnpm-lock.yaml
+/README.md
+/stats.html
+/src/**/*.module.pcss.d.ts

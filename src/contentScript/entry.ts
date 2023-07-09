@@ -1,3 +1,5 @@
+import type { Entry } from '../types';
+
 import { $, $$ } from '../utils';
 
 // 3 種類のデザインの DOM アクセスを抽象化する処理だけ書く
@@ -39,14 +41,13 @@ export const getEntries = () => {
         // TODO: このセレクタもう少しどうにかならんかね...。li とか div とか壊れやすそう。
         // cat-*, js-keyboard-selectable-item あたりで絞るとか
         //  -> cat-* は後で読むランキングに無い
-        // ここをいじったら icon.scss も変えること
+        // ここをいじったら icon.pcss も変えること
         // .entrylist-recommend ->「人気エントリーもどうぞ」
         entry: `
           :where(
             .entrylist-header-main,
             .entrylist-item
-          ) > li:not(.entrylist-recommend),
-          .entrylist-header-sub > div`, // TODO: 広告。遅延ロードにつき現状意味ない
+          ) > li:not(.entrylist-recommend)`,
         // [data-entry-id] は遅延的に生える場合があるため使えない
         titleLink: '.entrylist-contents-title a',
         commentsLink: `

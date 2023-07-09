@@ -1,20 +1,22 @@
-import manifest from '../../manifest.json';
+import type { Action } from '../types';
 
-export const executeActionOnContenScripts = async (action: Action) => {
-  const url = manifest.content_scripts[0]?.matches;
-  if (!url)
-    throw new Error(`manifestJson.content_scripts[0].matches is not found`);
+import { URL_PATTERN } from './constants';
 
-  for (const tab of await chrome.tabs.query({ url })) {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    chrome.tabs
-      .sendMessage(tab.id ?? 0, {
-        type: action,
-      })
-      .catch((error) => {
-        console.warn(
+export const executeActionOnContentScripts = async (action: Action) => {
+  await Promise.all(
+    (
+      await chrome.tabs.query({ url: URL_PATTERN })
+    ).map(async (tab) => {
+      try {
+        await chrome.tabs.sendMessage(tab.id ?? 0, {
+          type: action,
+        });
+      } catch (error) {
+        console.info(
           `Could not establish connection. Maybe old tabs exist since before installation.\n${error}`,
         );
-      });
-  }
+        await chrome.tabs.reload(tab.id ?? 0);
+      }
+    }),
+  );
 };

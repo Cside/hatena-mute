@@ -9,7 +9,7 @@ beforeAll(() => {
     manifest as chrome.runtime.Manifest,
   );
   chrome.runtime.getURL.mockImplementation(
-    (str: string) => `chrome://<extensionId>/${str}`,
+    (str: string) => `chrome://<extension-id>/${str}`,
   );
 });
 

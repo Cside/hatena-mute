@@ -1,7 +1,8 @@
 /** @jsxImportSource jsx-dom */
 import { $ } from '../../../utils';
-import commonStyles from '../../styles.module.scss';
-import './styles.module.scss';
+
+import commonStyles from '../../styles.module.pcss';
+import './styles.module.pcss';
 
 export const MuteButton = () => {
   return (
@@ -21,6 +22,7 @@ export const MuteButton = () => {
 
         pulldown.classList.toggle(commonStyles.displayNone);
 
+        // pulldown 意外をクリックされたら消すやつ
         if (!pulldown.classList.contains(commonStyles.displayNone)) {
           const listener = (event: MouseEvent) => {
             if (!(event.target instanceof HTMLElement))

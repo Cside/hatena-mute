@@ -1,7 +1,7 @@
-.lightens-visited-entry {
+:global(.is-hatena-mute-enabled).lightens-visited-entry {
   .visited {
     [data-entry-id] {
-      // opacity かけるとタイトルだけ薄くなりすぎるので、未訪問と同じ色にする
+      /* opacity かけるとタイトルだけ薄くなりすぎるので、未訪問と同じ色にする */
       &:visited {
         color: #25282b;
       }
@@ -12,8 +12,8 @@
     }
   }
 
-  // TODO: エントリーの root エントリに共通クラス振ったほうがいい...のか...？
-  // したらば icon.scss も浄化できる気が
+  /* TODO: エントリーの root エントリに共通クラス振ったほうがいい...のか...？
+     したらば icon.pcss も浄化できる気が */
   .visited
     :global(.entrylist-contents-main)
     > *:not(:global(.following-bookmarks-container)),
