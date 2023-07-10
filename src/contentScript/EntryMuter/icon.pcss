@@ -2,13 +2,6 @@
   background-image: url('images/mute-hover.svg') !important;
 }
 
-/* TODO: セレクタが二重定義になってるので共通化したさがある */
-:where(
-    :where(.entrylist-header-main, .entrylist-item)
-      > li:not(.entrylist-recommend),
-    .entrylist-readlater-ranking-item,
-    .entrylist-3column-items > li
-  ):hover
-  .hm-mute-button {
+.hm-entry:hover .hm-mute-button {
   background-image: url('images/mute.svg');
 }

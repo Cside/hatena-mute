@@ -17,6 +17,7 @@ const _getEntries = ({
 }) => {
   const entries: Entry[] = [];
   for (const entry of $$(selectors.entry)) {
+    entry.classList.add('hm-entry');
     try {
       entries.push({
         element: entry,
