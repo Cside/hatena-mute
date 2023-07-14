@@ -2,7 +2,7 @@
 import { MuteButton } from '../../components/MuteButton';
 import { MutePulldown } from '../../components/MutePulldown';
 
-import styles from './styles.module.pcss';
+import './styles.pcss';
 
 export const MuteButtonContainer = ({
   domain,
@@ -13,7 +13,7 @@ export const MuteButtonContainer = ({
   muteSite: (domain: string) => void;
   muteEntry: () => void;
 }) => (
-  <div className={styles.muteButtonContainer}>
+  <div className="mute-button-container">
     <MuteButton />
     <MutePulldown domain={domain} muteSite={muteSite} muteEntry={muteEntry} />
   </div>
