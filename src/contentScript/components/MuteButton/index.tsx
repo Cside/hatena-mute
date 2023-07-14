@@ -2,7 +2,7 @@
 import { $ } from '../../../utils';
 
 import commonStyles from '../../styles.module.pcss';
-import './styles.module.pcss';
+import './styles.pcss';
 
 export const MuteButton = () => {
   return (
