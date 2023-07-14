@@ -19,4 +19,4 @@ done
 
 zip -r source-code-"${version}".zip source-code
 
-rnpx rimraf dist-firefox source-code
+npx rimraf dist-firefox source-code
