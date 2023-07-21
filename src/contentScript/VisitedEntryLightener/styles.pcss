@@ -1,0 +1,23 @@
+.is-hatena-mute-enabled.hm-lightens-visited-entry {
+  .hm-visited {
+    [data-entry-id] {
+      /* opacity かけるとタイトルだけ薄くなりすぎるので、未訪問と同じ色にする */
+      &:visited {
+        color: #25282b;
+      }
+
+      &:hover {
+        color: #7db4e8;
+      }
+    }
+  }
+
+  /* TODO: エントリーの root エントリに共通クラス振ったほうがいい...のか...？ */
+  .hm-visited .entrylist-contents-main > *:not(.following-bookmarks-container),
+  .hm-visited.entrylist-readlater-ranking-item
+    > *:not(.hm-mute-button-container),
+  .entrylist-3column-items > li.hm-visited > *:not(.hm-mute-button-container),
+  .hm-visited .following-bookmark-icon {
+    opacity: 0.5;
+  }
+}

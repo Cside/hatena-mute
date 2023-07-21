@@ -3,7 +3,7 @@ import type { Entry } from '../../types';
 import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
 
-import styles from './styles.module.pcss';
+import './styles.pcss';
 
 type ExtendedEntry = Entry & {
   commentsUrl: string;
@@ -47,7 +47,7 @@ export class VisitedEntryLightener {
 
   addClickListeners() {
     for (const entry of this.entries) {
-      const setVisited = () => entry.element.classList.add(styles.visited);
+      const setVisited = () => entry.element.classList.add('hm-visited');
 
       entry.titleLink.addEventListener('click', async (event) => {
         if (!(event.target instanceof HTMLAnchorElement))
@@ -90,7 +90,7 @@ export class VisitedEntryLightener {
 
     this.rootElement.classList[
       this.options.lightensVisitedEntry ? 'add' : 'remove'
-    ](styles.lightensVisitedEntry);
+    ]('hm-lightens-visited-entry');
 
     // NOTE: たまに sendMessage が返ってこないケースがある ( = これ以降の処理が実行されないケースがある)
     // コンストラクタでやると、popup から再呼び出しされたときに、
@@ -125,7 +125,7 @@ export class VisitedEntryLightener {
           isCommentVisited)
           ? 'add'
           : 'remove'
-      ](styles.visited);
+      ]('hm-visited');
     }
   }
 }
