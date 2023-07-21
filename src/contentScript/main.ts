@@ -54,15 +54,7 @@ if (rootElement) {
 
   // sendMessage が返ってこなくてエラーになるケースがあるので、敢えて floating promise にする
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  visitedEntryLightener.lighten().catch((e) => {
-    console.error(e);
-    console.trace(e);
-    alert(e);
-  });
+  visitedEntryLightener.lighten();
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  entryMuter.mute().catch((e) => {
-    console.error(e);
-    console.trace(e);
-    alert(e);
-  });
+  entryMuter.mute();
 }
