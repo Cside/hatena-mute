@@ -15,13 +15,7 @@ export const MutePulldown = ({
   if (domain.includes('/')) pathlessDomain = domain.replace(/\/.+$/, '');
 
   return (
-    <div
-      className={`hm-mute-pulldown hm-display-none`}
-      style={{
-        top: '40px',
-        right: '0px',
-      }}
-    >
+    <div className={`hm-mute-pulldown hm-display-none`}>
       <div className="hm-mute-pulldown-item" onClick={() => muteSite(domain)}>
         {domain} をミュート
       </div>
