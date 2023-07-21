@@ -1,9 +1,7 @@
 {
   "version": "1.2.6",
   "scripts": {
-    "dev": "run-p dev:*",
-    "dev:_vite": "ENABLES_SENTRY=false vite",
-    "dev:_css-types": "tcm -w --camelCase -p 'src/**/*.module.pcss'",
+    "dev": "ENABLES_SENTRY=false vite",
     "build:chrome": "rimraf dist-chrome && vite build --outDir dist-chrome",
     "build:firefox": "./scripts/build-firefox.sh",
     "visualize": "ENABLES_VISUALIZER=true pnpm run build:chrome && open stats.html",
@@ -68,10 +66,8 @@
     "stylelint-no-unsupported-browser-features": "^6.0.1",
     "stylelint-value-no-unknown-custom-properties": "^4.0.0",
     "ts-jest": "^29.1.1",
-    "typed-css-modules": "^0.7.2",
     "typescript": "^4.9.3",
-    "vite": "^4.0.4",
-    "vite-plugin-top-level-await": "^1.2.4"
+    "vite": "^4.0.4"
   },
   "dependencies": {
     "@sentry/browser": "^7.40.0",

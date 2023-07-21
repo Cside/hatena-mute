@@ -13,7 +13,7 @@ export const MuteButtonContainer = ({
   muteSite: (domain: string) => void;
   muteEntry: () => void;
 }) => (
-  <div className="mute-button-container">
+  <div className="hm-mute-button-container">
     <MuteButton />
     <MutePulldown domain={domain} muteSite={muteSite} muteEntry={muteEntry} />
   </div>
