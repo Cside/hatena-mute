@@ -4,7 +4,7 @@ import type { Entry, StorageKey } from '../../types';
 import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
 import { MuteButtonContainer } from '../components/MuteButtonContainer';
-import { matchesLoosely, replaceCssUrls } from './utils';
+import { matchesLoosely } from './utils';
 
 import iconCss from './icon.pcss?inline';
 import './styles.pcss';
@@ -24,7 +24,9 @@ export class EntryMuter {
   private injectCss() {
     const style = document.createElement('style');
     style.appendChild(
-      document.createTextNode(replaceCssUrls(iconCss as string)),
+      document.createTextNode(
+        iconCss.replace(/__MSG_@@extension_id__/g, chrome.runtime.id),
+      ),
     );
     document.body.appendChild(style);
   }
