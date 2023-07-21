@@ -7,7 +7,7 @@ import { MuteButtonContainer } from '../components/MuteButtonContainer';
 import { matchesLoosely, replaceCssUrls } from './utils';
 
 import iconCss from './icon.pcss?inline';
-import styles from './styles.module.pcss';
+import './styles.pcss';
 
 export class EntryMuter {
   entries: Entry[] = [];
@@ -70,7 +70,7 @@ export class EntryMuter {
   async muteBySites() {
     await this.muteBy({
       storageKey: STORAGE_KEY.MUTED_SITES,
-      matchedClassName: styles.mutedSitesMatched,
+      matchedClassName: 'hm-muted-sites-matched',
       match: (entry: Entry, muted: string) =>
         matchesLoosely(entry.titleLink.href, muted),
     });
@@ -79,7 +79,7 @@ export class EntryMuter {
   async muteByWords() {
     await this.muteBy({
       storageKey: STORAGE_KEY.MUTED_WORDS,
-      matchedClassName: styles.mutedWordsMatched,
+      matchedClassName: 'hm-muted-words-matched',
       match: (entry: Entry, muted: string) =>
         !!matchesLoosely(entry.titleLink?.textContent || '', muted) ||
         !!matchesLoosely(entry.description?.textContent || '', muted),
@@ -97,7 +97,7 @@ export class EntryMuter {
     );
     for (const entry of this.entries)
       entry.element.classList[map.get(entry.titleLink.href) ? 'add' : 'remove'](
-        styles.mutedEntryMatched,
+        'hm-muted-entry-matched',
       );
   }
 
