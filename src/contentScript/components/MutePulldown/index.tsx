@@ -1,6 +1,6 @@
 /** @jsxImportSource jsx-dom */
 import '../../styles.pcss';
-import styles from './styles.module.pcss';
+import './styles.pcss';
 
 export const MutePulldown = ({
   domain,
@@ -22,18 +22,18 @@ export const MutePulldown = ({
         right: '0px',
       }}
     >
-      <div className={styles.item} onClick={() => muteSite(domain)}>
+      <div className="hm-mute-pulldown-item" onClick={() => muteSite(domain)}>
         {domain} をミュート
       </div>
       {pathlessDomain && (
         <div
-          className={styles.item}
+          className="hm-mute-pulldown-item"
           onClick={() => muteSite(pathlessDomain ?? '')}
         >
           {pathlessDomain} をミュート
         </div>
       )}
-      <div className={styles.item} onClick={muteEntry}>
+      <div className="hm-mute-pulldown-item" onClick={muteEntry}>
         この記事を非表示
       </div>
     </div>
