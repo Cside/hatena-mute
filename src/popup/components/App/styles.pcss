@@ -9,7 +9,9 @@ body {
   background-color: var(--bs-gray-300) !important;
 }
 
-.form-switch:has(> #enable-all) {
+/* :has() is not implemented on Firefox
+   .form-switch:has(> #enable-all) { */
+h1 .form-switch {
   padding-left: 0;
 }
 
