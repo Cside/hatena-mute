@@ -1,5 +1,5 @@
 /** @jsxImportSource jsx-dom */
-import commonStyles from '../../styles.module.pcss';
+import '../../styles.pcss';
 import styles from './styles.module.pcss';
 
 export const MutePulldown = ({
@@ -16,7 +16,7 @@ export const MutePulldown = ({
 
   return (
     <div
-      className={`hm-mute-pulldown ${commonStyles.displayNone}`}
+      className={`hm-mute-pulldown hm-display-none`}
       style={{
         top: '40px',
         right: '0px',
