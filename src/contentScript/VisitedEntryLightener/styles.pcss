@@ -10,14 +10,26 @@
         color: #7db4e8;
       }
     }
-  }
 
-  /* TODO: エントリーの root エントリに共通クラス振ったほうがいい...のか...？ */
-  .hm-visited .entrylist-contents-main > *:not(.following-bookmarks-container),
-  .hm-visited.entrylist-readlater-ranking-item
-    > *:not(.hm-mute-button-container),
-  .entrylist-3column-items > li.hm-visited > *:not(.hm-mute-button-container),
-  .hm-visited .following-bookmark-icon {
-    opacity: 0.5;
+    /*
+      hm-visited
+        ❌entrylist-contents (*1)
+          ❌entrylist-contents-main
+            ❌following-bookmarks-container
+              ✅following-bookmark-icon
+            ✅some-class1
+            ✅some-class2
+        ❌mute-button-container
+        ✅some-class1
+        ✅some-class2
+
+     *1: 標準のエントリにしか存在しないクラス。
+         後で読むランキングや 3columns items には存在しない
+    */
+    .entrylist-contents-main > :not(.following-bookmarks-container),
+    > :not(.entrylist-contents, .hm-mute-button-container),
+    .following-bookmark-icon {
+      opacity: 0.5;
+    }
   }
 }
