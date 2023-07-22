@@ -1,5 +1,7 @@
-:global(.mute-pulldown) {
+.hm-mute-pulldown {
   position: absolute;
+  top: 40px;
+  right: 0;
   z-index: 10000;
   display: block;
   width: 269px;
@@ -7,9 +9,13 @@
   background-color: #f6f7f8;
   border-radius: 5px;
   outline: 1px solid #b6b6b7;
+
+  [data-entrylist-layout='list'] & {
+    top: 34px;
+  }
 }
 
-.item {
+.hm-mute-pulldown-item {
   padding: 12px;
 
   &:hover {

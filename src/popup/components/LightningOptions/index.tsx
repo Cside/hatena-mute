@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ACTION, STORAGE_KEY } from '../../../constants';
 import { CheckForm } from '../CheckForm';
 
-import './styles.scss';
+import './styles.pcss';
 
 export const LighteningOptions = () => {
   const [lightensVisitedEntryIsChecked, setLightensVisitedEntryIsChecked] =

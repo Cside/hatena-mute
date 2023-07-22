@@ -1,0 +1,35 @@
+.is-hatena-mute-enabled.hm-lightens-visited-entry {
+  .hm-visited {
+    [data-entry-id] {
+      /* opacity かけるとタイトルだけ薄くなりすぎるので、未訪問と同じ色にする */
+      &:visited {
+        color: #25282b;
+      }
+
+      &:hover {
+        color: #7db4e8;
+      }
+    }
+
+    /*
+      hm-visited
+        ❌entrylist-contents (*1)
+          ❌entrylist-contents-main
+            ❌following-bookmarks-container
+              ✅following-bookmark-icon
+            ✅some-class1
+            ✅some-class2
+        ❌mute-button-container
+        ✅some-class1
+        ✅some-class2
+
+     *1: 標準のエントリにしか存在しないクラス。
+         後で読むランキングや 3columns items には存在しない
+    */
+    .entrylist-contents-main > :not(.following-bookmarks-container),
+    > :not(.entrylist-contents, .hm-mute-button-container),
+    .following-bookmark-icon {
+      opacity: 0.5;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-:global(.mute-button) {
+.hm-mute-button {
   --button-size: 28px;
   --image-size: 22px;
 
@@ -13,19 +13,11 @@
   background-position: center;
   background-size: var(--image-size) var(--image-size);
 
+  [data-entrylist-layout='list'] & {
+    top: 5px;
+  }
+
   &:focus {
     outline: none;
-  }
-
-  /* narrow design */
-  .style-list & {
-    top: 5px;
-    right: 37px;
-  }
-
-  /* very narrow design */
-  .style-headline & {
-    top: 11px;
-    right: 37px;
   }
 }

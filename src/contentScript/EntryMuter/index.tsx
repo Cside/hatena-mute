@@ -3,12 +3,11 @@ import type { Entry, StorageKey } from '../../types';
 
 import { ACTION, STORAGE_KEY } from '../../constants';
 import { userOption } from '../../userOption';
-import { MuteButton } from '../components/MuteButton';
-import { MutePulldown } from '../components/MutePulldown';
-import { matchesLoosely, replaceCssUrls } from './utils';
+import { MuteButtonContainer } from '../components/MuteButtonContainer';
+import { matchesLoosely, replaceUrlsInCss } from './utils';
 
-import iconCss from './icon.scss?inline';
-import styles from './styles.module.scss';
+import iconCss from './icon.pcss?inline';
+import './styles.pcss';
 
 export class EntryMuter {
   entries: Entry[] = [];
@@ -25,18 +24,16 @@ export class EntryMuter {
   private injectCss() {
     const style = document.createElement('style');
     style.appendChild(
-      document.createTextNode(replaceCssUrls(iconCss as string)),
+      document.createTextNode(replaceUrlsInCss(iconCss as string)),
     );
     document.body.appendChild(style);
   }
 
   private appendMuteButtons() {
     for (const entry of this.entries) {
-      entry.element.appendChild(<MuteButton />);
-
       const domain = (entry.domain.textContent ?? '').trim();
       entry.element.appendChild(
-        <MutePulldown
+        <MuteButtonContainer
           domain={domain}
           muteSite={(domain: string) => this.muteSite(domain)}
           muteEntry={() => this.muteEntry(entry.titleLink.href)}
@@ -48,6 +45,7 @@ export class EntryMuter {
   async mute() {
     await this.muteBySites();
     await this.muteByWords();
+    // sendMessage が返ってこなくてエラーになるケースがあるので、一番最後でなければならない
     await this.muteByEntries();
   }
 
@@ -72,7 +70,7 @@ export class EntryMuter {
   async muteBySites() {
     await this.muteBy({
       storageKey: STORAGE_KEY.MUTED_SITES,
-      matchedClassName: styles.mutedSitesMatched,
+      matchedClassName: 'hm-muted-sites-matched',
       match: (entry: Entry, muted: string) =>
         matchesLoosely(entry.titleLink.href, muted),
     });
@@ -81,7 +79,7 @@ export class EntryMuter {
   async muteByWords() {
     await this.muteBy({
       storageKey: STORAGE_KEY.MUTED_WORDS,
-      matchedClassName: styles.mutedWordsMatched,
+      matchedClassName: 'hm-muted-words-matched',
       match: (entry: Entry, muted: string) =>
         !!matchesLoosely(entry.titleLink?.textContent || '', muted) ||
         !!matchesLoosely(entry.description?.textContent || '', muted),
@@ -99,7 +97,7 @@ export class EntryMuter {
     );
     for (const entry of this.entries)
       entry.element.classList[map.get(entry.titleLink.href) ? 'add' : 'remove'](
-        styles.mutedEntryMatched,
+        'hm-muted-entry-matched',
       );
   }
 

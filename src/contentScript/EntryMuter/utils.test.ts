@@ -1,4 +1,4 @@
-import { matchesLoosely, replaceCssUrls } from './utils';
+import { matchesLoosely, replaceUrlsInCss } from './utils';
 
 describe('matchesLoosely', () => {
   for (const [name, tests] of Object.entries({
@@ -97,7 +97,7 @@ describe('matchesLoosely', () => {
   }
 });
 
-describe('replaceCssUrls', () => {
+describe('replaceUrlsInCss', () => {
   test.each([
     {
       name: 'double quotes',
@@ -151,6 +151,6 @@ describe('replaceCssUrls', () => {
         }`,
     },
   ])('$name', ({ input, expected }) => {
-    expect(replaceCssUrls(input.trim())).toBe(expected.trim());
+    expect(replaceUrlsInCss(input.trim())).toBe(expected.trim());
   });
 });

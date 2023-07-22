@@ -1,0 +1,22 @@
+/* reset injected styles */
+body {
+  width: 300px;
+  font-family: sans-serif;
+  font-size: 100%;
+}
+
+.nav-link[aria-selected='false'] {
+  background-color: var(--bs-gray-300) !important;
+}
+
+/* :has() is not implemented on Firefox
+   .form-switch:has(> #enable-all) { */
+h1 .form-switch {
+  padding-left: 0;
+}
+
+#enable-all {
+  width: 50px;
+  height: 25px;
+  margin-left: 0;
+}

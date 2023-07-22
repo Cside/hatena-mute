@@ -1,9 +1,12 @@
 import type { ManifestV3Export } from '@crxjs/vite-plugin';
+
 import { crx } from '@crxjs/vite-plugin';
 import react from '@vitejs/plugin-react';
+import autoprefixer from 'autoprefixer';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
+import postcssNested from 'postcss-nested';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, PluginOption } from 'vite';
-import topLevelAwait from 'vite-plugin-top-level-await';
 import manifest from './manifest.json';
 import { version } from './package.json';
 
@@ -22,9 +25,11 @@ export default defineConfig({
     react(),
     crx({ manifest: manifest as ManifestV3Export }),
     ...(ENABLES_VISUALIZER ? [visualizer() as PluginOption] : []),
-    topLevelAwait(),
   ],
   css: {
+    postcss: {
+      plugins: [autoprefixer, postcssNested],
+    },
     modules: {
       localsConvention: 'camelCaseOnly',
     },
@@ -35,6 +40,7 @@ export default defineConfig({
         debug: 'debug.html',
       },
     },
+    target: browserslistToEsbuild(),
   },
 });
 
