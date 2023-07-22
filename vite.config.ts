@@ -3,6 +3,7 @@ import type { ManifestV3Export } from '@crxjs/vite-plugin';
 import { crx } from '@crxjs/vite-plugin';
 import react from '@vitejs/plugin-react';
 import autoprefixer from 'autoprefixer';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
 import postcssNested from 'postcss-nested';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, PluginOption } from 'vite';
@@ -39,8 +40,7 @@ export default defineConfig({
         debug: 'debug.html',
       },
     },
-    // for top level await
-    target: 'esnext',
+    target: browserslistToEsbuild(),
   },
 });
 
