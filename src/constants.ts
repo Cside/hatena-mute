@@ -18,15 +18,19 @@ export const STORAGE_KEY = {
   LIGHTENS_VISITED_ENTRY: 'lightens-visited-entry',
 } as const;
 
-export const INDEXED_DB_OPTIONS = {
-  db: {
-    name: 'hatenaMute',
-    version: 1,
-  },
-  objectStore: {
-    name: 'mutedEntries',
-    keyPath: 'url',
-    indexName: 'by_created',
-    indexPath: 'created',
-  },
+export const INDEXED_DB = {
+  NAME: 'hatenaMute',
+  VERSION: 1,
+  OBJECT_STORE_SCHEMES: [
+    {
+      NAME: 'mutedEntries',
+      KEY_PATH: 'url',
+      INDEXES: [
+        {
+          NAME: 'by_created',
+          PATH: 'created',
+        },
+      ],
+    },
+  ],
 };

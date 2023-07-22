@@ -2,7 +2,7 @@
 import type { Entry, StorageKey } from '../../types';
 
 import { ACTION, STORAGE_KEY } from '../../constants';
-import { userOption } from '../../userOption';
+import { storage } from '../../storage';
 import { MuteButtonContainer } from '../components/MuteButtonContainer';
 import { matchesLoosely, replaceUrlsInCss } from './utils';
 
@@ -58,7 +58,7 @@ export class EntryMuter {
     matchedClassName: string;
     match: (entry: Entry, muted: string) => boolean;
   }) {
-    const list = await userOption.text.getLines(storageKey);
+    const list = await storage.multiLineText.getAllLines(storageKey);
 
     for (const entry of this.entries) {
       entry.element.classList[
@@ -102,7 +102,7 @@ export class EntryMuter {
   }
 
   async muteSite(domain: string) {
-    await userOption.text.appendLine(STORAGE_KEY.MUTED_SITES, domain);
+    await storage.multiLineText.appendLine(STORAGE_KEY.MUTED_SITES, domain);
     await this.muteBySites();
   }
 

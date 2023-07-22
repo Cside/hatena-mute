@@ -1,3 +1,4 @@
+import * as idb from 'idb';
 import { ACTION, STORAGE_KEY } from './constants';
 
 type valueOf<T> = T[keyof T];
@@ -15,3 +16,5 @@ export type Entry = {
   description?: HTMLElement;
   domain: HTMLElement;
 };
+
+export type IDB = Awaited<ReturnType<typeof idb.openDB>>;

@@ -1,7 +1,7 @@
 import type { Entry } from '../../types';
 
 import { ACTION, STORAGE_KEY } from '../../constants';
-import { userOption } from '../../userOption';
+import { storage } from '../../storage';
 
 import './styles.pcss';
 
@@ -76,10 +76,10 @@ export class VisitedEntryLightener {
 
   private async loadOptions() {
     this.options = {
-      lightensVisitedEntry: await userOption.get(
+      lightensVisitedEntry: await storage.get(
         STORAGE_KEY.LIGHTENS_VISITED_ENTRY,
       ),
-      lightenEntryWhoseCommentsHaveBeenVisited: await userOption.get(
+      lightenEntryWhoseCommentsHaveBeenVisited: await storage.get(
         STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
       ),
     };

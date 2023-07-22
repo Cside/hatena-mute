@@ -3,7 +3,7 @@ import type { Action, StorageKey } from '../../../types';
 import { memo, useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { userOption } from '../../../userOption';
+import { storage } from '../../../storage';
 import { executeActionOnContentScripts } from '../../utils';
 
 export const MutedListForm = memo(
@@ -23,7 +23,7 @@ export const MutedListForm = memo(
 
     useEffect(() => {
       (async () => {
-        const text = await userOption.text.getPlain(storageKey);
+        const text = await storage.multiLineText.getWhole(storageKey);
         setTextInStorage(text);
         setText(text);
       })();
@@ -47,7 +47,7 @@ export const MutedListForm = memo(
         <Button
           className="block"
           onClick={async () => {
-            await userOption.text.setPlain(storageKey, text);
+            await storage.multiLineText.setWhole(storageKey, text);
             setTextInStorage(text);
             await executeActionOnContentScripts(actionOnChange);
           }}

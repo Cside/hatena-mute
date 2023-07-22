@@ -1,5 +1,5 @@
 import { ACTION } from '../constants';
-import { userOption } from '../userOption';
+import { storage } from '../storage';
 
 type MessageParams =
   | {
@@ -38,12 +38,12 @@ chrome.runtime.onMessage.addListener(
           return await chrome.history.addUrl({ url: payload.url });
 
         case ACTION.ADD_MUTED_ENTRY:
-          return await userOption.indexedDb.execute(
+          return await storage.indexedDb.execute(
             async (db) => await db.put(payload.url),
           );
 
         case ACTION.GET_MUTED_ENTRY_MAP:
-          return await userOption.indexedDb.execute(
+          return await storage.indexedDb.execute(
             async (db) => await db.getMap(payload.urls),
           );
 

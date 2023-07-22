@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 import type { IDBPObjectStore } from 'idb';
-import { userOption } from '.';
+import { storage } from '.';
 import { indexedDb } from './indexedDb';
 
 const URL = 'https://example.com/';
@@ -14,12 +14,12 @@ beforeAll(async () => {
   jest.useFakeTimers();
   jest.setSystemTime(NOW);
 
-  DB = await userOption.indexedDb.openDb({
+  DB = await storage.indexedDb.openDb({
     db: {
       name: 'hatenaMute',
       version: 1,
     },
-    objectStore: {
+    objectStoreScheme: {
       name: OBJECT_STORE_NAME,
       keyPath: 'url',
       indexName: 'by_created',
@@ -41,7 +41,7 @@ const transaction = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fn: (record: ObjectStore) => Promise<any>,
 ) => {
-  const tx = db.plainDb.transaction(OBJECT_STORE_NAME, 'readwrite');
+  const tx = db.rawDb.transaction(OBJECT_STORE_NAME, 'readwrite');
   const result = await fn(tx.objectStore(OBJECT_STORE_NAME) as ObjectStore);
   await tx.done;
   return result;
@@ -62,9 +62,10 @@ describe('getMap()', () => {
   test('basic', async () => {
     const url2 = 'https://example.com/2';
     await DB.put(URL);
-    const map = new Map(await DB.getMap([URL, url2]));
-    expect(map.get(URL)).toBe(true);
-    expect(map.get(url2)).toBe(false);
+    expect(await DB.getMap([URL, url2])).toEqual([
+      [URL, true],
+      [url2, false],
+    ]);
   });
 });
 
@@ -85,15 +86,15 @@ describe('put()', () => {
   });
 });
 
-describe('deleteAll()', () => {
+describe('clear()', () => {
   test('no records', async () => {
-    expect(await DB.deleteAll({ olderThan: new Date() })).toBe(0);
+    expect(await DB.clear({ olderThan: new Date() })).toBe(0);
   });
 
   test('out of range', async () => {
     await DB.put(URL);
     expect(
-      await DB.deleteAll({
+      await DB.clear({
         olderThan: new Date('2000/01/01 00:00:00'),
       }),
     ).toBe(0);
@@ -125,7 +126,7 @@ describe('deleteAll()', () => {
       ]);
     });
     expect(
-      await DB.deleteAll({
+      await DB.clear({
         olderThan: new Date('2000/01/01 00:00:03'),
       }),
     ).toBe(3);

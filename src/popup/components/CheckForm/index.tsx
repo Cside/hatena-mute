@@ -2,7 +2,7 @@ import type { Action, SetState, StorageKey } from '../../../types';
 
 import { memo, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import { userOption } from '../../../userOption';
+import { storage } from '../../../storage';
 import { executeActionOnContentScripts } from '../../utils';
 
 export const CheckForm = memo(
@@ -23,7 +23,7 @@ export const CheckForm = memo(
   }) => {
     useEffect(() => {
       (async () => {
-        const checked = await userOption.get<boolean>(storageKey);
+        const checked = await storage.get<boolean>(storageKey);
         if (checked !== undefined) setChecked(checked);
       })();
     }, []);
@@ -36,7 +36,7 @@ export const CheckForm = memo(
         {...(label && { label })}
         onChange={async (event) => {
           const value = event.target.checked;
-          await userOption.set(storageKey, value);
+          await storage.set(storageKey, value);
           setChecked(value);
           await executeActionOnContentScripts(actionOnChange);
         }}

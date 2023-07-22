@@ -1,7 +1,8 @@
-import { STORAGE_KEY } from '../constants';
-import type { StorageKey } from '../types';
-import { indexedDb } from './indexedDb';
-import { text } from './text';
+import { STORAGE_KEY } from './constants';
+import { indexedDb } from './storage/indexedDb';
+import { multiLineText } from './storage/multiLineText';
+
+import type { StorageKey } from './types';
 
 export const DEFAULTS = {
   [STORAGE_KEY.IS_EXTENSION_ENABLED]: true,
@@ -9,7 +10,7 @@ export const DEFAULTS = {
   [STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED]: false,
 } as const;
 
-export const userOption = {
+export const storage = {
   get: async <T>(key: StorageKey): Promise<T> =>
     (await chrome.storage.local.get(key))[key] ??
     DEFAULTS[key as keyof typeof DEFAULTS],
@@ -18,6 +19,6 @@ export const userOption = {
     await chrome.storage.local.set({
       [key]: value,
     }),
-  text,
+  multiLineText,
   indexedDb,
 };

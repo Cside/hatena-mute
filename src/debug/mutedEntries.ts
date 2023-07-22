@@ -1,10 +1,10 @@
-import { INDEXED_DB_OPTIONS } from './constants';
-import { userOption } from './userOption';
+import { INDEXED_DB_OPTIONS } from '../constants';
+import { storage } from '../storage';
 
 const result = document.getElementById('result');
 if (!result) throw new Error('#result is not found');
 
-const db = await userOption.indexedDb.openDb(INDEXED_DB_OPTIONS);
+const db = await storage.indexedDb.openDb(INDEXED_DB_OPTIONS);
 result.innerText = JSON.stringify(
   (await db.getAll<{ url: string; created: Date }>())
     .reverse()

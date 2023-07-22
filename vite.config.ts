@@ -36,7 +36,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        debug: 'debug.html',
+        'muted-entries.html': 'muted-entries.html',
       },
     },
     // for top level await
