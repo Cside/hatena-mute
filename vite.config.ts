@@ -6,7 +6,8 @@ import autoprefixer from 'autoprefixer';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import postcssNested from 'postcss-nested';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { defineConfig, PluginOption } from 'vite';
+import { PluginOption } from 'vite';
+import { defineConfig } from 'vitest/config';
 import manifest from './manifest.json';
 import { version } from './package.json';
 
@@ -41,6 +42,10 @@ export default defineConfig({
       },
     },
     target: browserslistToEsbuild(),
+  },
+  test: {
+    globals: true,
+    setupFiles: ['./test/setup.ts'],
   },
 });
 

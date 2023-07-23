@@ -13,7 +13,6 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jest/recommended",
-    "plugin:testing-library/react",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",

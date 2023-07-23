@@ -11,8 +11,8 @@ type ObjectStore = IDBPObjectStore<unknown, [string], string, 'readwrite'>;
 
 let DB: indexedDb;
 beforeAll(async () => {
-  jest.useFakeTimers();
-  jest.setSystemTime(NOW);
+  vi.useFakeTimers();
+  vi.setSystemTime(NOW);
 
   DB = await userOption.indexedDb.openDb({
     db: {
@@ -34,7 +34,9 @@ afterEach(async () => {
   });
 });
 
-afterAll(() => jest.useRealTimers());
+afterAll(() => {
+  vi.useRealTimers();
+});
 
 const transaction = async (
   db: indexedDb,
@@ -79,7 +81,7 @@ describe('put()', () => {
 
   test('object already exists and be updated', async () => {
     await DB.put(URL);
-    jest.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(1000);
     await DB.put(URL);
     expect((await get(URL))?.created).toEqual(new Date(NOW + 1000));
   });
