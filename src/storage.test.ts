@@ -1,5 +1,5 @@
-import { STORAGE_KEY } from '../constants';
-import { storage } from './';
+import { STORAGE_KEY } from './constants';
+import { storage } from './storage';
 
 test(STORAGE_KEY.LIGHTENS_VISITED_ENTRY, async () => {
   expect(await storage.get(STORAGE_KEY.LIGHTENS_VISITED_ENTRY)).toBe(false);

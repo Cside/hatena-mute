@@ -1,55 +1,61 @@
+import * as idb from 'idb';
 import zip from 'lodash.zip';
-import type { IDB } from '../../types';
+import { INDEXED_DB } from '../../constants';
+import { MutedEntry } from '../../types';
+
+const OBJECT_SCHEME_NAME = INDEXED_DB.OBJECT_STORE_NAME_OF.MUTED_ENTRIES;
 
 export class MutedEntries {
-  db: IDB;
+  db: idb.IDBPDatabase;
 
-  constructor({ db }: { db: IDB }) {
+  constructor({ db }: { db: idb.IDBPDatabase }) {
     this.db = db;
   }
   async getMap(urls: string[]) {
-    const tx = this.db.transaction(this.objectStore.name, 'readonly');
-    const objectStore = tx.store;
-
     return zip(
       urls,
       await Promise.all(
-        urls.map(async (url) => !!(await objectStore.get(url))),
+        urls.map(async (url) => !!(await this.db.get(OBJECT_SCHEME_NAME, url))),
       ),
     ) as [string, boolean][];
   }
 
-  // debug usage only
-  async getAll<T>(): Promise<T[]> {
-    const tx = this.db.transaction(this.objectStore.name, 'readonly');
-    const objectStore = tx.store;
-    const records = await objectStore.getAll();
-    await tx.done;
-
-    return records;
-  }
-
-  async put(url: string) {
-    const tx = this.db.transaction(this.objectStore.name, 'readwrite');
-    const objectStore = tx.store;
-    await objectStore.put({ url, created: new Date() });
-
-    await tx.done;
+  // テーブルが存在しない時くらいしかコケない。そのときは例外が投げられる
+  async put({ url, created = new Date() }: { url: string; created?: Date }) {
+    return await this.db.put(OBJECT_SCHEME_NAME, { url, created });
   }
 
   async deleteAll({ olderThan }: { olderThan: Date }) {
-    const tx = this.db.transaction(this.objectStore.name, 'readwrite');
-
-    const objectStore = tx.store;
-
-    const createdIndex = objectStore.index(this.objectStore.indexName);
-    const keys = await createdIndex.getAllKeys(
+    const keys = await this.db.getAllKeysFromIndex(
+      OBJECT_SCHEME_NAME,
+      'by_created',
       IDBKeyRange.upperBound(olderThan, false),
     );
-    if (keys.length > 0)
-      await Promise.all([keys.map((key) => objectStore.delete(key))]);
-
-    await tx.done;
+    await Promise.all([
+      keys.map((key) => this.db.delete(OBJECT_SCHEME_NAME, key)),
+    ]);
     return keys.length;
+  }
+
+  // ========================================
+  // testing usage only
+
+  async get(url: string): Promise<MutedEntry | undefined> {
+    return await this.db.get(OBJECT_SCHEME_NAME, url);
+  }
+
+  async getAllKeys() {
+    return await this.db.getAllKeys(OBJECT_SCHEME_NAME);
+  }
+
+  async clear() {
+    return await this.db.clear(OBJECT_SCHEME_NAME);
+  }
+
+  // ========================================
+  // debug usage only
+
+  async getAll(): Promise<MutedEntry[]> {
+    return await this.db.getAll(OBJECT_SCHEME_NAME);
   }
 }

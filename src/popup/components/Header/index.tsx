@@ -1,6 +1,7 @@
+import type { SetState } from '../../../types';
+
 import { memo } from 'react';
 import { ACTION, STORAGE_KEY } from '../../../constants';
-import { SetState } from '../../../types';
 import { CheckForm } from '../CheckForm';
 
 export const Header = memo(

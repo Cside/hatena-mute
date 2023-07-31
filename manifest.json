@@ -7,7 +7,7 @@
     "default_icon": "images/icon38.png",
     "default_popup": "popup.html"
   },
-  "options_page": "debug.html",
+  "options_page": "muted-entries.html",
   "content_scripts": [
     {
       "matches": [

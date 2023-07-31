@@ -1,5 +1,5 @@
-import * as idb from 'idb';
 import { ACTION, STORAGE_KEY } from './constants';
+import { storage } from './storage';
 
 type valueOf<T> = T[keyof T];
 
@@ -17,4 +17,9 @@ export type Entry = {
   domain: HTMLElement;
 };
 
-export type IDB = Awaited<ReturnType<typeof idb.openDB>>;
+export type MutedEntry = {
+  url: string;
+  created: Date;
+};
+
+export type IndexedDb = Awaited<ReturnType<typeof storage.indexedDb.open>>;

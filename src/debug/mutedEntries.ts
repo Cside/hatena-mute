@@ -1,12 +1,13 @@
-import { INDEXED_DB_OPTIONS } from '../constants';
 import { storage } from '../storage';
+import { $ } from '../utils';
 
-const result = document.getElementById('result');
-if (!result) throw new Error('#result is not found');
+const result = $('#result');
+const reset = $('#reset');
 
-const db = await storage.indexedDb.openDb(INDEXED_DB_OPTIONS);
+const db = await storage.indexedDb.open();
+
 result.innerText = JSON.stringify(
-  (await db.getAll<{ url: string; created: Date }>())
+  (await db.mutedEntries.getAll())
     .reverse()
     .map(
       (record) => record.created.toLocaleString('ja-JP') + '    ' + record.url,
@@ -14,3 +15,5 @@ result.innerText = JSON.stringify(
   null,
   4,
 );
+
+reset.addEventListener('click', () => alert(3));

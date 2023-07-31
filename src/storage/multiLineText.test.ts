@@ -1,6 +1,6 @@
-import { storage } from '.';
 import { fakeStorage } from '../../test/chrome/fakeStorage';
 import { STORAGE_KEY } from '../constants';
+import { storage } from '../storage';
 
 const KEY = STORAGE_KEY.MUTED_SITES;
 

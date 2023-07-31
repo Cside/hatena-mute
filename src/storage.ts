@@ -1,8 +1,8 @@
+import type { StorageKey } from './types';
+
 import { STORAGE_KEY } from './constants';
 import { indexedDb } from './storage/indexedDb';
 import { multiLineText } from './storage/multiLineText';
-
-import type { StorageKey } from './types';
 
 export const DEFAULTS = {
   [STORAGE_KEY.IS_EXTENSION_ENABLED]: true,
