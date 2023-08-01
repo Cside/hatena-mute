@@ -4,7 +4,7 @@ import { memo, useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { storage } from '../../../storage';
-import { executeActionOnContentScripts } from '../../utils';
+import { executeActionInContentScripts } from '../../utils';
 
 export const MutedListForm = memo(
   ({
@@ -49,7 +49,7 @@ export const MutedListForm = memo(
           onClick={async () => {
             await storage.multiLineText.setWhole(storageKey, text);
             setTextInStorage(text);
-            await executeActionOnContentScripts(actionOnChange);
+            await executeActionInContentScripts(actionOnChange);
           }}
           variant="primary"
           disabled={text === textInStorage}

@@ -3,7 +3,7 @@ import type { Action, SetState, StorageKey } from '../../../types';
 import { memo, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { storage } from '../../../storage';
-import { executeActionOnContentScripts } from '../../utils';
+import { executeActionInContentScripts } from '../../utils';
 
 export const CheckForm = memo(
   ({
@@ -38,7 +38,7 @@ export const CheckForm = memo(
           const value = event.target.checked;
           await storage.set(storageKey, value);
           setChecked(value);
-          await executeActionOnContentScripts(actionOnChange);
+          await executeActionInContentScripts(actionOnChange);
         }}
       />
     );

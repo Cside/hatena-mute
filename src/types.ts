@@ -1,13 +1,13 @@
-import { ACTION, STORAGE_KEY } from './constants';
+import { ACTION_OF, STORAGE_KEY_OF } from './constants';
 import { storage } from './storage';
 
 type valueOf<T> = T[keyof T];
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
-export type Action = valueOf<typeof ACTION>;
+export type Action = valueOf<typeof ACTION_OF>;
 
-export type StorageKey = valueOf<typeof STORAGE_KEY>;
+export type StorageKey = valueOf<typeof STORAGE_KEY_OF>;
 
 export type Entry = {
   element: HTMLElement;

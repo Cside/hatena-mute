@@ -1,7 +1,7 @@
 /** @jsxImportSource jsx-dom */
 import type { Entry, StorageKey } from '../../types';
 
-import { ACTION, STORAGE_KEY } from '../../constants';
+import { ACTION_OF, STORAGE_KEY_OF } from '../../constants';
 import { storage } from '../../storage';
 import { MuteButtonContainer } from '../components/MuteButtonContainer';
 import { matchesLoosely, replaceUrlsInCss } from './utils';
@@ -69,7 +69,7 @@ export class EntryMuter {
 
   async muteBySites() {
     await this.muteBy({
-      storageKey: STORAGE_KEY.MUTED_SITES,
+      storageKey: STORAGE_KEY_OF.MUTED_SITES,
       matchedClassName: 'hm-muted-sites-matched',
       match: (entry: Entry, muted: string) =>
         matchesLoosely(entry.titleLink.href, muted),
@@ -78,7 +78,7 @@ export class EntryMuter {
 
   async muteByWords() {
     await this.muteBy({
-      storageKey: STORAGE_KEY.MUTED_WORDS,
+      storageKey: STORAGE_KEY_OF.MUTED_WORDS,
       matchedClassName: 'hm-muted-words-matched',
       match: (entry: Entry, muted: string) =>
         !!matchesLoosely(entry.titleLink?.textContent || '', muted) ||
@@ -89,7 +89,7 @@ export class EntryMuter {
   async muteByEntries() {
     const map: Map<string, boolean> = new Map(
       await chrome.runtime.sendMessage({
-        type: ACTION.GET_MUTED_ENTRY_MAP,
+        type: ACTION_OF.GET_MUTED_ENTRY_MAP,
         payload: {
           urls: this.entries.map((entry) => entry.titleLink.href),
         },
@@ -102,13 +102,13 @@ export class EntryMuter {
   }
 
   async muteSite(domain: string) {
-    await storage.multiLineText.appendLine(STORAGE_KEY.MUTED_SITES, domain);
+    await storage.multiLineText.appendLine(STORAGE_KEY_OF.MUTED_SITES, domain);
     await this.muteBySites();
   }
 
   async muteEntry(url: string) {
     await chrome.runtime.sendMessage({
-      type: ACTION.ADD_MUTED_ENTRY,
+      type: ACTION_OF.ADD_MUTED_ENTRY,
       payload: { url },
     });
     await this.muteByEntries();

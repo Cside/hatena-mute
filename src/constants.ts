@@ -1,4 +1,4 @@
-export const ACTION = {
+export const ACTION_OF = {
   UPDATE_IS_EXTENSION_ENABLED: 'update-is-extension-enabled',
   UPDATE_MUTED_SITES: 'update-muted-sites',
   UPDATE_MUTED_WORDS: 'update-muted-words',
@@ -9,7 +9,7 @@ export const ACTION = {
   GET_MUTED_ENTRY_MAP: 'get-muted-entry-map',
 } as const;
 
-export const STORAGE_KEY = {
+export const STORAGE_KEY_OF = {
   IS_EXTENSION_ENABLED: 'is-extension-enabled',
   MUTED_SITES: 'muted-sites',
   MUTED_WORDS: 'muted-words',

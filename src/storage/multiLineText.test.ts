@@ -1,8 +1,8 @@
 import { fakeStorage } from '../../test/chrome/fakeStorage';
-import { STORAGE_KEY } from '../constants';
+import { STORAGE_KEY_OF } from '../constants';
 import { storage } from '../storage';
 
-const KEY = STORAGE_KEY.MUTED_SITES;
+const KEY = STORAGE_KEY_OF.MUTED_SITES;
 
 afterEach(async () => {
   await fakeStorage.clear();

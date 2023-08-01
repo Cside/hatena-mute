@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from '../../constants';
+import { STORAGE_KEY_OF } from '../../constants';
 import { storage } from '../../storage';
 
 export class ExtensionEnabler {
@@ -10,13 +10,15 @@ export class ExtensionEnabler {
   }
 
   async initialize() {
-    if (await storage.get(STORAGE_KEY.IS_EXTENSION_ENABLED))
+    if (await storage.get(STORAGE_KEY_OF.IS_EXTENSION_ENABLED))
       this.rootElement.classList.add(ExtensionEnabler.className);
   }
 
   async update() {
     this.rootElement.classList[
-      (await storage.get(STORAGE_KEY.IS_EXTENSION_ENABLED)) ? 'add' : 'remove'
+      (await storage.get(STORAGE_KEY_OF.IS_EXTENSION_ENABLED))
+        ? 'add'
+        : 'remove'
     ](ExtensionEnabler.className);
   }
 }

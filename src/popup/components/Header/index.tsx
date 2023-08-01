@@ -1,7 +1,7 @@
 import type { SetState } from '../../../types';
 
 import { memo } from 'react';
-import { ACTION, STORAGE_KEY } from '../../../constants';
+import { ACTION_OF, STORAGE_KEY_OF } from '../../../constants';
 import { CheckForm } from '../CheckForm';
 
 export const Header = memo(
@@ -19,10 +19,10 @@ export const Header = memo(
       </span>
       <CheckForm
         id="enable-all"
-        storageKey={STORAGE_KEY.IS_EXTENSION_ENABLED}
+        storageKey={STORAGE_KEY_OF.IS_EXTENSION_ENABLED}
         checked={checked}
         setChecked={setChecked}
-        actionOnChange={ACTION.UPDATE_IS_EXTENSION_ENABLED}
+        actionOnChange={ACTION_OF.UPDATE_IS_EXTENSION_ENABLED}
       />
     </h1>
   ),

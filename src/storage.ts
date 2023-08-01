@@ -1,13 +1,13 @@
 import type { StorageKey } from './types';
 
-import { STORAGE_KEY } from './constants';
+import { STORAGE_KEY_OF } from './constants';
 import { indexedDb } from './storage/indexedDb';
 import { multiLineText } from './storage/multiLineText';
 
 const DEFAULTS = {
-  [STORAGE_KEY.IS_EXTENSION_ENABLED]: true,
-  [STORAGE_KEY.LIGHTENS_VISITED_ENTRY]: false,
-  [STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED]: false,
+  [STORAGE_KEY_OF.IS_EXTENSION_ENABLED]: true,
+  [STORAGE_KEY_OF.LIGHTENS_VISITED_ENTRY]: false,
+  [STORAGE_KEY_OF.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED]: false,
 } as const;
 
 export const storage = {

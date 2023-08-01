@@ -1,22 +1,22 @@
 import type { IndexedDb } from '../types';
 
-import { ACTION } from '../constants';
+import { ACTION_OF } from '../constants';
 
 type MessageParams =
   | {
-      type: typeof ACTION.GET_VISITED_MAP;
+      type: typeof ACTION_OF.GET_VISITED_MAP;
       payload: { urls: string[] };
     }
   | {
-      type: typeof ACTION.ADD_HISTORY;
+      type: typeof ACTION_OF.ADD_HISTORY;
       payload: { url: string };
     }
   | {
-      type: typeof ACTION.ADD_MUTED_ENTRY;
+      type: typeof ACTION_OF.ADD_MUTED_ENTRY;
       payload: { url: string };
     }
   | {
-      type: typeof ACTION.GET_MUTED_ENTRY_MAP;
+      type: typeof ACTION_OF.GET_MUTED_ENTRY_MAP;
       payload: { urls: string[] };
     };
 
@@ -26,7 +26,7 @@ export const run = (db: IndexedDb) => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       (async () => {
         switch (type) {
-          case ACTION.GET_VISITED_MAP:
+          case ACTION_OF.GET_VISITED_MAP:
             return await Promise.all(
               payload.urls.map(async (url) => {
                 // await chrome.history.deleteUrl({ url }); // for debug
@@ -36,14 +36,14 @@ export const run = (db: IndexedDb) => {
                 ] as [string, boolean];
               }),
             );
-          case ACTION.ADD_HISTORY:
+          case ACTION_OF.ADD_HISTORY:
             return await chrome.history.addUrl({ url: payload.url });
 
-          case ACTION.ADD_MUTED_ENTRY:
+          case ACTION_OF.ADD_MUTED_ENTRY:
             // FIXME これ sendResponse する必要ないな？
             return await db.mutedEntries.put({ url: payload.url });
 
-          case ACTION.GET_MUTED_ENTRY_MAP:
+          case ACTION_OF.GET_MUTED_ENTRY_MAP:
             return await db.mutedEntries.getMap(payload.urls);
 
           default:
