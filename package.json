@@ -70,7 +70,7 @@
     "@sentry/integrations": "^7.39.0",
     "@sentry/react": "^7.39.0",
     "@sentry/tracing": "^7.39.0",
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.4.5",
     "bootstrap": "^5.2.3",
     "idb": "^7.1.1",
     "lodash.zip": "^4.2.0",
