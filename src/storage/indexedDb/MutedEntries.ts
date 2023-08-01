@@ -52,7 +52,11 @@ export class MutedEntries {
   // debug usage only
 
   async getAll(): Promise<MutedEntry[]> {
-    return await this.db.getAll(OBJECT_SCHEME_NAME);
+    return await this.db.getAllFromIndex(
+      OBJECT_SCHEME_NAME,
+
+      'by_created',
+    );
   }
 
   // ========================================

@@ -2,18 +2,36 @@ import { storage } from '../storage';
 import { $ } from '../utils';
 
 const result = $('#result');
-const reset = $('#reset');
+const clear = $('#clear');
 
 const db = await storage.indexedDb.open();
+const records = await db.mutedEntries.getAll();
 
-result.innerText = JSON.stringify(
-  (await db.mutedEntries.getAll())
-    .reverse()
-    .map(
-      (record) => record.created.toLocaleString('ja-JP') + '    ' + record.url,
-    ),
-  null,
-  4,
-);
+if (records.length > 0)
+  result.innerHTML =
+    `
+    <table style="width: 800px;">
+      <tbody>` +
+    records
+      .reverse()
+      .map(
+        (record) => `
+          <tr>
+            <td style="width: 120px; vertical-align: top;">
+              ${record.created.toLocaleString('ja-JP')}
+            </td>
+            <td>
+              <a style="word-break: break-all;" href="${
+                record.url
+              }" target="_blank">${record.url}</a>
+            </td>
+          </tr>`,
+      )
+      .join('\n') +
+    ` </tbody>
+    </table>`;
 
-reset.addEventListener('click', () => db.mutedEntries.clear());
+clear.addEventListener('click', async () => {
+  await db.mutedEntries.clear();
+  result.innerHTML = '';
+});
