@@ -41,7 +41,7 @@ export const run = (db: IndexedDb) => {
 
           case ACTION.ADD_MUTED_ENTRY:
             // FIXME これ sendResponse する必要ないな？
-            return await db.mutedEntries.put(payload.url);
+            return await db.mutedEntries.put({ url: payload.url });
 
           case ACTION.GET_MUTED_ENTRY_MAP:
             return await db.mutedEntries.getMap(payload.urls);

@@ -20,7 +20,7 @@ export class MutedEntries {
     ) as [string, boolean][];
   }
 
-  // テーブルが存在しない時くらいしかコケない。そのときは例外が投げられる
+  // テーブルが存在しない時や、keyPath の値が不正だったときくらいしかコケない。そのときは例外が投げられる
   async put({ url, created = new Date() }: { url: string; created?: Date }) {
     return await this.db.put(OBJECT_SCHEME_NAME, { url, created });
   }
@@ -48,14 +48,17 @@ export class MutedEntries {
     return await this.db.getAllKeys(OBJECT_SCHEME_NAME);
   }
 
-  async clear() {
-    return await this.db.clear(OBJECT_SCHEME_NAME);
-  }
-
   // ========================================
   // debug usage only
 
   async getAll(): Promise<MutedEntry[]> {
     return await this.db.getAll(OBJECT_SCHEME_NAME);
+  }
+
+  // ========================================
+  // testing and debug usage only
+
+  async clear() {
+    return await this.db.clear(OBJECT_SCHEME_NAME);
   }
 }

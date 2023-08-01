@@ -16,4 +16,4 @@ result.innerText = JSON.stringify(
   4,
 );
 
-reset.addEventListener('click', () => alert(3));
+reset.addEventListener('click', () => db.mutedEntries.clear());

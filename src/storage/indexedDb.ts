@@ -7,6 +7,7 @@ const openDb = async () => {
   const result = await idb.openDB(INDEXED_DB.NAME, INDEXED_DB.VERSION, {
     // クライアントがデータベースを未構築の場合に発火。version を上げた場合も発火
     upgrade(db) {
+      console.info('[indexedDB] initializing indexedDB');
       for (const objectStoreScheme of INDEXED_DB.OBJECT_STORE_SCHEMES) {
         const store = db.createObjectStore(objectStoreScheme.NAME, {
           keyPath: objectStoreScheme.KEY_PATH,
@@ -17,23 +18,24 @@ const openDb = async () => {
     },
     blocked(currentVersion, blockedVersion) {
       console.error(
-        `Older versions of the database are opened on the origin, so this version cannot open`,
+        `[indexedDB] Blocked: Older versions of the database are opened on the origin, so this version cannot open`,
         { currentVersion, blockedVersion },
       );
     },
     blocking(currentVersion, blockedVersion) {
       console.error(
-        `This connection is blocking a future version of the database from opening`,
+        `[indexedDB] Blocking: This connection is blocking a future version of the database from opening`,
         { currentVersion, blockedVersion },
       );
     },
+    // 接続しっぱなしのまま手動で db 消したりすると呼ばれる
     terminated() {
       console.error(
-        `The browser abnormally terminates the connection, but db.close() hasn't called`,
+        `[indexedDB] Terminated: The browser abnormally terminates the connection, but db.close() hasn't called`,
       );
     },
   });
-  console.info('indexedDB is connected');
+  console.info('[indexedDB] connected');
   return result;
 };
 
