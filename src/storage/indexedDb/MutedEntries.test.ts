@@ -10,13 +10,15 @@ let mutedEntries: MutedEntries;
 beforeAll(async () => {
   mutedEntries = (await storage.indexedDb.open()).mutedEntries;
 
-  jest.useFakeTimers();
-  jest.setSystemTime(NOW);
+  vi.useFakeTimers();
+  vi.setSystemTime(NOW);
 });
 
 afterEach(async () => mutedEntries.clear());
 
-afterAll(() => jest.useRealTimers());
+afterAll(() => {
+  vi.useRealTimers();
+});
 
 describe('get()', () => {
   test('empty result', async () => {

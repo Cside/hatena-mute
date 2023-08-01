@@ -4,7 +4,7 @@ import { STORAGE_KEY } from './constants';
 import { indexedDb } from './storage/indexedDb';
 import { multiLineText } from './storage/multiLineText';
 
-export const DEFAULTS = {
+const DEFAULTS = {
   [STORAGE_KEY.IS_EXTENSION_ENABLED]: true,
   [STORAGE_KEY.LIGHTENS_VISITED_ENTRY]: false,
   [STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED]: false,
