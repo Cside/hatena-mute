@@ -3,7 +3,9 @@ import zip from 'lodash.zip';
 import { INDEXED_DB } from '../../constants';
 import { MutedEntry } from '../../types';
 
-const OBJECT_SCHEME_NAME = INDEXED_DB.OBJECT_STORE_NAME_OF.MUTED_ENTRIES;
+const OBJECT_SCHEME_NAME = INDEXED_DB.OBJECT_STORE_OF.MUTED_ENTRIES.NAME;
+const INDEX_BY_CREATED =
+  INDEXED_DB.OBJECT_STORE_OF.MUTED_ENTRIES.INDEX_OF.BY_CREATED;
 
 export class MutedEntries {
   db: idb.IDBPDatabase;
@@ -54,8 +56,7 @@ export class MutedEntries {
   async getAll(): Promise<MutedEntry[]> {
     return await this.db.getAllFromIndex(
       OBJECT_SCHEME_NAME,
-
-      'by_created',
+      INDEX_BY_CREATED.NAME,
     );
   }
 

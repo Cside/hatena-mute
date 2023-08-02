@@ -8,11 +8,13 @@ const openDb = async () => {
     // クライアントがデータベースを未構築の場合に発火。version を上げた場合も発火
     upgrade(db) {
       console.info('[indexedDB] initializing indexedDB');
-      for (const objectStoreScheme of INDEXED_DB.OBJECT_STORE_SCHEMES) {
+      for (const objectStoreScheme of Object.values(
+        INDEXED_DB.OBJECT_STORE_OF,
+      )) {
         const store = db.createObjectStore(objectStoreScheme.NAME, {
           keyPath: objectStoreScheme.KEY_PATH,
         });
-        for (const index of objectStoreScheme.INDEXES)
+        for (const index of Object.values(objectStoreScheme.INDEX_OF))
           store.createIndex(index.NAME, index.PATH);
       }
     },
