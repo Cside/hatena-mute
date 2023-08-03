@@ -7,7 +7,7 @@ const openDb = async () => {
   const result = await idb.openDB(INDEXED_DB.NAME, INDEXED_DB.VERSION, {
     // クライアントがデータベースを未構築の場合に発火。version を上げた場合も発火
     upgrade(db) {
-      console.info('[indexedDB] initializing indexedDB');
+      console.info('[indexedDB] initializing or updating indexedDB');
       for (const objectStoreScheme of Object.values(
         INDEXED_DB.OBJECT_STORE_OF,
       )) {
