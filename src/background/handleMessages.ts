@@ -1,3 +1,4 @@
+import { serializeError } from 'serialize-error';
 import type { IndexedDb } from '../types';
 
 import { ACTION_OF } from '../constants';
@@ -29,27 +30,40 @@ export const run = (db: IndexedDb) => {
           case ACTION_OF.GET_VISITED_MAP:
             return await Promise.all(
               payload.urls.map(async (url) => {
-                // await chrome.history.deleteUrl({ url }); // for debug
                 return [
                   url,
                   (await chrome.history.getVisits({ url })).length > 0,
                 ] as [string, boolean];
               }),
             );
+          case ACTION_OF.GET_MUTED_ENTRY_MAP:
+            return await db.mutedEntries.getMap(payload.urls);
+
           case ACTION_OF.ADD_HISTORY:
             return await chrome.history.addUrl({ url: payload.url });
 
           case ACTION_OF.ADD_MUTED_ENTRY:
-            // FIXME これ sendResponse する必要ないな？
             return await db.mutedEntries.put({ url: payload.url });
-
-          case ACTION_OF.GET_MUTED_ENTRY_MAP:
-            return await db.mutedEntries.getMap(payload.urls);
 
           default:
             throw new Error(`Unknown action type: ${type}`);
         }
-      })().then((result) => sendResponse(result));
+      })()
+        .then((result) => {
+          sendResponse({
+            success: true,
+            data: result,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          sendResponse({
+            success: false,
+            error: serializeError(
+              error instanceof Error ? error : new Error(String(error)),
+            ),
+          });
+        });
 
       return true;
     },

@@ -3,6 +3,7 @@ import type { Entry, StorageKey } from '../../types';
 
 import { ACTION_OF, STORAGE_KEY_OF } from '../../constants';
 import { storage } from '../../storage';
+import { sendMessage } from '../../utils';
 import { MuteButtonContainer } from '../components/MuteButtonContainer';
 import { matchesLoosely, replaceUrlsInCss } from './utils';
 
@@ -88,12 +89,12 @@ export class EntryMuter {
 
   async muteByEntries() {
     const map: Map<string, boolean> = new Map(
-      await chrome.runtime.sendMessage({
+      (await sendMessage({
         type: ACTION_OF.GET_MUTED_ENTRY_MAP,
         payload: {
           urls: this.entries.map((entry) => entry.titleLink.href),
         },
-      }),
+      })) as [string, boolean][],
     );
     for (const entry of this.entries)
       entry.element.classList[map.get(entry.titleLink.href) ? 'add' : 'remove'](
@@ -107,7 +108,7 @@ export class EntryMuter {
   }
 
   async muteEntry(url: string) {
-    await chrome.runtime.sendMessage({
+    await sendMessage({
       type: ACTION_OF.ADD_MUTED_ENTRY,
       payload: { url },
     });
