@@ -36,6 +36,7 @@ export default defineConfig({
     },
   },
   build: {
+    minify: false,
     rollupOptions: {
       input: {
         'muted-entries.html': 'muted-entries.html',
