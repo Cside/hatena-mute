@@ -2,6 +2,7 @@ import type { Entry } from '../../types';
 
 import { ACTION_OF, STORAGE_KEY_OF } from '../../constants';
 import { storage } from '../../storage';
+import { sendMessage } from '../../utils';
 
 import './styles.pcss';
 
@@ -58,7 +59,7 @@ export class VisitedEntryLightener {
         const url = new URL(event.target.href);
         if (url.searchParams.has(GA_PARAM)) {
           url.searchParams.delete(GA_PARAM);
-          await chrome.runtime.sendMessage({
+          await sendMessage({
             type: ACTION_OF.ADD_HISTORY,
             payload: { url: url.toString() },
           });
@@ -96,14 +97,14 @@ export class VisitedEntryLightener {
     // コンストラクタでやると、popup から再呼び出しされたときに、
     // バックグランドで開いた URL の .visited がリセットされてしまうため、都度呼ぶ
     const visitedMap: Map<string, boolean> = new Map(
-      await chrome.runtime.sendMessage({
+      (await sendMessage({
         type: ACTION_OF.GET_VISITED_MAP,
         payload: {
           urls: this.entries
             .map((entry) => [entry.titleLink.href, entry.commentsUrl])
             .flat(),
         },
-      }),
+      })) as [string, boolean][],
     );
 
     for (const entry of this.entries) {
