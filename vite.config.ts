@@ -36,9 +36,10 @@ export default defineConfig({
     },
   },
   build: {
+    minify: false,
     rollupOptions: {
       input: {
-        debug: 'debug.html',
+        'muted-entries.html': 'muted-entries.html',
       },
     },
     target: browserslistToEsbuild(),

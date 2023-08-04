@@ -1,18 +1,18 @@
-import { userOption } from '.';
 import { fakeStorage } from '../../test/chrome/fakeStorage';
-import { STORAGE_KEY } from '../constants';
+import { STORAGE_KEY_OF } from '../constants';
+import { storage } from '../storage';
 
-const KEY = STORAGE_KEY.MUTED_SITES;
+const KEY = STORAGE_KEY_OF.MUTED_SITES;
 
 afterEach(async () => {
   await fakeStorage.clear();
 });
 
-test('getText', async () => {
-  expect(await userOption.text.getPlain(KEY)).toBe('');
+test('getWhole()', async () => {
+  expect(await storage.multiLineText.getWhole(KEY)).toBe('');
 });
 
-describe('setText', () => {
+describe('setWhole()', () => {
   test.each([
     {
       input: 'foo\n\nbar',
@@ -43,12 +43,12 @@ describe('setText', () => {
       expected: 'foo\nbar',
     },
   ])('%o', async ({ input, expected }) => {
-    await userOption.text.setPlain(KEY, input);
-    expect(await userOption.text.getPlain(KEY)).toBe(expected);
+    await storage.multiLineText.setWhole(KEY, input);
+    expect(await storage.multiLineText.getWhole(KEY)).toBe(expected);
   });
 });
 
-describe('getList', () => {
+describe('getAllLines()', () => {
   test.each([
     {
       input: 'foo',
@@ -76,11 +76,11 @@ describe('getList', () => {
     },
   ])('%o', async ({ input, expected }) => {
     await chrome.storage.local.set({ [KEY]: input });
-    expect(await userOption.text.getLines(KEY)).toEqual(expected);
+    expect(await storage.multiLineText.getAllLines(KEY)).toEqual(expected);
   });
 });
 
-describe('addItem', () => {
+describe('appendLine()', () => {
   test.each([
     {
       input: undefined,
@@ -96,7 +96,7 @@ describe('addItem', () => {
     },
   ])('%o', async ({ input, expected }) => {
     if (input !== undefined) await chrome.storage.local.set({ [KEY]: input });
-    await userOption.text.appendLine(KEY, 'foo');
-    expect(await userOption.text.getPlain(KEY)).toEqual(expected);
+    await storage.multiLineText.appendLine(KEY, 'foo');
+    expect(await storage.multiLineText.getWhole(KEY)).toEqual(expected);
   });
 });
