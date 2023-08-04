@@ -23,3 +23,21 @@ export type MutedEntry = {
 };
 
 export type IndexedDb = Awaited<ReturnType<typeof storage.indexedDb.open>>;
+
+export type MessageParameters =
+  | {
+      type: typeof ACTION_OF.GET_VISITED_MAP;
+      payload: { urls: string[] };
+    }
+  | {
+      type: typeof ACTION_OF.ADD_HISTORY;
+      payload: { url: string };
+    }
+  | {
+      type: typeof ACTION_OF.ADD_MUTED_ENTRY;
+      payload: { url: string };
+    }
+  | {
+      type: typeof ACTION_OF.GET_MUTED_ENTRY_MAP;
+      payload: { urls: string[] };
+    };

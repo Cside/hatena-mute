@@ -1,29 +1,11 @@
+import type { IndexedDb, MessageParameters } from '../types';
+
 import { serializeError } from 'serialize-error';
-import type { IndexedDb } from '../types';
-
 import { ACTION_OF } from '../constants';
-
-type MessageParams =
-  | {
-      type: typeof ACTION_OF.GET_VISITED_MAP;
-      payload: { urls: string[] };
-    }
-  | {
-      type: typeof ACTION_OF.ADD_HISTORY;
-      payload: { url: string };
-    }
-  | {
-      type: typeof ACTION_OF.ADD_MUTED_ENTRY;
-      payload: { url: string };
-    }
-  | {
-      type: typeof ACTION_OF.GET_MUTED_ENTRY_MAP;
-      payload: { urls: string[] };
-    };
 
 export const run = (db: IndexedDb) => {
   chrome.runtime.onMessage.addListener(
-    ({ type, payload }: MessageParams, _sender, sendResponse) => {
+    ({ type, payload }: MessageParameters, _sender, sendResponse) => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       (async () => {
         switch (type) {
