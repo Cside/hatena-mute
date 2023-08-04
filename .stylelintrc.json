@@ -19,7 +19,12 @@
     ],
     "csstree/validator": true,
     "plugin/declaration-block-no-ignored-properties": true,
-    "plugin/no-unsupported-browser-features": true,
+    "plugin/no-unsupported-browser-features": [
+      true,
+      {
+        "ignore": ["css-nesting"]
+      }
+    ],
     "selector-pseudo-class-no-unknown": [
       true,
       {
