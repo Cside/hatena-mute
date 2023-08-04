@@ -31,7 +31,9 @@ if (records.length > 0)
     ` </tbody>
     </table>`;
 
-clear.addEventListener('click', async () => {
+clear.addEventListener('click', async (event) => {
+  event.preventDefault();
+
   await db.mutedEntries.clear();
   result.innerHTML = '';
 });
