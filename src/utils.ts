@@ -41,17 +41,17 @@ export const $$ = <T extends HTMLElement>(
 export const sendMessage = async (
   params: Parameters<typeof chrome.runtime.sendMessage>[1],
 ): Promise<unknown> => {
-  let result:
-    | {
-        success: true;
-        data?: unknown;
-      }
-    | {
-        success: false;
-        error: ErrorObject;
-      };
   try {
-    result = await chrome.runtime.sendMessage(params);
+    const result:
+      | {
+          success: true;
+          data?: unknown;
+        }
+      | {
+          success: false;
+          error: ErrorObject;
+        } = await chrome.runtime.sendMessage(params);
+
     if (!result.success) {
       const prefix = 'Error occurred in background service worker.\n';
       if (result.error.message)
