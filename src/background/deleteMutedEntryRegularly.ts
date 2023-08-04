@@ -7,17 +7,21 @@ const ALARM_NAME = 'delete-muted-entries';
 export const run = (db: IndexedDb) => {
   chrome.alarms.onAlarm.addListener(async () => {
     const now = new Date();
-    console.info(`deletion started at ${now.toLocaleString('ja-JP')}`);
+    console.info(
+      `[indexedDB] deletion started at ${now.toLocaleString('ja-JP')}`,
+    );
 
     const length = await db.mutedEntries.deleteAll({
       olderThan: new Date(Date.now() - OLDER_THAN),
     });
 
-    console.info(`  deleted ${length} records`);
+    console.info(`  [indexedDB] deleted ${length} records`);
 
     const nextScheduled = new Date(now.getTime());
     nextScheduled.setMinutes(now.getMinutes() + INTERVAL_MINUTES);
-    console.info(`  next scheduled: ${nextScheduled.toLocaleString('ja-JP')}`);
+    console.info(
+      `  [indexedDB] next scheduled: ${nextScheduled.toLocaleString('ja-JP')}`,
+    );
   });
 
   chrome.runtime.onInstalled.addListener(async ({ reason }) => {
