@@ -44,9 +44,13 @@ const addPrefixToError = (prefix: string, error: Error) => {
   error.stack = prefix + error.stack;
 };
 
+const SEND_MESSAGE_TIMEOUT = 500;
+
 export const sendMessage = async (
   params: MessageParameters,
 ): Promise<unknown> => {
+  const startTime = new Date().getTime();
+
   try {
     const result:
       | {
@@ -56,15 +60,37 @@ export const sendMessage = async (
       | {
           success: false;
           error: ErrorObject;
-        } = await chrome.runtime.sendMessage(params);
+        } = await Promise.race([
+      chrome.runtime.sendMessage(params),
+      new Promise((_, reject) => {
+        setTimeout(() => {
+          reject(new Error(`Timeout of ${SEND_MESSAGE_TIMEOUT} ms exceeded.`));
+        }, SEND_MESSAGE_TIMEOUT);
+      }),
+    ]);
 
     if (!result.success) {
+      console.info(
+        `[message: ${params.type}] Failed in ${
+          new Date().getTime() - startTime
+        } ms`,
+      );
       const error = deserializeError(result.error);
       addPrefixToError('Error occurred in background service worker.\n', error);
       throw error;
     }
+    console.info(
+      `[message: ${params.type}] Succeeded in ${
+        new Date().getTime() - startTime
+      } ms`,
+    );
     return result.data;
   } catch (error) {
+    console.info(
+      `[message: ${params.type}] Failed in ${
+        new Date().getTime() - startTime
+      } ms`,
+    );
     if (error instanceof Error) {
       let prefix = `chrome.runtime.sendMessage({ type: ${params.type} }) failed.\n`;
       if (error.message.includes('Extension context invalidated.'))
