@@ -1,53 +1,67 @@
-import type { IndexedDb, MessageParameters } from '../types';
+import type { MessageParameters } from '../types';
 
 import { serializeError } from 'serialize-error';
 import { ACTION_OF } from '../constants';
+import { IndexedDb } from '../storage/IndexedDb';
 
-export const run = (db: IndexedDb) => {
-  chrome.runtime.onMessage.addListener(
-    ({ type, payload }: MessageParameters, _sender, sendResponse) => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      (async () => {
-        switch (type) {
-          case ACTION_OF.GET_VISITED_MAP:
-            return await Promise.all(
-              payload.urls.map(async (url) => {
-                return [
-                  url,
-                  (await chrome.history.getVisits({ url })).length > 0,
-                ] as [string, boolean];
-              }),
-            );
-          case ACTION_OF.GET_MUTED_ENTRY_MAP:
-            return await db.mutedEntries.getMap(payload.urls);
+const db = new IndexedDb();
+db.open(); // eslint-disable-line @typescript-eslint/no-floating-promises
 
-          case ACTION_OF.ADD_HISTORY:
-            return await chrome.history.addUrl({ url: payload.url });
+chrome.runtime.onMessage.addListener(
+  ({ type, payload }: MessageParameters, _sender, sendResponse) => {
+    console.info(`[message:${type}] Received`);
+    const startTime = new Date().getTime();
 
-          case ACTION_OF.ADD_MUTED_ENTRY:
-            return await db.mutedEntries.put({ url: payload.url });
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    (async () => {
+      await db.waitForConnection();
 
-          default:
-            throw new Error(`Unknown action type: ${type}`);
-        }
-      })()
-        .then((result) => {
-          sendResponse({
-            success: true,
-            data: result,
-          });
-        })
-        .catch((error) => {
-          console.error(error);
-          sendResponse({
-            success: false,
-            error: serializeError(
-              error instanceof Error ? error : new Error(String(error)),
-            ),
-          });
+      switch (type) {
+        case ACTION_OF.GET_VISITED_MAP:
+          return await Promise.all(
+            payload.urls.map(async (url) => {
+              return [
+                url,
+                (await chrome.history.getVisits({ url })).length > 0,
+              ] as [string, boolean];
+            }),
+          );
+        case ACTION_OF.GET_MUTED_ENTRY_MAP:
+          return await db.mutedEntries.getMap(payload.urls);
+
+        case ACTION_OF.ADD_HISTORY:
+          return await chrome.history.addUrl({ url: payload.url });
+
+        case ACTION_OF.ADD_MUTED_ENTRY:
+          return await db.mutedEntries.put({ url: payload.url });
+
+        default:
+          throw new Error(`Unknown action type: ${type}`);
+      }
+    })()
+      .then((result) => {
+        sendResponse({
+          success: true,
+          data: result,
         });
+      })
+      .catch((error) => {
+        console.error(error);
+        sendResponse({
+          success: false,
+          error: serializeError(
+            error instanceof Error ? error : new Error(String(error)),
+          ),
+        });
+      })
+      .finally(() => {
+        console.info(
+          `  [message:${type}] handled in ${
+            new Date().getTime() - startTime
+          } ms`,
+        );
+      });
 
-      return true;
-    },
-  );
-};
+    return true;
+  },
+);

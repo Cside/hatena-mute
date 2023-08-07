@@ -1,5 +1,4 @@
 import { ACTION_OF, STORAGE_KEY_OF } from './constants';
-import { storage } from './storage';
 
 type valueOf<T> = T[keyof T];
 
@@ -21,8 +20,6 @@ export type MutedEntry = {
   url: string;
   created: Date;
 };
-
-export type IndexedDb = Awaited<ReturnType<typeof storage.indexedDb.open>>;
 
 export type MessageParameters =
   | {

@@ -1,13 +1,13 @@
 import * as idb from 'idb';
 import { INDEXED_DB } from '../constants';
-
-import { MutedEntries } from './indexedDb/MutedEntries';
+import { MutedEntries } from './IndexedDb/MutedEntries';
 
 const openDb = async () => {
+  const startTime = new Date().getTime();
   const result = await idb.openDB(INDEXED_DB.NAME, INDEXED_DB.VERSION, {
     // クライアントがデータベースを未構築の場合に発火。version を上げた場合も発火
     upgrade(db) {
-      console.info('[indexedDB] initializing or updating indexedDB');
+      console.info('[indexedDB] Initializing or updating indexedDB');
       for (const objectStoreScheme of Object.values(
         INDEXED_DB.OBJECT_STORE_OF,
       )) {
@@ -37,15 +37,35 @@ const openDb = async () => {
       );
     },
   });
-  console.info('[indexedDB] connected');
+  console.info(
+    `[indexedDB] Opened. Elapsed ${new Date().getTime() - startTime} ms`,
+  );
   return result;
 };
 
-export const indexedDb = {
-  open: async () => {
-    const db = await openDb();
-    return {
-      mutedEntries: new MutedEntries({ db }),
-    };
-  },
-};
+export class IndexedDb {
+  private db: idb.IDBPDatabase | undefined = undefined;
+  private _mutedEntries: MutedEntries | undefined = undefined;
+
+  get mutedEntries() {
+    if (this._mutedEntries === undefined)
+      throw new Error(`this._mutedEntries is not initialized`);
+    return this._mutedEntries;
+  }
+
+  async open() {
+    this.db = await openDb();
+    this._mutedEntries = new MutedEntries({ db: this.db });
+  }
+
+  // open() をやむをえず floating で使うとき用
+  async waitForConnection() {
+    return new Promise((resolve) => {
+      const id = setInterval(() => {
+        if (this.db === undefined) return;
+        clearInterval(id);
+        return resolve(this.db);
+      }, 50);
+    });
+  }
+}

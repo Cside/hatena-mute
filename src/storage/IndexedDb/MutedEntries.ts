@@ -8,7 +8,7 @@ const INDEX_BY_CREATED =
   INDEXED_DB.OBJECT_STORE_OF.MUTED_ENTRIES.INDEX_OF.BY_CREATED.NAME;
 
 export class MutedEntries {
-  db: idb.IDBPDatabase;
+  private db: idb.IDBPDatabase;
 
   constructor({ db }: { db: idb.IDBPDatabase }) {
     this.db = db;
