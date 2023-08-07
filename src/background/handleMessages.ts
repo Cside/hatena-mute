@@ -40,6 +40,11 @@ chrome.runtime.onMessage.addListener(
       }
     })()
       .then((result) => {
+        console.info(
+          `  [message:${type}] Succeeded in ${
+            new Date().getTime() - startTime
+          } ms`,
+        );
         sendResponse({
           success: true,
           data: result,
@@ -47,19 +52,17 @@ chrome.runtime.onMessage.addListener(
       })
       .catch((error) => {
         console.error(error);
+        console.info(
+          `  [message:${type}] Failed in ${
+            new Date().getTime() - startTime
+          } ms`,
+        );
         sendResponse({
           success: false,
           error: serializeError(
             error instanceof Error ? error : new Error(String(error)),
           ),
         });
-      })
-      .finally(() => {
-        console.info(
-          `  [message:${type}] handled in ${
-            new Date().getTime() - startTime
-          } ms`,
-        );
       });
 
     return true;
