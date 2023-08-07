@@ -1,6 +1,7 @@
 import type { ErrorObject } from 'serialize-error';
 
 import { deserializeError } from 'serialize-error';
+import { MessageParameters } from './types';
 
 type QuerySelectorParameters =
   | [element: HTMLElement, selector: string]
@@ -38,8 +39,13 @@ export const $$ = <T extends HTMLElement>(
   ];
 };
 
+const addPrefixToError = (prefix: string, error: Error) => {
+  error.message = prefix + error.message;
+  error.stack = prefix + error.stack;
+};
+
 export const sendMessage = async (
-  params: Parameters<typeof chrome.runtime.sendMessage>[1],
+  params: MessageParameters,
 ): Promise<unknown> => {
   try {
     const result:
@@ -53,18 +59,20 @@ export const sendMessage = async (
         } = await chrome.runtime.sendMessage(params);
 
     if (!result.success) {
-      const prefix = 'Error occurred in background service worker.\n';
-      if (result.error.message)
-        result.error.message = prefix + result.error.message;
-      if (result.error.stack) result.error.stack = prefix + result.error.stack;
-      throw deserializeError(result.error);
+      const error = deserializeError(result.error);
+      addPrefixToError('Error occurred in background service worker.\n', error);
+      throw error;
     }
     return result.data;
   } catch (error) {
-    if (error instanceof Error)
-      error.message =
-        'chrome.runtime.sendMessage() failed. Maybe the extension is updated but the content script is not reloaded.\n' +
-        error.message;
+    if (error instanceof Error) {
+      let prefix = `chrome.runtime.sendMessage({ type: ${params.type} }) failed.\n`;
+      if (error.message.includes('Extension context invalidated.'))
+        prefix =
+          prefix +
+          `Maybe the extension is updated but the content script is not reloaded.\n`;
+      addPrefixToError(prefix, error);
+    }
     throw error;
   }
 };

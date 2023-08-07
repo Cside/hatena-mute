@@ -1,7 +1,6 @@
 import type { StorageKey } from './types';
 
 import { STORAGE_KEY_OF } from './constants';
-import { indexedDb } from './storage/indexedDb';
 import { multiLineText } from './storage/multiLineText';
 
 const DEFAULTS = {
@@ -20,5 +19,4 @@ export const storage = {
       [key]: value,
     }),
   multiLineText,
-  indexedDb,
 };

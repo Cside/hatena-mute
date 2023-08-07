@@ -1,10 +1,11 @@
-import { storage } from '../storage';
+import { IndexedDb } from '../storage/IndexedDb';
 import { $ } from '../utils';
 
 const result = $('#result');
 const clear = $('#clear');
 
-const db = await storage.indexedDb.open();
+const db = new IndexedDb();
+await db.open();
 const records = await db.mutedEntries.getAll();
 
 if (records.length > 0)

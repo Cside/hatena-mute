@@ -1,35 +1,35 @@
-import type { IndexedDb } from '../types';
+import { IndexedDb } from '../storage/IndexedDb';
 
 const INTERVAL_MINUTES = 24 * 60; // 24 hours
 const OLDER_THAN = 30 * 24 * 60 * 60 * 1000; // 30 days
 const ALARM_NAME = 'delete-muted-entries';
 
-export const run = (db: IndexedDb) => {
-  chrome.alarms.onAlarm.addListener(async () => {
-    const now = new Date();
-    console.info(
-      `[indexedDB] deletion started at ${now.toLocaleString('ja-JP')}`,
-    );
+const db = new IndexedDb();
+db.open(); // eslint-disable-line @typescript-eslint/no-floating-promises
 
-    const length = await db.mutedEntries.deleteAll({
-      olderThan: new Date(Date.now() - OLDER_THAN),
-    });
+chrome.alarms.onAlarm.addListener(async () => {
+  const now = new Date();
+  console.info(`[deletion] Deletion started at ${now.toLocaleString('ja-JP')}`);
 
-    console.info(`  [indexedDB] deleted ${length} records`);
-
-    const nextScheduled = new Date(now.getTime());
-    nextScheduled.setMinutes(now.getMinutes() + INTERVAL_MINUTES);
-    console.info(
-      `  [indexedDB] next scheduled: ${nextScheduled.toLocaleString('ja-JP')}`,
-    );
+  await db.waitForConnection();
+  const length = await db.mutedEntries.deleteAll({
+    olderThan: new Date(Date.now() - OLDER_THAN),
   });
 
-  chrome.runtime.onInstalled.addListener(async ({ reason }) => {
-    if (reason !== chrome.runtime.OnInstalledReason.INSTALL) return;
+  console.info(`  [indexedDB] Deleted ${length} records`);
 
-    await chrome.alarms.create(ALARM_NAME, {
-      delayInMinutes: 0,
-      periodInMinutes: INTERVAL_MINUTES,
-    });
+  const nextScheduled = new Date(now.getTime());
+  nextScheduled.setMinutes(now.getMinutes() + INTERVAL_MINUTES);
+  console.info(
+    `  [deletion] Next scheduled: ${nextScheduled.toLocaleString('ja-JP')}`,
+  );
+});
+
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+  if (reason !== chrome.runtime.OnInstalledReason.INSTALL) return;
+
+  await chrome.alarms.create(ALARM_NAME, {
+    delayInMinutes: 0,
+    periodInMinutes: INTERVAL_MINUTES,
   });
-};
+});

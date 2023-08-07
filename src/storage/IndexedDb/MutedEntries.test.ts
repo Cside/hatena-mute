@@ -1,5 +1,5 @@
 import 'fake-indexeddb/auto';
-import { storage } from '../../storage';
+import { IndexedDb } from '../IndexedDb';
 import { MutedEntries } from './MutedEntries';
 
 const URL = 'https://example.com/';
@@ -8,7 +8,9 @@ const NOW = 1600000000000;
 let mutedEntries: MutedEntries;
 
 beforeAll(async () => {
-  mutedEntries = (await storage.indexedDb.open()).mutedEntries;
+  const db = new IndexedDb();
+  await db.open();
+  mutedEntries = db.mutedEntries;
 
   vi.useFakeTimers();
   vi.setSystemTime(NOW);

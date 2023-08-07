@@ -1,5 +1,4 @@
 import { ACTION_OF, STORAGE_KEY_OF } from './constants';
-import { storage } from './storage';
 
 type valueOf<T> = T[keyof T];
 
@@ -22,4 +21,20 @@ export type MutedEntry = {
   created: Date;
 };
 
-export type IndexedDb = Awaited<ReturnType<typeof storage.indexedDb.open>>;
+export type MessageParameters =
+  | {
+      type: typeof ACTION_OF.GET_VISITED_MAP;
+      payload: { urls: string[] };
+    }
+  | {
+      type: typeof ACTION_OF.ADD_HISTORY;
+      payload: { url: string };
+    }
+  | {
+      type: typeof ACTION_OF.ADD_MUTED_ENTRY;
+      payload: { url: string };
+    }
+  | {
+      type: typeof ACTION_OF.GET_MUTED_ENTRY_MAP;
+      payload: { urls: string[] };
+    };

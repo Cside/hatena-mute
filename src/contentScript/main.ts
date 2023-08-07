@@ -52,7 +52,7 @@ if (rootElement) {
     }
   });
 
-  // sendMessage が返ってこなくてエラーになるケースがあるので、敢えて floating promise にする
+  // sendMessage でエラーになるケースがあるので、敢えて floating promise にする
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   visitedEntryLightener.lighten();
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
