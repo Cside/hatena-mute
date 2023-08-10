@@ -71,6 +71,13 @@ const _sendMessage = async (
             `Maybe the extension is updated but the content script is not reloaded.\n`,
           error,
         );
+
+        if (
+          confirm(
+            '拡張機能が更新されたため、処理に失敗しました。\nリロードします。',
+          )
+        )
+          setTimeout(() => location.reload(), 0);
         throw new AbortError(error);
       }
       addPrefixToError(prefix, error);
