@@ -27,6 +27,8 @@ if (rootElement) {
   });
   visitedEntryLightener.addClickListeners();
 
+  // events from popup
+  // TODO: await 後の addListener 、本来は bad design
   chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
     console.info(`action: ${type}`);
 

@@ -1,7 +1,6 @@
 /node_modules/
 /.extension-id
 /dist/
-/dist-chrome/
 /dist-firefox/
 .git-pr-release
 /stats.html
