@@ -51,7 +51,9 @@ chrome.runtime.onMessage.addListener(
       })
       .catch((error) => {
         console.info(
-          `[message: ${type}] Failed in ${new Date().getTime() - startTime} ms`,
+          `[message: ${type}] ❌Failed in ${
+            new Date().getTime() - startTime
+          } ms`,
         );
         console.error(error);
         sendResponse({
