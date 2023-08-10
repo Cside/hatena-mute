@@ -7,6 +7,8 @@ import { deserializeError } from 'serialize-error';
 const TIMEOUT = (attemptNumber: number) => (attemptNumber + 2) * 100; // 300, 400, 500 ...
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
+const ERROR_PREFIX = (type: string) =>
+  `chrome.runtime.sendMessage({ type: ${type} }) failed.\n`;
 
 const addPrefixToError = (prefix: string, error: Error) => {
   error.message = prefix + error.message;
@@ -41,7 +43,11 @@ const _sendMessage = async (
     ]);
     if (!result.success) {
       const error = deserializeError(result.error);
-      addPrefixToError('Error occurred in background service worker.\n', error);
+      addPrefixToError(
+        ERROR_PREFIX(params.type) +
+          'Error occurred in the background service worker.\n',
+        error,
+      );
       throw new AbortError(error);
     }
     console.info(
@@ -57,11 +63,16 @@ const _sendMessage = async (
       } ms`,
     );
     if (error instanceof Error) {
-      let prefix = `chrome.runtime.sendMessage({ type: ${params.type} }) failed.\n`;
-      if (error.message.includes('Extension context invalidated.'))
-        prefix =
+      const prefix = ERROR_PREFIX(params.type);
+      // 拡張機能が更新されたのに、content script が reload されていない
+      if (error.message.includes('Extension context invalidated.')) {
+        addPrefixToError(
           prefix +
-          `Maybe the extension is updated but the content script is not reloaded.\n`;
+            `Maybe the extension is updated but the content script is not reloaded.\n`,
+          error,
+        );
+        throw new AbortError(error);
+      }
       addPrefixToError(prefix, error);
     }
     throw error;
