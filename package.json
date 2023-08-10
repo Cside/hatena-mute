@@ -2,7 +2,7 @@
   "version": "1.3.1",
   "scripts": {
     "dev": "ENABLES_SENTRY=false vite",
-    "build:chrome": "rimraf dist-chrome && vite build --outDir dist-chrome",
+    "build:chrome": "rimraf dist && vite build",
     "build:chrome:no-sentry": "ENABLES_SENTRY=false pnpm run build:chrome",
     "build:firefox": "./scripts/build-firefox.sh",
     "visualize": "ENABLES_VISUALIZER=true pnpm run build:chrome && open stats.html",
