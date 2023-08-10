@@ -1,8 +1,8 @@
 import type { Entry } from '../../types';
 
 import { ACTION_OF, STORAGE_KEY_OF } from '../../constants';
+import { sendMessage } from '../../sendMessage';
 import { storage } from '../../storage';
-import { sendMessage } from '../../utils';
 
 import './styles.pcss';
 

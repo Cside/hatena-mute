@@ -50,10 +50,10 @@ chrome.runtime.onMessage.addListener(
         });
       })
       .catch((error) => {
-        console.error(error);
         console.info(
           `[message: ${type}] Failed in ${new Date().getTime() - startTime} ms`,
         );
+        console.error(error);
         sendResponse({
           success: false,
           error: serializeError(
