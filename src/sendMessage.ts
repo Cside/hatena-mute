@@ -15,7 +15,7 @@ const addPrefixToError = (prefix: string, error: Error) => {
   error.stack = prefix + error.stack;
 };
 
-const _sendMessage = async (
+const _sendMessageToBg = async (
   attemptNumber: number,
   params: MessageParameters,
 ) => {
@@ -71,6 +71,13 @@ const _sendMessage = async (
             `Maybe the extension is updated but the content script is not reloaded.\n`,
           error,
         );
+
+        if (
+          confirm(
+            '拡張機能が更新されたため、処理に失敗しました。\nリロードします。',
+          )
+        )
+          setTimeout(() => location.reload(), 0);
         throw new AbortError(error);
       }
       addPrefixToError(prefix, error);
@@ -79,12 +86,12 @@ const _sendMessage = async (
   }
 };
 
-export const sendMessage = async (
+export const sendMessageToBg = async (
   params: MessageParameters,
 ): Promise<unknown> =>
   await pRetry(
     (attemptNumber: number) => {
-      return _sendMessage(attemptNumber, params);
+      return _sendMessageToBg(attemptNumber, params);
     },
     // https://github.com/sindresorhus/p-retry#options
     {

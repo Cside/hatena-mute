@@ -19,7 +19,7 @@ if (rootElement) {
   await extensionEnabler.initialize();
 
   const entryMuter = new EntryMuter({ entries });
-  await entryMuter.initialize();
+  entryMuter.initialize();
 
   const visitedEntryLightener = new VisitedEntryLightener({
     entries,

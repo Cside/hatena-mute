@@ -1,5 +1,6 @@
 import * as sentry from '@sentry/browser';
 import { initSentry } from '../sentry';
+
 import './deleteMutedEntryRegularly';
 import './handleMessages';
 
