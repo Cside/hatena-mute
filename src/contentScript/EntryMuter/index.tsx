@@ -17,7 +17,7 @@ export class EntryMuter {
     this.entries = entries;
   }
 
-  async initialize() {
+  initialize() {
     this.injectCss();
     this.appendMuteButtons();
   }
