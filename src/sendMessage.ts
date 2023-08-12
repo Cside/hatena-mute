@@ -15,7 +15,7 @@ const addPrefixToError = (prefix: string, error: Error) => {
   error.stack = prefix + error.stack;
 };
 
-const _sendMessage = async (
+const _sendMessageToBg = async (
   attemptNumber: number,
   params: MessageParameters,
 ) => {
@@ -86,12 +86,12 @@ const _sendMessage = async (
   }
 };
 
-export const sendMessage = async (
+export const sendMessageToBg = async (
   params: MessageParameters,
 ): Promise<unknown> =>
   await pRetry(
     (attemptNumber: number) => {
-      return _sendMessage(attemptNumber, params);
+      return _sendMessageToBg(attemptNumber, params);
     },
     // https://github.com/sindresorhus/p-retry#options
     {

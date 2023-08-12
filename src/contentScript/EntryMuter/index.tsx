@@ -2,7 +2,7 @@
 import type { Entry, StorageKey } from '../../types';
 
 import { ACTION_OF, STORAGE_KEY_OF } from '../../constants';
-import { sendMessage } from '../../sendMessage';
+import { sendMessageToBg } from '../../sendMessage';
 import { storage } from '../../storage';
 import { MuteButtonContainer } from '../components/MuteButtonContainer';
 import { matchesLoosely, replaceUrlsInCss } from './utils';
@@ -89,7 +89,7 @@ export class EntryMuter {
 
   async muteByEntries() {
     const map: Map<string, boolean> = new Map(
-      (await sendMessage({
+      (await sendMessageToBg({
         type: ACTION_OF.GET_MUTED_ENTRY_MAP,
         payload: {
           urls: this.entries.map((entry) => entry.titleLink.href),
@@ -108,7 +108,7 @@ export class EntryMuter {
   }
 
   async muteEntry(url: string) {
-    await sendMessage({
+    await sendMessageToBg({
       type: ACTION_OF.ADD_MUTED_ENTRY,
       payload: { url },
     });
