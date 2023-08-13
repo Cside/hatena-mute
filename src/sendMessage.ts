@@ -4,7 +4,7 @@ import type { MessageParameters } from './types';
 import pRetry, { AbortError } from 'p-retry';
 import { deserializeError } from 'serialize-error';
 
-const TIMEOUT = (attemptNumber: number) => (attemptNumber + 2) * 100; // 300, 400, 500 ...
+const TIMEOUT = (attemptNumber: number) => (attemptNumber + 3) * 100; // 400, 500, 600 ...
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
 const ERROR_PREFIX = (type: string) =>
