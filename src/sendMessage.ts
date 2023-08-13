@@ -65,6 +65,7 @@ const _sendMessageToBg = async (
     if (error instanceof Error) {
       const prefix = ERROR_PREFIX(params.type);
       // 拡張機能が更新されたのに、content script が reload されていない
+      // 多分 Chrome 特有のエラーメッセージ（ Firefox は開発中のアドオンを更新するとページが強制リロードされるため再現不可）
       if (error.message.includes('Extension context invalidated.')) {
         addPrefixToError(
           prefix +
@@ -74,7 +75,7 @@ const _sendMessageToBg = async (
 
         if (
           confirm(
-            '拡張機能が更新されたため、処理に失敗しました。\nリロードします。',
+            '拡張機能が更新されたため、処理に失敗しました。\nページを再読み込みします。',
           )
         )
           setTimeout(() => location.reload(), 0);
