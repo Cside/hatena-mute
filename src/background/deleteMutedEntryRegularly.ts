@@ -16,7 +16,7 @@ chrome.alarms.onAlarm.addListener(async () => {
     olderThan: new Date(Date.now() - OLDER_THAN),
   });
 
-  console.info(`  [indexedDB] Deleted ${length} records`);
+  console.info(`  [deletion] Deleted ${length} records`);
 
   const nextScheduled = new Date(now.getTime());
   nextScheduled.setMinutes(now.getMinutes() + INTERVAL_MINUTES);
