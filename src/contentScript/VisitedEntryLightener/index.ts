@@ -1,7 +1,8 @@
 import type { Entry } from '../../types';
 
-import { ACTION, STORAGE_KEY } from '../../constants';
-import { userOption } from '../../userOption';
+import { ACTION_OF, STORAGE_KEY_OF } from '../../constants';
+import { sendMessageToBg } from '../../sendMessage';
+import { storage } from '../../storage';
 
 import './styles.pcss';
 
@@ -58,8 +59,8 @@ export class VisitedEntryLightener {
         const url = new URL(event.target.href);
         if (url.searchParams.has(GA_PARAM)) {
           url.searchParams.delete(GA_PARAM);
-          await chrome.runtime.sendMessage({
-            type: ACTION.ADD_HISTORY,
+          await sendMessageToBg({
+            type: ACTION_OF.ADD_HISTORY,
             payload: { url: url.toString() },
           });
         }
@@ -76,11 +77,11 @@ export class VisitedEntryLightener {
 
   private async loadOptions() {
     this.options = {
-      lightensVisitedEntry: await userOption.get(
-        STORAGE_KEY.LIGHTENS_VISITED_ENTRY,
+      lightensVisitedEntry: await storage.get(
+        STORAGE_KEY_OF.LIGHTENS_VISITED_ENTRY,
       ),
-      lightenEntryWhoseCommentsHaveBeenVisited: await userOption.get(
-        STORAGE_KEY.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
+      lightenEntryWhoseCommentsHaveBeenVisited: await storage.get(
+        STORAGE_KEY_OF.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
       ),
     };
   }
@@ -96,14 +97,14 @@ export class VisitedEntryLightener {
     // コンストラクタでやると、popup から再呼び出しされたときに、
     // バックグランドで開いた URL の .visited がリセットされてしまうため、都度呼ぶ
     const visitedMap: Map<string, boolean> = new Map(
-      await chrome.runtime.sendMessage({
-        type: ACTION.GET_VISITED_MAP,
+      (await sendMessageToBg({
+        type: ACTION_OF.GET_VISITED_MAP,
         payload: {
           urls: this.entries
             .map((entry) => [entry.titleLink.href, entry.commentsUrl])
             .flat(),
         },
-      }),
+      })) as [string, boolean][],
     );
 
     for (const entry of this.entries) {

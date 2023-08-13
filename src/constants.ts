@@ -1,4 +1,4 @@
-export const ACTION = {
+export const ACTION_OF = {
   UPDATE_IS_EXTENSION_ENABLED: 'update-is-extension-enabled',
   UPDATE_MUTED_SITES: 'update-muted-sites',
   UPDATE_MUTED_WORDS: 'update-muted-words',
@@ -9,7 +9,7 @@ export const ACTION = {
   GET_MUTED_ENTRY_MAP: 'get-muted-entry-map',
 } as const;
 
-export const STORAGE_KEY = {
+export const STORAGE_KEY_OF = {
   IS_EXTENSION_ENABLED: 'is-extension-enabled',
   MUTED_SITES: 'muted-sites',
   MUTED_WORDS: 'muted-words',
@@ -18,15 +18,19 @@ export const STORAGE_KEY = {
   LIGHTENS_VISITED_ENTRY: 'lightens-visited-entry',
 } as const;
 
-export const INDEXED_DB_OPTIONS = {
-  db: {
-    name: 'hatenaMute',
-    version: 1,
-  },
-  objectStore: {
-    name: 'mutedEntries',
-    keyPath: 'url',
-    indexName: 'by_created',
-    indexPath: 'created',
+export const INDEXED_DB = {
+  NAME: 'hatenaMute',
+  VERSION: 1,
+  OBJECT_STORE_OF: {
+    MUTED_ENTRIES: {
+      NAME: 'mutedEntries',
+      KEY_PATH: 'url',
+      INDEX_OF: {
+        BY_CREATED: {
+          NAME: 'by_created',
+          PATH: 'created',
+        },
+      },
+    },
   },
 };

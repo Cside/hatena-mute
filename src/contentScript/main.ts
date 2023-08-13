@@ -1,5 +1,5 @@
 import * as sentry from '@sentry/browser';
-import { ACTION } from '../constants';
+import { ACTION_OF } from '../constants';
 import { initSentry } from '../sentry';
 import { EntryMuter } from './EntryMuter';
 import { ExtensionEnabler } from './ExtensionEnabler';
@@ -19,7 +19,7 @@ if (rootElement) {
   await extensionEnabler.initialize();
 
   const entryMuter = new EntryMuter({ entries });
-  await entryMuter.initialize();
+  entryMuter.initialize();
 
   const visitedEntryLightener = new VisitedEntryLightener({
     entries,
@@ -27,23 +27,25 @@ if (rootElement) {
   });
   visitedEntryLightener.addClickListeners();
 
+  // events from popup
+  // TODO: await 後の addListener 、本来は bad design
   chrome.runtime.onMessage.addListener(async ({ type }: { type: string }) => {
     console.info(`action: ${type}`);
 
     switch (type) {
-      case ACTION.UPDATE_IS_EXTENSION_ENABLED:
+      case ACTION_OF.UPDATE_IS_EXTENSION_ENABLED:
         await extensionEnabler.update();
         break;
 
-      case ACTION.UPDATE_MUTED_SITES:
+      case ACTION_OF.UPDATE_MUTED_SITES:
         await entryMuter.muteBySites();
         break;
 
-      case ACTION.UPDATE_MUTED_WORDS:
+      case ACTION_OF.UPDATE_MUTED_WORDS:
         await entryMuter.muteByWords();
         break;
 
-      case ACTION.UPDATE_LIGHTENING_OPTIONS:
+      case ACTION_OF.UPDATE_LIGHTENING_OPTIONS:
         await visitedEntryLightener.lighten();
         break;
 
@@ -52,7 +54,7 @@ if (rootElement) {
     }
   });
 
-  // sendMessage が返ってこなくてエラーになるケースがあるので、敢えて floating promise にする
+  // sendMessage でエラーになるケースがあるので、敢えて floating promise にする
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   visitedEntryLightener.lighten();
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
