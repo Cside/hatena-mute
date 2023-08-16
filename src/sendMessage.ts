@@ -10,11 +10,6 @@ const INTERVAL = 50;
 const ERROR_PREFIX = (type: string) =>
   `chrome.runtime.sendMessage({ type: ${type} }) failed.\n`;
 
-const addPrefixToError = (prefix: string, error: Error) => {
-  error.message = prefix + error.message;
-  error.stack = prefix + error.stack;
-};
-
 const _sendMessageToBg = async (
   attemptNumber: number,
   params: MessageParameters,
@@ -43,12 +38,13 @@ const _sendMessageToBg = async (
     ]);
     if (!result.success) {
       const error = deserializeError(result.error);
-      addPrefixToError(
-        ERROR_PREFIX(params.type) +
-          'Error occurred in the background service worker.\n',
-        error,
+      throw new AbortError(
+        new Error(
+          ERROR_PREFIX(params.type) +
+            'Error occurred in the background service worker.\n',
+          { cause: error },
+        ),
       );
-      throw new AbortError(error);
     }
     console.info(
       `[message: ${params.type}${attempt}] Succeeded in ${
@@ -62,28 +58,28 @@ const _sendMessageToBg = async (
         new Date().getTime() - startTime
       } ms`,
     );
-    if (error instanceof Error) {
-      const prefix = ERROR_PREFIX(params.type);
-      // 拡張機能が更新されたのに、content script が reload されていない
-      // 多分 Chrome 特有のエラーメッセージ（ Firefox は開発中のアドオンを更新するとページが強制リロードされるため再現不可）
-      if (error.message.includes('Extension context invalidated.')) {
-        addPrefixToError(
+    if (!(error instanceof Error)) throw error;
+
+    const prefix = ERROR_PREFIX(params.type);
+    // 拡張機能が更新されたのに、content script が reload されていない
+    // 多分 Chrome 特有のエラーメッセージ（ Firefox は開発中のアドオンを更新するとページが強制リロードされるため再現不可）
+    if (error.message.includes('Extension context invalidated.')) {
+      if (
+        confirm(
+          '拡張機能が更新されたため、処理に失敗しました。\nページを再読み込みします。',
+        )
+      )
+        setTimeout(() => location.reload(), 0);
+
+      throw new AbortError(
+        new Error(
           prefix +
             `Maybe the extension is updated but the content script is not reloaded.\n`,
-          error,
-        );
-
-        if (
-          confirm(
-            '拡張機能が更新されたため、処理に失敗しました。\nページを再読み込みします。',
-          )
-        )
-          setTimeout(() => location.reload(), 0);
-        throw new AbortError(error);
-      }
-      addPrefixToError(prefix, error);
+          { cause: error },
+        ),
+      );
     }
-    throw error;
+    throw new Error(prefix, { cause: error });
   }
 };
 
