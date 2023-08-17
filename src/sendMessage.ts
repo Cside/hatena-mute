@@ -2,13 +2,14 @@ import type { ErrorObject } from 'serialize-error';
 import type { MessageParameters } from './types';
 
 import pRetry, { AbortError } from 'p-retry';
+import { stackWithCauses } from 'pony-cause';
 import { deserializeError } from 'serialize-error';
 
 const TIMEOUT = (attemptNumber: number) => (attemptNumber + 3) * 100; // 400, 500, 600 ...
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
 const ERROR_PREFIX = (type: string) =>
-  `chrome.runtime.sendMessage({ type: ${type} }) failed.\n`;
+  `chrome.runtime.sendMessage({ type: ${type} }) failed.`;
 
 const _sendMessageToBg = async (
   attemptNumber: number,
@@ -41,7 +42,7 @@ const _sendMessageToBg = async (
       throw new AbortError(
         new Error(
           ERROR_PREFIX(params.type) +
-            'Error occurred in the background service worker.\n',
+            '\nError occurred in the background service worker.',
           { cause: error },
         ),
       );
@@ -58,7 +59,7 @@ const _sendMessageToBg = async (
         new Date().getTime() - startTime
       } ms`,
     );
-    if (!(error instanceof Error)) throw error;
+    if (error instanceof AbortError || !(error instanceof Error)) throw error;
 
     const prefix = ERROR_PREFIX(params.type);
     // 拡張機能が更新されたのに、content script が reload されていない
@@ -74,7 +75,7 @@ const _sendMessageToBg = async (
       throw new AbortError(
         new Error(
           prefix +
-            `Maybe the extension is updated but the content script is not reloaded.\n`,
+            `\nMaybe the extension is updated but the content script is not reloaded.`,
           { cause: error },
         ),
       );
@@ -85,16 +86,25 @@ const _sendMessageToBg = async (
 
 export const sendMessageToBg = async (
   params: MessageParameters,
-): Promise<unknown> =>
-  await pRetry(
-    (attemptNumber: number) => {
-      return _sendMessageToBg(attemptNumber, params);
-    },
-    // https://github.com/sindresorhus/p-retry#options
-    {
-      retries: RETRIES,
-      minTimeout: INTERVAL, // default: 1,000
-      maxTimeout: INTERVAL, // default: infinity
-      onFailedAttempt: (error) => console.error(error),
-    },
-  );
+): Promise<unknown> => {
+  try {
+    return await pRetry(
+      (attemptNumber: number) => {
+        return _sendMessageToBg(attemptNumber, params);
+      },
+      // https://github.com/sindresorhus/p-retry#options
+      {
+        retries: RETRIES,
+        minTimeout: INTERVAL, // default: 1,000
+        maxTimeout: INTERVAL, // default: infinity
+        onFailedAttempt: (error) =>
+          // Chrome が console に cause を出力してくれるようになったら消す
+          console.error(stackWithCauses(error)),
+      },
+    );
+  } catch (error) {
+    // Chrome が console に cause を出力してくれるようになったら消す
+    if (error instanceof Error) console.error(stackWithCauses(error));
+    throw error;
+  }
+};
