@@ -25,7 +25,14 @@ export default defineConfig({
   plugins: [
     react(),
     crx({ manifest: manifest as ManifestV3Export }),
-    ...(ENABLES_VISUALIZER ? [visualizer() as PluginOption] : []),
+    ...(ENABLES_VISUALIZER
+      ? [
+          visualizer({
+            filename: 'dist/stats.html',
+            open: true,
+          }) as PluginOption,
+        ]
+      : []),
   ],
   css: {
     postcss: {
