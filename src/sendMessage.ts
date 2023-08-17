@@ -5,7 +5,7 @@ import pRetry, { AbortError } from 'p-retry';
 import { stackWithCauses } from 'pony-cause';
 import { deserializeError } from 'serialize-error';
 
-const TIMEOUT = (attemptNumber: number) => (attemptNumber + 3) * 100; // 400, 500, 600 ...
+export const TIMEOUT = (attemptNumber: number) => attemptNumber * 200 + 300; // 500, 700, 900, ...
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
 const ERROR_PREFIX = (type: string) =>
