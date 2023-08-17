@@ -6,7 +6,6 @@ import autoprefixer from 'autoprefixer';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import postcssNested from 'postcss-nested';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { PluginOption } from 'vite';
 import { defineConfig } from 'vitest/config';
 import manifest from './manifest.json';
 import { version } from './package.json';
@@ -30,7 +29,7 @@ export default defineConfig({
           visualizer({
             filename: 'dist/stats.html',
             open: true,
-          }) as PluginOption,
+          }),
         ]
       : []),
   ],
