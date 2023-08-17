@@ -76,6 +76,7 @@
     "idb": "^7.1.1",
     "lodash.zip": "^4.2.0",
     "p-retry": "^5.1.2",
+    "pony-cause": "^2.1.10",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
