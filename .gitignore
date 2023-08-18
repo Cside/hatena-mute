@@ -3,7 +3,6 @@
 /dist/
 /dist-firefox/
 .git-pr-release
-/stats.html
 /dist-chrome-*.zip
 /dist-firefox-*.zip
 /source-code-*.zip

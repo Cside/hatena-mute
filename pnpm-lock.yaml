@@ -32,6 +32,9 @@ dependencies:
   p-retry:
     specifier: ^5.1.2
     version: 5.1.2
+  pony-cause:
+    specifier: ^2.1.10
+    version: 2.1.10
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -5080,6 +5083,11 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
     dev: true
+
+  /pony-cause@2.1.10:
+    resolution: {integrity: sha512-3IKLNXclQgkU++2fSi93sQ6BznFuxSLB11HdvZQ6JW/spahf/P1pAHBQEahr20rs0htZW0UDkM1HmA+nZkXKsw==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /postcss-media-query-parser@0.2.3:
     resolution: {integrity: sha512-3sOlxmbKcSHMjlUXQZKQ06jOswE7oVkXPxmZdoB1r5l0q6gTFTQSHxNxOrCccElbW7dxNytifNEo8qidX2Vsig==}

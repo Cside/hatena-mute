@@ -25,7 +25,14 @@ export default defineConfig({
   plugins: [
     react(),
     crx({ manifest: manifest as ManifestV3Export }),
-    ...(ENABLES_VISUALIZER ? [visualizer() as PluginOption] : []),
+    ...(ENABLES_VISUALIZER
+      ? [
+          visualizer({
+            filename: 'dist/stats.html',
+            open: true,
+          }) as PluginOption,
+        ]
+      : []),
   ],
   css: {
     postcss: {
@@ -40,6 +47,12 @@ export default defineConfig({
     rollupOptions: {
       input: {
         'muted-entries.html': 'muted-entries.html',
+      },
+      output: {
+        // for Sentry error grouping
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
       },
     },
     target: browserslistToEsbuild(),
