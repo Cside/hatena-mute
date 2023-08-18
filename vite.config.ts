@@ -48,6 +48,12 @@ export default defineConfig({
       input: {
         'muted-entries.html': 'muted-entries.html',
       },
+      output: {
+        // for Sentry error grouping
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
+      },
     },
     target: browserslistToEsbuild(),
   },
