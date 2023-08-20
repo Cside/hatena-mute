@@ -106,6 +106,7 @@ export const sendMessageToBg = async (
       },
     );
   } catch (error) {
+    // 4 回全部失敗した場合
     // Chrome が console に cause を出力してくれるようになったら消す
     if (error instanceof Error) console.error(stackWithCauses(error));
     throw error;
