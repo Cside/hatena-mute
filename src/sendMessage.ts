@@ -6,8 +6,8 @@ import { stackWithCauses } from 'pony-cause';
 import { deserializeError } from 'serialize-error';
 
 export const TIMEOUT = (attemptNumber: number) => {
-  if (attemptNumber === 1) return 500;
-  return attemptNumber * 1000 - 500;
+  if (attemptNumber === 1) return 1_000;
+  return attemptNumber * 1_000 + 1_000;
 };
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
@@ -106,6 +106,7 @@ export const sendMessageToBg = async (
       },
     );
   } catch (error) {
+    // 4 回全部失敗した場合
     // Chrome が console に cause を出力してくれるようになったら消す
     if (error instanceof Error) console.error(stackWithCauses(error));
     throw error;
