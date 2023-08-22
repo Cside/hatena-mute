@@ -4,6 +4,7 @@ import type { MessageParameters } from './types';
 import pRetry, { AbortError } from 'p-retry';
 import { stackWithCauses } from 'pony-cause';
 import { deserializeError } from 'serialize-error';
+import { ACTION_OF } from './constants';
 
 export const TIMEOUT = (attemptNumber: number) => {
   if (attemptNumber === 1) return 500;
@@ -20,24 +21,30 @@ const _sendMessageToBg = async (
 ) => {
   const startTime = new Date().getTime();
   const attempt = attemptNumber >= 2 ? `(${attemptNumber})` : '';
-  const timeout = TIMEOUT(attemptNumber);
+  const timeoutDuration = TIMEOUT(attemptNumber);
+  let isTimeOuted = false;
 
   try {
     const result:
       | {
           success: true;
-          data?: unknown;
+          data: unknown;
         }
       | {
           success: false;
           error: ErrorObject;
         } = await Promise.race([
-      chrome.runtime.sendMessage(params),
+      chrome.runtime.sendMessage(params).then((result) => {
+        if (isTimeOuted)
+          log(new Date().getTime() - startTime, { type: params.type, result });
+        return result;
+      }),
       // 稀に、bg 側で sendResponse() を呼んだにも関わらず、promise が解決されないことがあるため、苦肉の timeout
       new Promise((_, reject) => {
         setTimeout(() => {
-          reject(new Error(`Timeout of ${timeout} ms exceeded.`));
-        }, timeout);
+          isTimeOuted = true;
+          reject(new Error(`Timeout of ${timeoutDuration} ms exceeded.`));
+        }, timeoutDuration);
       }),
     ]);
     if (!result.success) {
@@ -106,8 +113,59 @@ export const sendMessageToBg = async (
       },
     );
   } catch (error) {
+    // 4 回全部失敗した場合
     // Chrome が console に cause を出力してくれるようになったら消す
     if (error instanceof Error) console.error(stackWithCauses(error));
     throw error;
   }
 };
+
+// log ========================================
+// TODO: 上でも定義してるので、後で共通化してもいいかも
+
+type MessageData<T> =
+  | {
+      success: true;
+      data: T;
+    }
+  | {
+      success: false;
+      error: ErrorObject;
+    };
+
+type MessageResult =
+  | {
+      type: typeof ACTION_OF.GET_VISITED_MAP;
+      result: MessageData<[string, boolean][]>;
+    }
+  | {
+      type: typeof ACTION_OF.ADD_HISTORY;
+      result: MessageData<undefined>;
+    }
+  | {
+      type: typeof ACTION_OF.ADD_MUTED_ENTRY;
+      result: MessageData<IDBValidKey>;
+    }
+  | {
+      type: typeof ACTION_OF.GET_MUTED_ENTRY_MAP;
+      result: MessageData<[string, boolean][]>;
+    };
+
+function log(elapsed: number, { type, result }: MessageResult) {
+  let message =
+    `[message: ${type}] Too long processing in ${elapsed} ms. ` +
+    `success: ${result.success}, ` +
+    `path: ${location.pathname}, ` +
+    `bytes: ${
+      new Blob([JSON.stringify(result.success ? result.data : result.error)])
+        .size
+    }`;
+  if (
+    result.success === true &&
+    (type === ACTION_OF.GET_VISITED_MAP ||
+      type === ACTION_OF.GET_MUTED_ENTRY_MAP)
+  )
+    message += `, arrayLength: ${result.data.length}`;
+
+  console.error(message);
+}
