@@ -164,10 +164,7 @@ function log(
     `attempt: ${attemptNumber}, ` +
     `success: ${result.success}, ` +
     `path: ${location.pathname}, ` +
-    `bytes: ${
-      new Blob([JSON.stringify(result.success ? result.data : result.error)])
-        .size
-    }`;
+    `bytes: ${new Blob([JSON.stringify(result)]).size}`;
   if (
     result.success === true &&
     (type === ACTION_OF.GET_VISITED_MAP ||
