@@ -36,7 +36,10 @@ const _sendMessageToBg = async (
         } = await Promise.race([
       chrome.runtime.sendMessage(params).then((result) => {
         if (isTimeOuted)
-          log(new Date().getTime() - startTime, { type: params.type, result });
+          log(new Date().getTime() - startTime, attemptNumber, {
+            type: params.type,
+            result,
+          });
         return result;
       }),
       // 稀に、bg 側で sendResponse() を呼んだにも関わらず、promise が解決されないことがあるため、苦肉の timeout
@@ -151,9 +154,14 @@ type MessageResult =
       result: MessageData<[string, boolean][]>;
     };
 
-function log(elapsed: number, { type, result }: MessageResult) {
+function log(
+  elapsed: number,
+  attemptNumber: number,
+  { type, result }: MessageResult,
+) {
   let message =
     `[message: ${type}] Too long processing in ${elapsed} ms. ` +
+    `attempt: ${attemptNumber}, ` +
     `success: ${result.success}, ` +
     `path: ${location.pathname}, ` +
     `bytes: ${
