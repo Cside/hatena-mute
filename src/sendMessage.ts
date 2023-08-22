@@ -6,8 +6,8 @@ import { stackWithCauses } from 'pony-cause';
 import { deserializeError } from 'serialize-error';
 
 export const TIMEOUT = (attemptNumber: number) => {
-  if (attemptNumber === 1) return 500;
-  return attemptNumber * 1000 - 500;
+  if (attemptNumber === 1) return 1_000;
+  return attemptNumber * 1_000 + 1_000;
 };
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
