@@ -7,8 +7,7 @@ import { deserializeError } from 'serialize-error';
 import { ACTION_OF } from './constants';
 
 export const TIMEOUT = (attemptNumber: number) => {
-  if (attemptNumber === 1) return 500;
-  return attemptNumber * 1000 - 500;
+  return attemptNumber * 1000 + (attemptNumber === 1 ? 0 : 500);
 };
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
