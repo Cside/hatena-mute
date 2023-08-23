@@ -1,5 +1,5 @@
 {
-  "version": "1.4.5",
+  "version": "1.4.6",
   "scripts": {
     "dev": "ENABLES_SENTRY=false vite",
     "build:chrome": "rimraf dist && vite build",
