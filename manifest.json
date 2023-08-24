@@ -8,6 +8,7 @@
     "default_popup": "popup.html"
   },
   "options_page": "muted-entries.html",
+  "default_locale": "ja",
   "content_scripts": [
     {
       "matches": [
