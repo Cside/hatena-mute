@@ -1,50 +1,31 @@
-import { useState } from 'react';
-
-export const Footer = () => {
-  const [openFeedback, setOpenFeedback] = useState(false);
-
-  return (
-    <>
-      <hr className="mt-4" />
-      <div className="mb-3">
-        <ul className="ps-1 list-inline d-flex gap-1 m-0">
-          <li className="list-inline-item">
-            <a
-              href="#"
-              onClick={(event) => {
-                setOpenFeedback((prev) => !prev);
-                event.preventDefault();
-              }}
-              className="link-secondary"
-            >
-              フィードバック
-            </a>
-          </li>
-          <li className="list-inline-item">
-            <a
-              href="https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf/reviews"
-              target="_blank"
-              rel="noreferrer"
-              className="link-secondary"
-            >
-              レビューで応援
-            </a>
-          </li>
-        </ul>
-
-        {openFeedback && (
-          <div>
-            {'　'}→ <a href="mailto:cside.story@gmail.com">メール</a> 、
-            <a
-              href="https://github.com/Cside/hatena-mute/issues"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Github Issues
-            </a>
-          </div>
-        )}
+export const Footer = () => (
+  <>
+    <hr className="mt-3" />
+    <div className="mb-3">
+      <p className="lh-sm mb-2">
+        <span style={{ fontSize: '0.78rem' }}>
+          はてなミュートの開発継続と発展のため、コーヒー1杯分ご寄付いただけますと嬉しいです。
+        </span>
+      </p>
+      <div className="d-flex gap-2">
+        <a
+          href="https://www.buymeacoffee.com/cside?_from=hatena_mute"
+          target="_blank"
+          rel="noreferrer"
+          className="p-2 text-body fw-bold  rounded text-decoration-none"
+          style={{ backgroundColor: '#ffdd02' }}
+        >
+          ❤️ 寄付
+        </a>
+        <a
+          href="https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf/reviews"
+          target="_blank"
+          rel="noreferrer"
+          className="p-2 text-body fw-bold border border-dark rounded text-decoration-none"
+        >
+          レビューで応援
+        </a>
       </div>
-    </>
-  );
-};
+    </div>
+  </>
+);

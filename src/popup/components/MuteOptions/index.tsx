@@ -6,7 +6,7 @@ import { MutedListForm } from '../MutedListForm';
 
 export const MuteOptions = () => {
   return (
-    <div className="pb-3">
+    <div>
       <Tabs defaultActiveKey={EVENT_KEY_OF.MUTED_SITES}>
         <Tab eventKey={EVENT_KEY_OF.MUTED_SITES} title="URL">
           <MutedListForm
