@@ -18,7 +18,11 @@ export const Footer = () => (
           ❤️ 寄付
         </a>
         <a
-          href="https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf/reviews"
+          href={
+            IS_FIREFOX
+              ? 'https://addons.mozilla.org/ja/firefox/addon/%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%9F%E3%83%A5%E3%83%BC%E3%83%88/'
+              : 'https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf/reviews'
+          }
           target="_blank"
           rel="noreferrer"
           className="p-2 text-body fw-bold border border-dark rounded text-decoration-none"
