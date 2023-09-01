@@ -9,7 +9,7 @@ export const Footer = () => (
       </p>
       <div className="d-flex gap-2">
         <a
-          href="https://www.buymeacoffee.com/cside?_from=hatena_mute"
+          href="https://ko-fi.com/cside"
           target="_blank"
           rel="noreferrer"
           className="p-2 text-body fw-bold  rounded text-decoration-none"
