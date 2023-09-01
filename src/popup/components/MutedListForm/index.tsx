@@ -33,7 +33,9 @@ export const MutedListForm = memo(
       <div>
         {description !== undefined && (
           <div className="py-1">
-            <Form.Text className="text-muted">※ {description}</Form.Text>
+            <Form.Text className="text-muted" style={{ fontSize: '0.78rem' }}>
+              ※ {description}
+            </Form.Text>
           </div>
         )}
         <textarea
