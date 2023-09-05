@@ -1,5 +1,4 @@
 /node_modules/
-/.extension-id
 /dist/
 /dist-firefox/
 .git-pr-release
