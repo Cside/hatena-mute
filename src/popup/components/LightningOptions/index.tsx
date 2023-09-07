@@ -13,7 +13,6 @@ export const LighteningOptions = () => {
   ] = useState(false);
   return (
     <div>
-      <hr />
       <CheckForm
         id="hm-lightens-visited-entry"
         label="訪問済みの記事を目立たなくする"

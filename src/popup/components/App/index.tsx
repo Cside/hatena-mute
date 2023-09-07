@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import { Footer } from '../Footer';
+import { Donation } from '../Donation';
 import { Header } from '../Header';
 import { LighteningOptions } from '../LightningOptions';
 import { MuteOptions } from '../MuteOptions';
@@ -18,8 +18,10 @@ export const App = () => {
       <PermissionRequest />
       <div className={isExtensionEnabled ? '' : 'opacity-50'}>
         <MuteOptions />
+        <hr />
         <LighteningOptions />
-        <Footer />
+        <hr className="mt-3" />
+        <Donation />
       </div>
     </Container>
   );

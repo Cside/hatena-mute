@@ -1,0 +1,14 @@
+{
+  "chrome": {
+    "id": "agomiblbpgcimbonnfmlcealkjlegbnf",
+    "developerId": "a66eb7ce-b7b6-4d92-a9cb-35d11a33896a"
+  },
+  "edge": {
+    "crxId": "ecoemolmjoekecgonoijkhmmheehnpjh",
+    "productId": "8ab15d7c-e228-4066-b9f0-dfaf0ea78a89"
+  },
+  "firefox": {
+    "id": "hatena-mute@github.com",
+    "slug": "はてなミュート"
+  }
+}

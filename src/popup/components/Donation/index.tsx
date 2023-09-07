@@ -1,6 +1,5 @@
-export const Footer = () => (
+export const Donation = () => (
   <>
-    <hr className="mt-3" />
     <div className="mb-3">
       <p className="lh-sm mb-2">
         <span style={{ fontSize: '0.78rem' }}>
@@ -12,7 +11,7 @@ export const Footer = () => (
           href="https://www.buymeacoffee.com/cside?_from=hatena_mute"
           target="_blank"
           rel="noreferrer"
-          className="p-2 text-body fw-bold  rounded text-decoration-none"
+          className="p-2 text-body fw-bold rounded text-decoration-none d-flex align-items-center"
           style={{ backgroundColor: '#ffdd02' }}
         >
           ❤️ 寄付
@@ -21,7 +20,7 @@ export const Footer = () => (
           href="https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf/reviews"
           target="_blank"
           rel="noreferrer"
-          className="p-2 text-body fw-bold border border-dark rounded text-decoration-none"
+          className="p-2 text-body fw-bold border border-dark rounded text-decoration-none d-flex align-items-center"
         >
           レビューで応援
         </a>
