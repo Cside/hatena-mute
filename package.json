@@ -68,9 +68,9 @@
   },
   "dependencies": {
     "@sentry/browser": "^7.68.0",
-    "@sentry/integrations": "^7.39.0",
-    "@sentry/react": "^7.39.0",
-    "@sentry/tracing": "^7.39.0",
+    "@sentry/integrations": "^7.68.0",
+    "@sentry/react": "^7.68.0",
+    "@sentry/tracing": "^7.68.0",
     "@types/node": "^20.4.5",
     "bootstrap": "^5.2.3",
     "browser-extension-utils": "github:Cside/browser-extension-utils",
