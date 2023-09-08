@@ -6,16 +6,16 @@ settings:
 
 dependencies:
   '@sentry/browser':
-    specifier: ^7.40.0
+    specifier: ^7.68.0
     version: 7.68.0
   '@sentry/integrations':
-    specifier: ^7.39.0
+    specifier: ^7.68.0
     version: 7.68.0
   '@sentry/react':
-    specifier: ^7.39.0
+    specifier: ^7.68.0
     version: 7.68.0(react@18.2.0)
   '@sentry/tracing':
-    specifier: ^7.39.0
+    specifier: ^7.68.0
     version: 7.68.0
   '@types/node':
     specifier: ^20.5.9
@@ -78,7 +78,7 @@ devDependencies:
     version: 4.0.1(vite@4.4.9)
   autoprefixer:
     specifier: ^10.4.15
-    version: 10.4.15(postcss@8.4.24)
+    version: 10.4.15(postcss@8.4.29)
   better-typescript-lib:
     specifier: ^2.4.0
     version: 2.4.0(typescript@4.9.3)
@@ -123,7 +123,7 @@ devDependencies:
     version: 4.1.5
   postcss-nested:
     specifier: ^6.0.1
-    version: 6.0.1(postcss@8.4.24)
+    version: 6.0.1(postcss@8.4.29)
   prettier:
     specifier: ^3.0.0
     version: 3.0.0
@@ -2077,7 +2077,7 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: true
 
-  /autoprefixer@10.4.15(postcss@8.4.24):
+  /autoprefixer@10.4.15(postcss@8.4.29):
     resolution: {integrity: sha512-KCuPB8ZCIqFdA4HwKXsvz7j6gvSDNhDP7WnUjBleRkKjPdvCmHFuQ77ocavI8FT6NdvlBnE2UFr2H4Mycn8Vew==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
@@ -2089,7 +2089,7 @@ packages:
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
-      postcss: 8.4.24
+      postcss: 8.4.29
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -5191,13 +5191,13 @@ packages:
     resolution: {integrity: sha512-3sOlxmbKcSHMjlUXQZKQ06jOswE7oVkXPxmZdoB1r5l0q6gTFTQSHxNxOrCccElbW7dxNytifNEo8qidX2Vsig==}
     dev: true
 
-  /postcss-nested@6.0.1(postcss@8.4.24):
+  /postcss-nested@6.0.1(postcss@8.4.29):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.24
+      postcss: 8.4.29
       postcss-selector-parser: 6.0.13
     dev: true
 
