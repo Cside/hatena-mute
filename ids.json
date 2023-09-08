@@ -1,5 +1,14 @@
 {
-  "chrome": "agomiblbpgcimbonnfmlcealkjlegbnf",
-  "edge": "8ab15d7c-e228-4066-b9f0-dfaf0ea78a89",
-  "firefox": "%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%9F%E3%83%A5%E3%83%BC%E3%83%88"
+  "chrome": {
+    "id": "agomiblbpgcimbonnfmlcealkjlegbnf",
+    "developerId": "a66eb7ce-b7b6-4d92-a9cb-35d11a33896a"
+  },
+  "edge": {
+    "crxId": "ecoemolmjoekecgonoijkhmmheehnpjh",
+    "productId": "8ab15d7c-e228-4066-b9f0-dfaf0ea78a89"
+  },
+  "firefox": {
+    "id": "hatena-mute@github.com",
+    "slug": "はてなミュート"
+  }
 }

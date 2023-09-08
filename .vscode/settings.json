@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["entrylist", "readlater", "hatena", "pcss"]
+  "cSpell.words": ["entrylist", "readlater", "hatena", "pcss"],
+  "css.styleSheets": ["node_modules/bootstrap/dist/css/bootstrap.css"]
 }

@@ -73,6 +73,7 @@
     "@sentry/tracing": "^7.39.0",
     "@types/node": "^20.4.5",
     "bootstrap": "^5.2.3",
+    "browser-extension-utils": "github:Cside/browser-extension-utils",
     "idb": "^7.1.1",
     "lodash.zip": "^4.2.0",
     "p-retry": "^5.1.2",
