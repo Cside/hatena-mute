@@ -18,7 +18,7 @@ dependencies:
     specifier: ^7.68.0
     version: 7.68.0
   '@types/node':
-    specifier: ^20.4.5
+    specifier: ^20.5.9
     version: 20.5.9
   bootstrap:
     specifier: ^5.3.1

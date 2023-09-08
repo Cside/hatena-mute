@@ -71,7 +71,7 @@
     "@sentry/integrations": "^7.68.0",
     "@sentry/react": "^7.68.0",
     "@sentry/tracing": "^7.68.0",
-    "@types/node": "^20.4.5",
+    "@types/node": "^20.5.9",
     "bootstrap": "^5.3.1",
     "browser-extension-utils": "github:Cside/browser-extension-utils",
     "idb": "^7.1.1",
