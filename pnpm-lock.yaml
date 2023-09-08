@@ -21,11 +21,11 @@ dependencies:
     specifier: ^20.4.5
     version: 20.4.5
   bootstrap:
-    specifier: ^5.2.3
-    version: 5.2.3(@popperjs/core@2.11.8)
+    specifier: ^5.3.1
+    version: 5.3.1(@popperjs/core@2.11.8)
   browser-extension-utils:
     specifier: github:Cside/browser-extension-utils
-    version: github.com/Cside/browser-extension-utils/681cae2241ac7e882cdebe998cbeae34b0d44f05
+    version: git/github.com+Cside/browser-extension-utils/6cb78c9f5b86673c3d7c9eace4692a980a750721
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -2250,10 +2250,10 @@ packages:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
     dev: true
 
-  /bootstrap@5.2.3(@popperjs/core@2.11.8):
-    resolution: {integrity: sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==}
+  /bootstrap@5.3.1(@popperjs/core@2.11.8):
+    resolution: {integrity: sha512-jzwza3Yagduci2x0rr9MeFSORjcHpt0lRZukZPZQJT1Dth5qzV7XcgGqYzi39KGAVYR8QEDVoO0ubFKOxzMG+g==}
     peerDependencies:
-      '@popperjs/core': ^2.11.6
+      '@popperjs/core': ^2.11.8
     dependencies:
       '@popperjs/core': 2.11.8
     dev: false
@@ -6824,8 +6824,8 @@ packages:
       - supports-color
     dev: true
 
-  github.com/Cside/browser-extension-utils/681cae2241ac7e882cdebe998cbeae34b0d44f05:
-    resolution: {tarball: https://codeload.github.com/Cside/browser-extension-utils/tar.gz/681cae2241ac7e882cdebe998cbeae34b0d44f05}
+  git/github.com+Cside/browser-extension-utils/6cb78c9f5b86673c3d7c9eace4692a980a750721:
+    resolution: {commit: 6cb78c9f5b86673c3d7c9eace4692a980a750721, repo: git@github.com:Cside/browser-extension-utils.git, type: git}
     name: browser-extension-utils
     version: 0.0.1
     hasBin: true
