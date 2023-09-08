@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@sentry/browser':
-    specifier: ^7.40.0
-    version: 7.40.0
+    specifier: ^7.68.0
+    version: 7.68.0
   '@sentry/integrations':
     specifier: ^7.39.0
     version: 7.39.0
@@ -25,7 +25,7 @@ dependencies:
     version: 5.2.3(@popperjs/core@2.11.8)
   browser-extension-utils:
     specifier: github:Cside/browser-extension-utils
-    version: github.com/Cside/browser-extension-utils/681cae2241ac7e882cdebe998cbeae34b0d44f05
+    version: git/github.com+Cside/browser-extension-utils/6cb78c9f5b86673c3d7c9eace4692a980a750721
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -1307,6 +1307,16 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /@sentry-internal/tracing@7.68.0:
+    resolution: {integrity: sha512-nNKS/q21+Iqzxs2K7T/l3dZi8Z9s/uxsAazpk2AYhFzx9mFnPj1Xfe3dgbFoygNifE+IrpUuldr6D5HQamTDPQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
+      tslib: 2.6.0
+    dev: false
+
   /@sentry/browser@7.39.0:
     resolution: {integrity: sha512-LSa89bLDfGK33ArrgutVU8p4UDb809BgOn29qe/YPUL/Wor+cO59XoEmKVmXEqMZYEVjsaUVoBanUoxXKSlYgw==}
     engines: {node: '>=8'}
@@ -1318,15 +1328,16 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/browser@7.40.0:
-    resolution: {integrity: sha512-07rZ+cTcpmYB1r84/oZtmSPJJvLCxW8yIh/5s4MdKRyZpqIDKhOz6cCS/4j+l1V+MeLcNLZBjFtNdKA2eocTpg==}
+  /@sentry/browser@7.68.0:
+    resolution: {integrity: sha512-1RIPLzKcBeUeG8CQc4OIRfQ6F1zmGKku1am7P9QTz0bz//Mu7bEjm75DM69LBoUlP/Ab9cQQA3fZFUvrH0j1Tg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.40.0
-      '@sentry/replay': 7.40.0
-      '@sentry/types': 7.40.0
-      '@sentry/utils': 7.40.0
-      tslib: 1.14.1
+      '@sentry-internal/tracing': 7.68.0
+      '@sentry/core': 7.68.0
+      '@sentry/replay': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
+      tslib: 2.6.0
     dev: false
 
   /@sentry/core@7.39.0:
@@ -1338,13 +1349,13 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/core@7.40.0:
-    resolution: {integrity: sha512-OPAobQG0GTY++r5LWUcOA1lS+2TY2Lmw/i5s4kL9WbY+f08dbLNEGNBObY7/V98OL4f7OG+nWaPFybgM7kqUTQ==}
+  /@sentry/core@7.68.0:
+    resolution: {integrity: sha512-mT3ObBWgvAky/QF3dZy4KBoXbRXbNsD6evn+mYi9UEeIZQ5NpnQYDEp78mapiEjI/TAHZIhTIuaBhj1Jk0qUUA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.40.0
-      '@sentry/utils': 7.40.0
-      tslib: 1.14.1
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
+      tslib: 2.6.0
     dev: false
 
   /@sentry/integrations@7.39.0:
@@ -1380,13 +1391,13 @@ packages:
       '@sentry/utils': 7.39.0
     dev: false
 
-  /@sentry/replay@7.40.0:
-    resolution: {integrity: sha512-Y9Kvo9jKouUdrHQhHVv5SmWZClF5o7BFI6oVpLlv4zXORPQlyoZONM/9sxiMvvH73alDSpxzCoxyhlypAOH4ww==}
+  /@sentry/replay@7.68.0:
+    resolution: {integrity: sha512-be8QT2pxcLOTuX6HBRkK0mCVwM97dU5ZLCeofI+xJEWcRnoJdbx00nFwvBXvvoCizbtf4YIMCGwaT2k5LrVxsQ==}
     engines: {node: '>=12'}
     dependencies:
-      '@sentry/core': 7.40.0
-      '@sentry/types': 7.40.0
-      '@sentry/utils': 7.40.0
+      '@sentry/core': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
     dev: false
 
   /@sentry/tracing@7.39.0:
@@ -1404,8 +1415,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/types@7.40.0:
-    resolution: {integrity: sha512-dIbqBenbmDx1F8pvfC11C88J83ecwumUhV+YOIxcmVd1fmlPF2hXWZ01+NTkTDkCu341sJx4wPQogByFy8FwGA==}
+  /@sentry/types@7.68.0:
+    resolution: {integrity: sha512-5J2pH1Pjx/029zTm3CNY9MaE8Aui81nG7JCtlMp7uEfQ//9Ja4d4Sliz/kV4ARbkIKUZerSgaRAm3xCy5XOXLg==}
     engines: {node: '>=8'}
     dev: false
 
@@ -1417,12 +1428,12 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/utils@7.40.0:
-    resolution: {integrity: sha512-ZdCbTpAXPiVVfvNJVftnDhsctOui71MDUhVIdLkgg4Cuic+WHGPRmmZ+H6uZdp7vRaeB+Uvnn5+t2iSAVo/mAA==}
+  /@sentry/utils@7.68.0:
+    resolution: {integrity: sha512-NecnQegvKARyeFmBx7mYmbI17mTvjARWs1nfzY5jhPyNc3Zk4M3bQsgIdnJ1t+jo93UYudlNND7hxhDzjcBAVg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.40.0
-      tslib: 1.14.1
+      '@sentry/types': 7.68.0
+      tslib: 2.6.0
     dev: false
 
   /@sinclair/typebox@0.25.24:
@@ -6824,8 +6835,8 @@ packages:
       - supports-color
     dev: true
 
-  github.com/Cside/browser-extension-utils/681cae2241ac7e882cdebe998cbeae34b0d44f05:
-    resolution: {tarball: https://codeload.github.com/Cside/browser-extension-utils/tar.gz/681cae2241ac7e882cdebe998cbeae34b0d44f05}
+  git/github.com+Cside/browser-extension-utils/6cb78c9f5b86673c3d7c9eace4692a980a750721:
+    resolution: {commit: 6cb78c9f5b86673c3d7c9eace4692a980a750721, repo: git@github.com:Cside/browser-extension-utils.git, type: git}
     name: browser-extension-utils
     version: 0.0.1
     hasBin: true
