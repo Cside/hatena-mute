@@ -23,7 +23,7 @@ export const Donation = () => {
         </p>
         <div className="d-flex gap-2">
           <a
-            href="https://www.buymeacoffee.com/cside?_from=hatena_mute"
+            href="https://ko-fi.com/cside?_from=hatena-mute"
             target="_blank"
             rel="noreferrer"
             className="p-2 text-body fw-bold rounded text-decoration-none d-flex align-items-center"
@@ -32,7 +32,6 @@ export const Donation = () => {
             ❤️ 寄付
           </a>
           <a
-            href="https://chrome.google.com/webstore/detail/agomiblbpgcimbonnfmlcealkjlegbnf/reviews"
             target="_blank"
             rel="noreferrer"
             className="p-2 text-body fw-bold border border-dark rounded text-decoration-none d-flex align-items-center"
