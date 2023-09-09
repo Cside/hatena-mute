@@ -8,9 +8,7 @@ export const Donation = () => {
 
   useEffect(() => {
     if (linkRef.current)
-      linkRef.current.href = getReviewUrl(chrome.runtime.id, ids, {
-        isDev: import.meta.env.DEV,
-      });
+      linkRef.current.href = getReviewUrl(chrome.runtime.id, ids);
   }, []);
 
   return (
