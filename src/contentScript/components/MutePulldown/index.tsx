@@ -20,10 +20,7 @@ export const MutePulldown = ({
         {domain} をミュート
       </div>
       {pathlessDomain && (
-        <div
-          className="hm-mute-pulldown-item"
-          onClick={() => muteSite(pathlessDomain ?? '')}
-        >
+        <div className="hm-mute-pulldown-item" onClick={() => muteSite(pathlessDomain ?? '')}>
           {pathlessDomain} をミュート
         </div>
       )}

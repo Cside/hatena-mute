@@ -11,8 +11,7 @@ const DEFAULTS = {
 
 export const storage = {
   get: async <T>(key: StorageKey): Promise<T> =>
-    (await chrome.storage.local.get(key))[key] ??
-    DEFAULTS[key as keyof typeof DEFAULTS],
+    (await chrome.storage.local.get(key))[key] ?? DEFAULTS[key as keyof typeof DEFAULTS],
 
   set: async (key: StorageKey, value: boolean) =>
     await chrome.storage.local.set({

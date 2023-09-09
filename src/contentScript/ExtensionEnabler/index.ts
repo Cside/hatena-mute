@@ -16,9 +16,7 @@ export class ExtensionEnabler {
 
   async update() {
     this.rootElement.classList[
-      (await storage.get(STORAGE_KEY_OF.IS_EXTENSION_ENABLED))
-        ? 'add'
-        : 'remove'
+      (await storage.get(STORAGE_KEY_OF.IS_EXTENSION_ENABLED)) ? 'add' : 'remove'
     ](ExtensionEnabler.className);
   }
 }

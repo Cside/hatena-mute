@@ -7,8 +7,7 @@ export const Donation = () => {
   const linkRef = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
-    if (linkRef.current)
-      linkRef.current.href = getReviewUrl(chrome.runtime.id, ids);
+    if (linkRef.current) linkRef.current.href = getReviewUrl(chrome.runtime.id, ids);
   }, []);
 
   return (

@@ -5,13 +5,7 @@ import { ACTION_OF, STORAGE_KEY_OF } from '../../../constants';
 import { CheckForm } from '../CheckForm';
 
 export const Header = memo(
-  ({
-    checked,
-    setChecked,
-  }: {
-    checked: boolean;
-    setChecked: SetState<boolean>;
-  }) => (
+  ({ checked, setChecked }: { checked: boolean; setChecked: SetState<boolean> }) => (
     <h1 className="my-3 d-flex justify-content-between">
       <span className="d-flex align-items-center gap-1">
         <img src="./images/icon128.png" width="40" height="40" />

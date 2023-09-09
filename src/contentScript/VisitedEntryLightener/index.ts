@@ -28,13 +28,7 @@ export class VisitedEntryLightener {
     lightenEntryWhoseCommentsHaveBeenVisited: false,
   };
 
-  constructor({
-    entries,
-    rootElement,
-  }: {
-    entries: Entry[];
-    rootElement: HTMLElement;
-  }) {
+  constructor({ entries, rootElement }: { entries: Entry[]; rootElement: HTMLElement }) {
     for (const entry of entries) {
       const commentsUrl = entry.commentsLinks[0]?.href;
       if (!commentsUrl) throw new Error(`entry.commentsLinks === 0`);
@@ -68,8 +62,7 @@ export class VisitedEntryLightener {
       });
       for (const commentsLink of entry.commentsLinks) {
         commentsLink.addEventListener('click', () => {
-          if (this.options.lightenEntryWhoseCommentsHaveBeenVisited)
-            setVisited();
+          if (this.options.lightenEntryWhoseCommentsHaveBeenVisited) setVisited();
         });
       }
     }
@@ -77,9 +70,7 @@ export class VisitedEntryLightener {
 
   private async loadOptions() {
     this.options = {
-      lightensVisitedEntry: await storage.get(
-        STORAGE_KEY_OF.LIGHTENS_VISITED_ENTRY,
-      ),
+      lightensVisitedEntry: await storage.get(STORAGE_KEY_OF.LIGHTENS_VISITED_ENTRY),
       lightenEntryWhoseCommentsHaveBeenVisited: await storage.get(
         STORAGE_KEY_OF.LIGHTENS_ENTRY_WHOSE_COMMENTS_HAVE_BEEN_VISITED,
       ),
@@ -89,9 +80,9 @@ export class VisitedEntryLightener {
   async lighten() {
     await this.loadOptions();
 
-    this.rootElement.classList[
-      this.options.lightensVisitedEntry ? 'add' : 'remove'
-    ]('hm-lightens-visited-entry');
+    this.rootElement.classList[this.options.lightensVisitedEntry ? 'add' : 'remove'](
+      'hm-lightens-visited-entry',
+    );
 
     // NOTE: たまに sendMessage が返ってこないケースがある ( = これ以降の処理が実行されないケースがある)
     // コンストラクタでやると、popup から再呼び出しされたときに、
@@ -100,9 +91,7 @@ export class VisitedEntryLightener {
       (await sendMessageToBg({
         type: ACTION_OF.GET_VISITED_MAP,
         payload: {
-          urls: this.entries
-            .map((entry) => [entry.titleLink.href, entry.commentsUrl])
-            .flat(),
+          urls: this.entries.map((entry) => [entry.titleLink.href, entry.commentsUrl]).flat(),
         },
       })) as [string, boolean][],
     );
@@ -112,18 +101,13 @@ export class VisitedEntryLightener {
       const isCommentVisited = visitedMap.get(entry.commentsUrl);
 
       if (isEntryVisited === undefined)
-        throw new Error(
-          `key (${entry.titleLink.href}) doesn't exist in visitedMap`,
-        );
+        throw new Error(`key (${entry.titleLink.href}) doesn't exist in visitedMap`);
       if (isCommentVisited === undefined)
-        throw new Error(
-          `key (${entry.titleLink.href}) doesn't exist in visitedMap`,
-        );
+        throw new Error(`key (${entry.titleLink.href}) doesn't exist in visitedMap`);
 
       entry.element.classList[
         isEntryVisited ||
-        (this.options.lightenEntryWhoseCommentsHaveBeenVisited &&
-          isCommentVisited)
+        (this.options.lightenEntryWhoseCommentsHaveBeenVisited && isCommentVisited)
           ? 'add'
           : 'remove'
       ]('hm-visited');

@@ -4,8 +4,7 @@ import { INDEXED_DB } from '../../constants';
 import { MutedEntry } from '../../types';
 
 const OBJECT_SCHEME_NAME = INDEXED_DB.OBJECT_STORE_OF.MUTED_ENTRIES.NAME;
-const INDEX_BY_CREATED =
-  INDEXED_DB.OBJECT_STORE_OF.MUTED_ENTRIES.INDEX_OF.BY_CREATED.NAME;
+const INDEX_BY_CREATED = INDEXED_DB.OBJECT_STORE_OF.MUTED_ENTRIES.INDEX_OF.BY_CREATED.NAME;
 
 export class MutedEntries {
   private db: idb.IDBPDatabase;
@@ -16,9 +15,7 @@ export class MutedEntries {
   async getMap(urls: string[]) {
     return zip(
       urls,
-      await Promise.all(
-        urls.map(async (url) => !!(await this.db.get(OBJECT_SCHEME_NAME, url))),
-      ),
+      await Promise.all(urls.map(async (url) => !!(await this.db.get(OBJECT_SCHEME_NAME, url)))),
     ) as [string, boolean][];
   }
 
@@ -33,9 +30,7 @@ export class MutedEntries {
       INDEX_BY_CREATED,
       IDBKeyRange.upperBound(olderThan, false),
     );
-    await Promise.all([
-      keys.map((key) => this.db.delete(OBJECT_SCHEME_NAME, key)),
-    ]);
+    await Promise.all([keys.map((key) => this.db.delete(OBJECT_SCHEME_NAME, key))]);
     return keys.length;
   }
 

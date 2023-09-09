@@ -19,10 +19,10 @@ chrome.runtime.onMessage.addListener(
         case ACTION_OF.GET_VISITED_MAP:
           return await Promise.all(
             payload.urls.map(async (url) => {
-              return [
-                url,
-                (await chrome.history.getVisits({ url })).length > 0,
-              ] as [string, boolean];
+              return [url, (await chrome.history.getVisits({ url })).length > 0] as [
+                string,
+                boolean,
+              ];
             }),
           );
         case ACTION_OF.GET_MUTED_ENTRY_MAP:
@@ -39,28 +39,18 @@ chrome.runtime.onMessage.addListener(
       }
     })()
       .then((result) => {
-        console.info(
-          `[message: ${type}] Succeeded in ${
-            new Date().getTime() - startTime
-          } ms`,
-        );
+        console.info(`[message: ${type}] Succeeded in ${new Date().getTime() - startTime} ms`);
         sendResponse({
           success: true,
           data: result,
         });
       })
       .catch((error) => {
-        console.info(
-          `[message: ${type}] ❌Failed in ${
-            new Date().getTime() - startTime
-          } ms`,
-        );
+        console.info(`[message: ${type}] ❌Failed in ${new Date().getTime() - startTime} ms`);
         console.error(error);
         sendResponse({
           success: false,
-          error: serializeError(
-            error instanceof Error ? error : new Error(String(error)),
-          ),
+          error: serializeError(error instanceof Error ? error : new Error(String(error))),
         });
       });
 

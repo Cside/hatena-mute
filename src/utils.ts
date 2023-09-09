@@ -1,15 +1,9 @@
-type QuerySelectorParameters =
-  | [element: HTMLElement, selector: string]
-  | [selector: string];
+type QuerySelectorParameters = [element: HTMLElement, selector: string] | [selector: string];
 
-export const $ = <T extends HTMLElement>(
-  ...params: QuerySelectorParameters
-) => {
+export const $ = <T extends HTMLElement>(...params: QuerySelectorParameters) => {
   const [elementOrSelector, selector] = params;
   if (selector && elementOrSelector instanceof HTMLElement) {
-    const result = (elementOrSelector as HTMLElement).querySelector<T>(
-      selector,
-    );
+    const result = (elementOrSelector as HTMLElement).querySelector<T>(selector);
     if (!result) {
       const message = `${selector} is not found`;
       console.info(`${message}. targetElement: `, elementOrSelector);
@@ -23,9 +17,7 @@ export const $ = <T extends HTMLElement>(
   }
 };
 
-export const $$ = <T extends HTMLElement>(
-  ...params: QuerySelectorParameters
-) => {
+export const $$ = <T extends HTMLElement>(...params: QuerySelectorParameters) => {
   const [elementOrSelector, selector] = params;
   return [
     ...(selector

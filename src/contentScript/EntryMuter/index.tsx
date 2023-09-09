@@ -24,9 +24,7 @@ export class EntryMuter {
 
   private injectCss() {
     const style = document.createElement('style');
-    style.appendChild(
-      document.createTextNode(replaceUrlsInCss(iconCss as string)),
-    );
+    style.appendChild(document.createTextNode(replaceUrlsInCss(iconCss as string)));
     document.body.appendChild(style);
   }
 
@@ -62,9 +60,9 @@ export class EntryMuter {
     const list = await storage.multiLineText.getAllLines(storageKey);
 
     for (const entry of this.entries) {
-      entry.element.classList[
-        list.some((muted) => match(entry, muted)) ? 'add' : 'remove'
-      ](matchedClassName);
+      entry.element.classList[list.some((muted) => match(entry, muted)) ? 'add' : 'remove'](
+        matchedClassName,
+      );
     }
   }
 
@@ -72,8 +70,7 @@ export class EntryMuter {
     await this.muteBy({
       storageKey: STORAGE_KEY_OF.MUTED_SITES,
       matchedClassName: 'hm-muted-sites-matched',
-      match: (entry: Entry, muted: string) =>
-        matchesLoosely(entry.titleLink.href, muted),
+      match: (entry: Entry, muted: string) => matchesLoosely(entry.titleLink.href, muted),
     });
   }
 
