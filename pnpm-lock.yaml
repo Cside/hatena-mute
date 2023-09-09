@@ -25,7 +25,7 @@ dependencies:
     version: 5.3.1(@popperjs/core@2.11.8)
   browser-extension-utils:
     specifier: github:Cside/browser-extension-utils
-    version: github.com/Cside/browser-extension-utils/6cb78c9f5b86673c3d7c9eace4692a980a750721
+    version: github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -6838,10 +6838,10 @@ packages:
       - supports-color
     dev: true
 
-  github.com/Cside/browser-extension-utils/6cb78c9f5b86673c3d7c9eace4692a980a750721:
-    resolution: {tarball: https://codeload.github.com/Cside/browser-extension-utils/tar.gz/6cb78c9f5b86673c3d7c9eace4692a980a750721}
+  github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86:
+    resolution: {tarball: https://codeload.github.com/Cside/browser-extension-utils/tar.gz/0d33946bb37360a25b39e26f0a3d024c2d008f86}
     name: browser-extension-utils
-    version: 0.0.1
+    version: 0.0.2
     hasBin: true
     dependencies:
       colorette: 2.0.20
