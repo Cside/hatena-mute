@@ -22,9 +22,9 @@ if (records.length > 0)
               ${record.created.toLocaleString('ja-JP')}
             </td>
             <td>
-              <a style="word-break: break-all;" href="${
+              <a style="word-break: break-all;" href="${record.url}" target="_blank">${
                 record.url
-              }" target="_blank">${record.url}</a>
+              }</a>
             </td>
           </tr>`,
       )

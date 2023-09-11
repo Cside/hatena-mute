@@ -11,9 +11,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   switch (alarm.name) {
     case ALARM_NAME: {
       const now = new Date();
-      console.info(
-        `[deletion] Deletion started at ${now.toLocaleString('ja-JP')}`,
-      );
+      console.info(`[deletion] Deletion started at ${now.toLocaleString('ja-JP')}`);
 
       await db.waitForConnection();
       const length = await db.mutedEntries.deleteAll({
@@ -24,9 +22,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 
       const nextScheduled = new Date(now.getTime());
       nextScheduled.setMinutes(now.getMinutes() + INTERVAL_MINUTES);
-      console.info(
-        `  [deletion] Next scheduled: ${nextScheduled.toLocaleString('ja-JP')}`,
-      );
+      console.info(`  [deletion] Next scheduled: ${nextScheduled.toLocaleString('ja-JP')}`);
       break;
     }
     default:

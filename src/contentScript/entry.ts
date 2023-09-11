@@ -24,9 +24,7 @@ const _getEntries = ({
         titleLink: $<HTMLAnchorElement>(entry, selectors.titleLink),
         commentsLinks: $$<HTMLAnchorElement>(entry, selectors.commentsLink),
         domain: $(entry, selectors.domain),
-        ...(selectors.description
-          ? { description: $(entry, selectors.description) }
-          : {}),
+        ...(selectors.description ? { description: $(entry, selectors.description) } : {}),
       });
     } catch (error) {
       console.error(error);

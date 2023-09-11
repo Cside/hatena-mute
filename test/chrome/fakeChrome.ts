@@ -2,9 +2,7 @@ import { fakeStorage } from './fakeStorage';
 
 export const fakeChrome = {
   runtime: {
-    getURL: vi
-      .fn()
-      .mockImplementation((str: string) => `chrome://<extension-id>/${str}`),
+    getURL: vi.fn().mockImplementation((str: string) => `chrome://<extension-id>/${str}`),
     id: '<extension-id>',
   },
   storage: {

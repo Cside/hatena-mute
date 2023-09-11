@@ -8,8 +8,7 @@ const normalizeText = (text: string) =>
     .join('\n');
 
 export const multiLineText = {
-  getWhole: async (key: StorageKey) =>
-    ((await chrome.storage.local.get(key))[key] ?? '') as string,
+  getWhole: async (key: StorageKey) => ((await chrome.storage.local.get(key))[key] ?? '') as string,
 
   setWhole: async (key: StorageKey, text: string) =>
     chrome.storage.local.set({
@@ -26,9 +25,7 @@ export const multiLineText = {
     const plainText = await multiLineText.getWhole(key);
     await multiLineText.setWhole(
       key,
-      plainText === undefined || plainText === ''
-        ? line
-        : `${plainText}\n${line}`,
+      plainText === undefined || plainText === '' ? line : `${plainText}\n${line}`,
     );
   },
 };

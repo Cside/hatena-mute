@@ -8,9 +8,7 @@ const openDb = async () => {
     // クライアントがデータベースを未構築の場合に発火。version を上げた場合も発火
     upgrade(db) {
       console.info('[indexedDB] Initializing or updating indexedDB');
-      for (const objectStoreScheme of Object.values(
-        INDEXED_DB.OBJECT_STORE_OF,
-      )) {
+      for (const objectStoreScheme of Object.values(INDEXED_DB.OBJECT_STORE_OF)) {
         const store = db.createObjectStore(objectStoreScheme.NAME, {
           keyPath: objectStoreScheme.KEY_PATH,
         });
@@ -37,9 +35,7 @@ const openDb = async () => {
       );
     },
   });
-  console.info(
-    `[indexedDB] Opened. Elapsed ${new Date().getTime() - startTime} ms`,
-  );
+  console.info(`[indexedDB] Opened. Elapsed ${new Date().getTime() - startTime} ms`);
   return result;
 };
 
@@ -48,8 +44,7 @@ export class IndexedDb {
   private _mutedEntries: MutedEntries | undefined = undefined;
 
   get mutedEntries() {
-    if (this._mutedEntries === undefined)
-      throw new Error(`this._mutedEntries is not initialized`);
+    if (this._mutedEntries === undefined) throw new Error(`this._mutedEntries is not initialized`);
     return this._mutedEntries;
   }
 

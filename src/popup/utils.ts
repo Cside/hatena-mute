@@ -2,8 +2,7 @@ import type { Action } from '../types';
 
 import manifest from '../../manifest.json';
 
-if (!manifest.content_scripts[0])
-  throw new Error(`manifest.content_scripts is empty`);
+if (!manifest.content_scripts[0]) throw new Error(`manifest.content_scripts is empty`);
 
 const URL_PATTERNS = manifest.content_scripts[0].matches;
 

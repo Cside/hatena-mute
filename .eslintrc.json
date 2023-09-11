@@ -25,10 +25,7 @@
   "rules": {
     "no-trailing-spaces": "error",
     "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-floating-promises": [
-      "error",
-      { "ignoreIIFE": true }
-    ],
+    "@typescript-eslint/no-floating-promises": ["error", { "ignoreIIFE": true }],
     "react/react-in-jsx-scope": "off",
     "react-hooks/exhaustive-deps": "off",
     "react/display-name": "off",

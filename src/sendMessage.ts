@@ -11,13 +11,9 @@ export const TIMEOUT = (attemptNumber: number) => {
 };
 const RETRIES = 3; // 1st attempt + retries なので、実際は最大で retries + 1 回試行される
 const INTERVAL = 50;
-const ERROR_PREFIX = (type: string) =>
-  `chrome.runtime.sendMessage({ type: ${type} }) failed.`;
+const ERROR_PREFIX = (type: string) => `chrome.runtime.sendMessage({ type: ${type} }) failed.`;
 
-const _sendMessageToBg = async (
-  attemptNumber: number,
-  params: MessageParameters,
-) => {
+const _sendMessageToBg = async (attemptNumber: number, params: MessageParameters) => {
   const startTime = new Date().getTime();
   const attempt = attemptNumber >= 2 ? `(${attemptNumber})` : '';
   const timeoutDuration = TIMEOUT(attemptNumber);
@@ -53,23 +49,18 @@ const _sendMessageToBg = async (
       const error = deserializeError(result.error);
       throw new AbortError(
         new Error(
-          ERROR_PREFIX(params.type) +
-            '\nError occurred in the background service worker.',
+          ERROR_PREFIX(params.type) + '\nError occurred in the background service worker.',
           { cause: error },
         ),
       );
     }
     console.info(
-      `[message: ${params.type}${attempt}] Succeeded in ${
-        new Date().getTime() - startTime
-      } ms`,
+      `[message: ${params.type}${attempt}] Succeeded in ${new Date().getTime() - startTime} ms`,
     );
     return result.data;
   } catch (error) {
     console.info(
-      `[message: ${params.type}${attempt}] ❌Failed in ${
-        new Date().getTime() - startTime
-      } ms`,
+      `[message: ${params.type}${attempt}] ❌Failed in ${new Date().getTime() - startTime} ms`,
     );
     if (error instanceof AbortError || !(error instanceof Error)) throw error;
 
@@ -77,17 +68,12 @@ const _sendMessageToBg = async (
     // 拡張機能が更新されたのに、content script が reload されていない
     // 多分 Chrome 特有のエラーメッセージ（ Firefox は開発中のアドオンを更新するとページが強制リロードされるため再現不可）
     if (error.message.includes('Extension context invalidated.')) {
-      if (
-        confirm(
-          '拡張機能が更新されたため、処理に失敗しました。\nページを再読み込みします。',
-        )
-      )
+      if (confirm('拡張機能が更新されたため、処理に失敗しました。\nページを再読み込みします。'))
         setTimeout(() => location.reload(), 0);
 
       throw new AbortError(
         new Error(
-          prefix +
-            `\nMaybe the extension is updated but the content script is not reloaded.`,
+          prefix + `\nMaybe the extension is updated but the content script is not reloaded.`,
           { cause: error },
         ),
       );
@@ -96,9 +82,7 @@ const _sendMessageToBg = async (
   }
 };
 
-export const sendMessageToBg = async (
-  params: MessageParameters,
-): Promise<unknown> => {
+export const sendMessageToBg = async (params: MessageParameters): Promise<unknown> => {
   try {
     return await pRetry(
       (attemptNumber: number) => {
@@ -153,11 +137,7 @@ type MessageResult =
       result: MessageData<[string, boolean][]>;
     };
 
-function log(
-  elapsed: number,
-  attemptNumber: number,
-  { type, result }: MessageResult,
-) {
+function log(elapsed: number, attemptNumber: number, { type, result }: MessageResult) {
   let message =
     `[message: ${type}] Too long processing in ${elapsed} ms. ` +
     `attempt: ${attemptNumber}, ` +
@@ -166,8 +146,7 @@ function log(
     `bytes: ${new Blob([JSON.stringify(result)]).size}`;
   if (
     result.success === true &&
-    (type === ACTION_OF.GET_VISITED_MAP ||
-      type === ACTION_OF.GET_MUTED_ENTRY_MAP)
+    (type === ACTION_OF.GET_VISITED_MAP || type === ACTION_OF.GET_MUTED_ENTRY_MAP)
   )
     message += `, arrayLength: ${result.data.length}`;
 
