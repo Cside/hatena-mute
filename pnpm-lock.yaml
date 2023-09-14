@@ -25,7 +25,7 @@ dependencies:
     version: 5.3.1(@popperjs/core@2.11.8)
   browser-extension-utils:
     specifier: github:Cside/browser-extension-utils
-    version: github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86
+    version: git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -48,8 +48,8 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   serialize-error:
-    specifier: ^11.0.1
-    version: 11.0.1
+    specifier: ^11.0.2
+    version: 11.0.2
 
 devDependencies:
   '@crxjs/vite-plugin':
@@ -5677,8 +5677,8 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
-  /serialize-error@11.0.1:
-    resolution: {integrity: sha512-B5yw3/Lg+Daspbs0f+iO3Qim0+lALnaLS8aZUAy8Y0tO92tkOoMEuwtKo4jpZ5XO16CTwMi4tYN8cZQI3QF2Qw==}
+  /serialize-error@11.0.2:
+    resolution: {integrity: sha512-o43i0jLcA0LXA5Uu+gI1Vj+lF66KR9IAcy0ThbGq1bAMPN+k5IgSHsulfnqf/ddKAz6dWf+k8PD5hAr9oCSHEQ==}
     engines: {node: '>=14.16'}
     dependencies:
       type-fest: 2.19.0
@@ -6838,8 +6838,8 @@ packages:
       - supports-color
     dev: true
 
-  github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86:
-    resolution: {tarball: https://codeload.github.com/Cside/browser-extension-utils/tar.gz/0d33946bb37360a25b39e26f0a3d024c2d008f86}
+  git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9:
+    resolution: {commit: 7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9, repo: git@github.com:Cside/browser-extension-utils.git, type: git}
     name: browser-extension-utils
     version: 0.0.2
     hasBin: true
