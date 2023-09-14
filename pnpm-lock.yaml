@@ -25,7 +25,7 @@ dependencies:
     version: 5.3.1(@popperjs/core@2.11.8)
   browser-extension-utils:
     specifier: github:Cside/browser-extension-utils
-    version: github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86
+    version: git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -149,8 +149,8 @@ devDependencies:
     specifier: ^33.0.0
     version: 33.0.0(stylelint@15.9.0)
   stylelint-csstree-validator:
-    specifier: ^2.0.0
-    version: 2.0.0(stylelint@15.9.0)
+    specifier: ^3.0.0
+    version: 3.0.0(stylelint@15.9.0)
   stylelint-declaration-block-no-ignored-properties:
     specifier: ^2.6.0
     version: 2.6.0(stylelint@15.9.0)
@@ -6005,11 +6005,11 @@ packages:
       stylelint-config-recommended: 12.0.0(stylelint@15.9.0)
     dev: true
 
-  /stylelint-csstree-validator@2.0.0(stylelint@15.9.0):
-    resolution: {integrity: sha512-nAnG4CynM4P4POUCGVz/PnrByKcgdD2isKlmAccoxykkaH1IuEposiOJcUQlAp/kXD/T0ZRwlDbqMGgrHRbhog==}
-    engines: {node: ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
+  /stylelint-csstree-validator@3.0.0(stylelint@15.9.0):
+    resolution: {integrity: sha512-/CPYhwchWZbyZK2LVGKvt1ivISYZyRSRhrY4cMArlwYh1DxwygubR0nBv+5upuX23j1qBfJWdv6xx9dsUZF+OA==}
+    engines: {node: ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
     peerDependencies:
-      stylelint: '>=7.0.0 <15.0.0'
+      stylelint: '>=7.0.0 <16.0.0'
     dependencies:
       css-tree: 2.3.1
       stylelint: 15.9.0
@@ -6838,8 +6838,8 @@ packages:
       - supports-color
     dev: true
 
-  github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86:
-    resolution: {tarball: https://codeload.github.com/Cside/browser-extension-utils/tar.gz/0d33946bb37360a25b39e26f0a3d024c2d008f86}
+  git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9:
+    resolution: {commit: 7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9, repo: git@github.com:Cside/browser-extension-utils.git, type: git}
     name: browser-extension-utils
     version: 0.0.2
     hasBin: true
