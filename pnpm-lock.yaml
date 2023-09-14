@@ -9,8 +9,8 @@ dependencies:
     specifier: ^7.68.0
     version: 7.68.0
   '@sentry/integrations':
-    specifier: ^7.68.0
-    version: 7.68.0
+    specifier: ^7.69.0
+    version: 7.69.0
   '@sentry/react':
     specifier: ^7.68.0
     version: 7.68.0(react@18.2.0)
@@ -25,7 +25,7 @@ dependencies:
     version: 5.3.1(@popperjs/core@2.11.8)
   browser-extension-utils:
     specifier: github:Cside/browser-extension-utils
-    version: github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86
+    version: git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -1338,12 +1338,12 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /@sentry/integrations@7.68.0:
-    resolution: {integrity: sha512-kCY+rD2QD9YAatx9rFT7ndxCTigP10lWTX1qZHNKZBZqr38SvsaD3tyVpbXVPjaFR1tnpuH0osWAjY/gyjFhlw==}
+  /@sentry/integrations@7.69.0:
+    resolution: {integrity: sha512-FEFtFqXuCo9+L7bENZxFpEAlIODwHl6FyW/DwLfniy9jOXHU7BhP/oICLrFE5J7rh1gNY7N/8VlaiQr3hCnS/g==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.68.0
-      '@sentry/utils': 7.68.0
+      '@sentry/types': 7.69.0
+      '@sentry/utils': 7.69.0
       localforage: 1.10.0
       tslib: 2.6.0
     dev: false
@@ -1383,11 +1383,24 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /@sentry/types@7.69.0:
+    resolution: {integrity: sha512-zPyCox0mzitzU6SIa1KIbNoJAInYDdUpdiA+PoUmMn2hFMH1llGU/cS7f4w/mAsssTlbtlBi72RMnWUCy578bw==}
+    engines: {node: '>=8'}
+    dev: false
+
   /@sentry/utils@7.68.0:
     resolution: {integrity: sha512-NecnQegvKARyeFmBx7mYmbI17mTvjARWs1nfzY5jhPyNc3Zk4M3bQsgIdnJ1t+jo93UYudlNND7hxhDzjcBAVg==}
     engines: {node: '>=8'}
     dependencies:
       '@sentry/types': 7.68.0
+      tslib: 2.6.0
+    dev: false
+
+  /@sentry/utils@7.69.0:
+    resolution: {integrity: sha512-4eBixe5Y+0EGVU95R4NxH3jkkjtkE4/CmSZD4In8SCkWGSauogePtq6hyiLsZuP1QHdpPb9Kt0+zYiBb2LouBA==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.69.0
       tslib: 2.6.0
     dev: false
 
@@ -6838,8 +6851,8 @@ packages:
       - supports-color
     dev: true
 
-  github.com/Cside/browser-extension-utils/0d33946bb37360a25b39e26f0a3d024c2d008f86:
-    resolution: {tarball: https://codeload.github.com/Cside/browser-extension-utils/tar.gz/0d33946bb37360a25b39e26f0a3d024c2d008f86}
+  git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9:
+    resolution: {commit: 7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9, repo: git@github.com:Cside/browser-extension-utils.git, type: git}
     name: browser-extension-utils
     version: 0.0.2
     hasBin: true
