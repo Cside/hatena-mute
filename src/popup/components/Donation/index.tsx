@@ -1,4 +1,4 @@
-import { getReviewUrl } from 'browser-extension-utils';
+import { getReviewUrl } from '@cside/browser-extension-utils';
 import { useEffect, useRef } from 'react';
 
 import ids from '../../../../ids.json';
