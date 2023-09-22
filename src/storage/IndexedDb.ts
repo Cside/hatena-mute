@@ -3,7 +3,7 @@ import { INDEXED_DB } from '../constants';
 import { MutedEntries } from './IndexedDb/MutedEntries';
 
 const openDb = async () => {
-  const startTime = new Date().getTime();
+  const startTime = Date.now();
   const result = await idb.openDB(INDEXED_DB.NAME, INDEXED_DB.VERSION, {
     // クライアントがデータベースを未構築の場合に発火。version を上げた場合も発火
     upgrade(db) {
@@ -35,7 +35,7 @@ const openDb = async () => {
       );
     },
   });
-  console.info(`[indexedDB] Opened. Elapsed ${new Date().getTime() - startTime} ms`);
+  console.info(`[indexedDB] Opened. Elapsed ${Date.now() - startTime} ms`);
   return result;
 };
 
