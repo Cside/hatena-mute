@@ -14,7 +14,7 @@ const INTERVAL = 50;
 const ERROR_PREFIX = (type: string) => `chrome.runtime.sendMessage({ type: ${type} }) failed.`;
 
 const _sendMessageToBg = async (attemptNumber: number, params: MessageParameters) => {
-  const startTime = new Date().getTime();
+  const startTime = Date.now();
   const attempt = attemptNumber >= 2 ? `(${attemptNumber})` : '';
   const timeoutDuration = TIMEOUT(attemptNumber);
   let isTimeOuted = false;
@@ -31,7 +31,7 @@ const _sendMessageToBg = async (attemptNumber: number, params: MessageParameters
         } = await Promise.race([
       chrome.runtime.sendMessage(params).then((result) => {
         if (isTimeOuted)
-          log(new Date().getTime() - startTime, attemptNumber, {
+          log(Date.now() - startTime, attemptNumber, {
             type: params.type,
             result,
           });
@@ -55,12 +55,12 @@ const _sendMessageToBg = async (attemptNumber: number, params: MessageParameters
       );
     }
     console.info(
-      `[message: ${params.type}${attempt}] Succeeded in ${new Date().getTime() - startTime} ms`,
+      `[message: ${params.type}${attempt}] Succeeded in ${Date.now() - startTime} ms`,
     );
     return result.data;
   } catch (error) {
     console.info(
-      `[message: ${params.type}${attempt}] ❌Failed in ${new Date().getTime() - startTime} ms`,
+      `[message: ${params.type}${attempt}] ❌Failed in ${Date.now() - startTime} ms`,
     );
     if (error instanceof AbortError || !(error instanceof Error)) throw error;
 
