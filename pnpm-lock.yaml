@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@cside/browser-extension-utils':
+    specifier: ^0.0.6
+    version: 0.0.6
   '@sentry/browser':
     specifier: ^7.68.0
     version: 7.68.0
@@ -23,9 +26,6 @@ dependencies:
   bootstrap:
     specifier: ^5.3.1
     version: 5.3.1(@popperjs/core@2.11.8)
-  browser-extension-utils:
-    specifier: github:Cside/browser-extension-utils
-    version: git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -675,6 +675,15 @@ packages:
     dependencies:
       typescript: 4.9.3
     dev: true
+
+  /@cside/browser-extension-utils@0.0.6:
+    resolution: {integrity: sha512-O6jni8Sk2+3RAlcwISfcVkLy3G7hpY9f2wOrBPF+eHjlGbvbD3Ea0JfurboMI5ApVoj36FKai+6EWOOaGw4bqw==, tarball: https://npm.pkg.github.com/download/@cside/browser-extension-utils/0.0.6/ddd40eabaff58c446991f0b5bb2a337bc526a855}
+    hasBin: true
+    dependencies:
+      colorette: 2.0.20
+      open: 9.1.0
+      zod: 3.22.2
+    dev: false
 
   /@csstools/css-parser-algorithms@2.2.0(@csstools/css-tokenizer@2.1.1):
     resolution: {integrity: sha512-9BoQ/jSrPq4vv3b9jjLW+PNNv56KlDH5JMx5yASSNrCtvq70FCNZUjXRvbCeR9hYj9ZyhURtqpU/RFIgg6kiOw==}
@@ -6837,14 +6846,3 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9:
-    resolution: {commit: 7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9, repo: git@github.com:Cside/browser-extension-utils.git, type: git}
-    name: browser-extension-utils
-    version: 0.0.2
-    hasBin: true
-    dependencies:
-      colorette: 2.0.20
-      open: 9.1.0
-      zod: 3.22.2
-    dev: false

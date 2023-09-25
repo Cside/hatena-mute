@@ -1,7 +1,8 @@
 /node_modules/
 /dist/
 /dist-firefox/
-.git-pr-release
+/.git-pr-release
+/.npmrc
 /dist-chrome-*.zip
 /dist-firefox-*.zip
 /source-code-*.zip

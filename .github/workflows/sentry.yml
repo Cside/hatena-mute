@@ -1,0 +1,41 @@
+name: Sentry Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  sentry-release:
+    runs-on: ubuntu-latest
+    steps:
+      - id: tag
+        uses: dawidd6/action-get-tag@v1
+        with:
+          strip_v: true
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: cside
+          SENTRY_PROJECT: hatena-mute
+        with:
+          environment: production
+          version: ${{steps.tag.outputs.tag}}
+
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,ref,workflow,took
+          username: Github Actions
+          icon_emoji: ':github:'
+          text: ${{ job.status }}
+          author_name: ''
+          mention: channel
+          if_mention: failure
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
