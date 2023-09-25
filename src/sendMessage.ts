@@ -54,14 +54,10 @@ const _sendMessageToBg = async (attemptNumber: number, params: MessageParameters
         ),
       );
     }
-    console.info(
-      `[message: ${params.type}${attempt}] Succeeded in ${Date.now() - startTime} ms`,
-    );
+    console.info(`[message: ${params.type}${attempt}] Succeeded in ${Date.now() - startTime} ms`);
     return result.data;
   } catch (error) {
-    console.info(
-      `[message: ${params.type}${attempt}] ❌Failed in ${Date.now() - startTime} ms`,
-    );
+    console.info(`[message: ${params.type}${attempt}] ❌Failed in ${Date.now() - startTime} ms`);
     if (error instanceof AbortError || !(error instanceof Error)) throw error;
 
     const prefix = ERROR_PREFIX(params.type);
