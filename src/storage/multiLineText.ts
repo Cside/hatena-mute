@@ -2,7 +2,7 @@ import type { StorageKey } from '../types';
 
 const normalizeText = (text: string) =>
   text
-    .split(/\n+/)
+    .split(/(?:\r?\n)+/)
     .map((line) => line.trim())
     .filter((line) => line.length > 0)
     .join('\n');
@@ -18,7 +18,7 @@ export const multiLineText = {
   getAllLines: async (key: StorageKey): Promise<string[]> => {
     const plainText = await multiLineText.getWhole(key);
     if (plainText === undefined || plainText === '') return [];
-    return normalizeText(plainText).split('\n');
+    return normalizeText(plainText).split(/\r?\n/);
   },
 
   appendLine: async (key: StorageKey, line: string) => {
