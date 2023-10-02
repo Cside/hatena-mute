@@ -1,2 +1,2 @@
 # browserslist 的には 79 のシェアが 0.2% いるらしいが、top-level await を使いたいので切り捨てる。
-Chrome >= 80 or Firefox >= 1 and >= 0.2%
+Chrome >= 80 or Edge >= 80 or Firefox >= 1 and >= 0.2%

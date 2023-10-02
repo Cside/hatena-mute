@@ -9,7 +9,7 @@ db.open(); // eslint-disable-line @typescript-eslint/no-floating-promises
 
 chrome.runtime.onMessage.addListener(
   ({ type, payload }: MessageParameters, _sender, sendResponse) => {
-    const startTime = new Date().getTime();
+    const startTime = Date.now();
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     (async () => {
@@ -39,14 +39,14 @@ chrome.runtime.onMessage.addListener(
       }
     })()
       .then((result) => {
-        console.info(`[message: ${type}] Succeeded in ${new Date().getTime() - startTime} ms`);
+        console.info(`[message: ${type}] Succeeded in ${Date.now() - startTime} ms`);
         sendResponse({
           success: true,
           data: result,
         });
       })
       .catch((error) => {
-        console.info(`[message: ${type}] ❌Failed in ${new Date().getTime() - startTime} ms`);
+        console.info(`[message: ${type}] ❌Failed in ${Date.now() - startTime} ms`);
         console.error(error);
         sendResponse({
           success: false,

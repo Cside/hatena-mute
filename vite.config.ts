@@ -60,13 +60,17 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./test/setup.ts'],
   },
-  server: {
-    strictPort: true,
-    port: 5173,
-    hmr: {
-      clientPort: 5173,
-    },
-  },
+  ...(process.env.NODE_ENV === 'test'
+    ? {}
+    : {
+        server: {
+          strictPort: true,
+          port: 5173,
+          hmr: {
+            clientPort: 5173,
+          },
+        },
+      }),
 });
 
 // utils

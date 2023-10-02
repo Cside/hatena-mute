@@ -63,6 +63,14 @@ describe('getAllLines()', () => {
       expected: ['foo', 'bar'],
     },
     {
+      input: 'foo\r\nbar\r\n\r\nbaz\r\n',
+      expected: ['foo', 'bar', 'baz'],
+    },
+    {
+      input: 'foo\nbar\n\nbaz\n',
+      expected: ['foo', 'bar', 'baz'],
+    },
+    {
       input: 'foo\n\nbar',
       expected: ['foo', 'bar'],
     },
