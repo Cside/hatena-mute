@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@cside/browser-extension-utils':
+    specifier: ^0.0.6
+    version: 0.0.6
   '@sentry/browser':
     specifier: ^7.68.0
     version: 7.68.0
@@ -23,9 +26,6 @@ dependencies:
   bootstrap:
     specifier: ^5.3.1
     version: 5.3.1(@popperjs/core@2.11.8)
-  browser-extension-utils:
-    specifier: github:Cside/browser-extension-utils
-    version: git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9
   idb:
     specifier: ^7.1.1
     version: 7.1.1
@@ -48,8 +48,8 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   serialize-error:
-    specifier: ^11.0.1
-    version: 11.0.1
+    specifier: ^11.0.2
+    version: 11.0.2
 
 devDependencies:
   '@crxjs/vite-plugin':
@@ -149,11 +149,11 @@ devDependencies:
     specifier: ^33.0.0
     version: 33.0.0(stylelint@15.9.0)
   stylelint-csstree-validator:
-    specifier: ^2.0.0
-    version: 2.0.0(stylelint@15.9.0)
+    specifier: ^3.0.0
+    version: 3.0.0(stylelint@15.9.0)
   stylelint-declaration-block-no-ignored-properties:
-    specifier: ^2.6.0
-    version: 2.6.0(stylelint@15.9.0)
+    specifier: ^2.7.0
+    version: 2.7.0(stylelint@15.9.0)
   stylelint-no-unsupported-browser-features:
     specifier: ^7.0.0
     version: 7.0.0(stylelint@15.9.0)
@@ -675,6 +675,15 @@ packages:
     dependencies:
       typescript: 4.9.3
     dev: true
+
+  /@cside/browser-extension-utils@0.0.6:
+    resolution: {integrity: sha512-O6jni8Sk2+3RAlcwISfcVkLy3G7hpY9f2wOrBPF+eHjlGbvbD3Ea0JfurboMI5ApVoj36FKai+6EWOOaGw4bqw==, tarball: https://npm.pkg.github.com/download/@cside/browser-extension-utils/0.0.6/ddd40eabaff58c446991f0b5bb2a337bc526a855}
+    hasBin: true
+    dependencies:
+      colorette: 2.0.20
+      open: 9.1.0
+      zod: 3.22.2
+    dev: false
 
   /@csstools/css-parser-algorithms@2.2.0(@csstools/css-tokenizer@2.1.1):
     resolution: {integrity: sha512-9BoQ/jSrPq4vv3b9jjLW+PNNv56KlDH5JMx5yASSNrCtvq70FCNZUjXRvbCeR9hYj9ZyhURtqpU/RFIgg6kiOw==}
@@ -5677,8 +5686,8 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
-  /serialize-error@11.0.1:
-    resolution: {integrity: sha512-B5yw3/Lg+Daspbs0f+iO3Qim0+lALnaLS8aZUAy8Y0tO92tkOoMEuwtKo4jpZ5XO16CTwMi4tYN8cZQI3QF2Qw==}
+  /serialize-error@11.0.2:
+    resolution: {integrity: sha512-o43i0jLcA0LXA5Uu+gI1Vj+lF66KR9IAcy0ThbGq1bAMPN+k5IgSHsulfnqf/ddKAz6dWf+k8PD5hAr9oCSHEQ==}
     engines: {node: '>=14.16'}
     dependencies:
       type-fest: 2.19.0
@@ -6005,21 +6014,21 @@ packages:
       stylelint-config-recommended: 12.0.0(stylelint@15.9.0)
     dev: true
 
-  /stylelint-csstree-validator@2.0.0(stylelint@15.9.0):
-    resolution: {integrity: sha512-nAnG4CynM4P4POUCGVz/PnrByKcgdD2isKlmAccoxykkaH1IuEposiOJcUQlAp/kXD/T0ZRwlDbqMGgrHRbhog==}
-    engines: {node: ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
+  /stylelint-csstree-validator@3.0.0(stylelint@15.9.0):
+    resolution: {integrity: sha512-/CPYhwchWZbyZK2LVGKvt1ivISYZyRSRhrY4cMArlwYh1DxwygubR0nBv+5upuX23j1qBfJWdv6xx9dsUZF+OA==}
+    engines: {node: ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
     peerDependencies:
-      stylelint: '>=7.0.0 <15.0.0'
+      stylelint: '>=7.0.0 <16.0.0'
     dependencies:
       css-tree: 2.3.1
       stylelint: 15.9.0
     dev: true
 
-  /stylelint-declaration-block-no-ignored-properties@2.6.0(stylelint@15.9.0):
-    resolution: {integrity: sha512-S9EC/tVJL19ppMRC4A4ecxtkENHZ7WNrEAukJVDtFt+iZgNP3SmokOLlYUhe6qZuB2XUvETqUx6r2p3Xfo7Rxw==}
+  /stylelint-declaration-block-no-ignored-properties@2.7.0(stylelint@15.9.0):
+    resolution: {integrity: sha512-44SpI9+9Oc1ICuwwRfwS/3npQ2jPobDSTnwWdNgZGryGqQCp17CgEIWjCv1BgUOSzND3RqywNCNLKvO1AOxbfg==}
     engines: {node: '>=6'}
     peerDependencies:
-      stylelint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
+      stylelint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
     dependencies:
       stylelint: 15.9.0
     dev: true
@@ -6814,7 +6823,7 @@ packages:
     dev: false
 
   '@gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4':
-    resolution: {tarball: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4}
+    resolution: {registry: https://registry.npmjs.org/, tarball: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4}
     name: '@crxjs/vite-plugin'
     version: 2.0.0-beta.202307072012
     dependencies:
@@ -6837,14 +6846,3 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  git/github.com+Cside/browser-extension-utils/7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9:
-    resolution: {commit: 7135ae0d8ab2c9ac48e19d2fc28331bd44874ca9, repo: git@github.com:Cside/browser-extension-utils.git, type: git}
-    name: browser-extension-utils
-    version: 0.0.2
-    hasBin: true
-    dependencies:
-      colorette: 2.0.20
-      open: 9.1.0
-      zod: 3.22.2
-    dev: false
