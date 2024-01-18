@@ -21,7 +21,7 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: cside
-          SENTRY_PROJECT: hatena-mute
+          SENTRY_PROJECT: notion-search
         with:
           environment: production
           version: ${{steps.tag.outputs.tag}}

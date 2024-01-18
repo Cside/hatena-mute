@@ -60,6 +60,7 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./test/setup.ts'],
   },
+  // https://github.com/crxjs/chrome-extension-tools/issues/746
   ...(process.env.NODE_ENV === 'test'
     ? {}
     : {

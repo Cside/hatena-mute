@@ -9,7 +9,7 @@ on:
 
 jobs:
   auto_merge:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     if: |
       github.actor == 'dependabot[bot]' &&
       github.event.workflow_run.conclusion == 'success'

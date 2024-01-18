@@ -24,6 +24,7 @@
   },
   "rules": {
     "no-trailing-spaces": "error",
+    "eqeqeq": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-floating-promises": ["error", { "ignoreIIFE": true }],
     "react/react-in-jsx-scope": "off",

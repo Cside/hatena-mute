@@ -11,7 +11,6 @@ chrome.runtime.onMessage.addListener(
   ({ type, payload }: MessageParameters, _sender, sendResponse) => {
     const startTime = Date.now();
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     (async () => {
       await db.waitForConnection();
 
