@@ -6,6 +6,7 @@ import { stackWithCauses } from 'pony-cause';
 import { deserializeError } from 'serialize-error';
 import { ACTION_OF } from './constants';
 
+// iterator 使ったほうがスマート...？
 export const TIMEOUT = (attemptNumber: number) => {
   return attemptNumber * 1000 + (attemptNumber === 1 ? 0 : 500);
 };
