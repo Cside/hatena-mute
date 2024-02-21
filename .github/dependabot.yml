@@ -15,5 +15,5 @@ updates:
     registries:
       - npm-github
     schedule:
-      interval: 'daily'
+      interval: 'monthly'
     target-branch: 'develop'
