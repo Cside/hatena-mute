@@ -27,8 +27,8 @@ dependencies:
     specifier: ^5.3.1
     version: 5.3.1(@popperjs/core@2.11.8)
   idb:
-    specifier: ^7.1.1
-    version: 7.1.1
+    specifier: ^8.0.0
+    version: 8.0.0
   lodash.zip:
     specifier: ^4.2.0
     version: 4.2.0
@@ -3664,8 +3664,8 @@ packages:
       safer-buffer: 2.1.2
     dev: true
 
-  /idb@7.1.1:
-    resolution: {integrity: sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==}
+  /idb@8.0.0:
+    resolution: {integrity: sha512-l//qvlAKGmQO31Qn7xdzagVPPaHTxXx199MhrAFuVBTPqydcPYBWjkrbv4Y0ktB+GmWOiwHl237UUOrLmQxLvw==}
     dev: false
 
   /ignore@5.2.4:
