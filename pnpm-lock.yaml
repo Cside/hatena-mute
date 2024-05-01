@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@cside/browser-extension-utils':
-    specifier: ^0.0.6
-    version: 0.0.6
+    specifier: ^1.0.2
+    version: 1.0.2(typescript@5.3.3)
   '@sentry/browser':
     specifier: ^7.68.0
     version: 7.68.0
@@ -676,13 +676,15 @@ packages:
       typescript: 5.3.3
     dev: true
 
-  /@cside/browser-extension-utils@0.0.6:
-    resolution: {integrity: sha512-O6jni8Sk2+3RAlcwISfcVkLy3G7hpY9f2wOrBPF+eHjlGbvbD3Ea0JfurboMI5ApVoj36FKai+6EWOOaGw4bqw==, tarball: https://npm.pkg.github.com/download/@cside/browser-extension-utils/0.0.6/ddd40eabaff58c446991f0b5bb2a337bc526a855}
+  /@cside/browser-extension-utils@1.0.2(typescript@5.3.3):
+    resolution: {integrity: sha512-36CNaK8IewGW9rx0LvqE9Oj1jLDQQEycHAC8madce/4IbJMVsyy/zOwSr/9tmY70ZiFmBOCVfSpcTSs/HASSNw==, tarball: https://npm.pkg.github.com/download/@cside/browser-extension-utils/1.0.2/659a5e05fb873ab7de39694cdb3cc1da3a9949a9}
     hasBin: true
     dependencies:
       colorette: 2.0.20
+      lizod: 0.2.7(typescript@5.3.3)
       open: 9.1.0
-      zod: 3.22.2
+    transitivePeerDependencies:
+      - typescript
     dev: false
 
   /@csstools/css-parser-algorithms@2.6.0(@csstools/css-tokenizer@2.2.3):
@@ -4566,6 +4568,14 @@ packages:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
 
+  /lizod@0.2.7(typescript@5.3.3):
+    resolution: {integrity: sha512-pe2aQYvIil1zDCKBKLtlMrGRl+PgkKKbltfkHHWh5OW8Y3AWZ2yi9UOxmLg42RNs1XmGeMYo0EbDKajWm/4njw==}
+    peerDependencies:
+      typescript: '>=5'
+    dependencies:
+      typescript: 5.3.3
+    dev: false
+
   /load-json-file@4.0.0:
     resolution: {integrity: sha512-Kx8hMakjX03tiGTLAIdJ+lL0htKnXjEZN6hk/tozf/WOuYGdZBJrZ+rCJRbVCugsjB3jMLn9746NsQIf5VjBMw==}
     engines: {node: '>=4'}
@@ -6332,7 +6342,6 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /uberproto@1.2.0:
     resolution: {integrity: sha512-pGtPAQmLwh+R9w81WVHzui1FfedpQWQpiaIIfPCwhtsBez4q6DYbJFfyXPVHPUTNFnedAvNEnkoFiLuhXIR94w==}
@@ -6758,10 +6767,6 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: true
-
-  /zod@3.22.2:
-    resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
-    dev: false
 
   '@gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4':
     resolution: {registry: https://registry.npmjs.org/, tarball: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4}
