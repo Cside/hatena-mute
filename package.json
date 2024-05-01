@@ -35,7 +35,7 @@
     "@vitejs/plugin-react": "^4.0.1",
     "autoprefixer": "^10.4.19",
     "better-typescript-lib": "^2.4.0",
-    "browserslist": "^4.21.5",
+    "browserslist": "^4.23.0",
     "browserslist-to-esbuild": "^1.2.0",
     "caniuse-lite": "^1.0.30001591",
     "eslint": "^8.57.0",
