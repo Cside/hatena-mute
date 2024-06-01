@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "@cside/browser-extension-utils": "^1.0.2",
-    "@sentry/browser": "^7.68.0",
+    "@sentry/browser": "^8.7.0",
     "@sentry/integrations": "^7.69.0",
     "@sentry/react": "^7.68.0",
     "@sentry/tracing": "^7.68.0",
