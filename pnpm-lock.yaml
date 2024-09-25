@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@cside/browser-extension-utils':
-        specifier: ^1.0.2
-        version: 1.0.2(typescript@5.3.3)
+        specifier: ^1.0.3
+        version: 1.0.3(typescript@5.3.3)
       '@sentry/browser':
         specifier: ^7.68.0
         version: 7.68.0
@@ -452,8 +452,8 @@ packages:
     resolution: {registry: https://registry.npmjs.org/, tarball: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4}
     version: 2.0.0-beta.202307072012
 
-  '@cside/browser-extension-utils@1.0.2':
-    resolution: {integrity: sha512-36CNaK8IewGW9rx0LvqE9Oj1jLDQQEycHAC8madce/4IbJMVsyy/zOwSr/9tmY70ZiFmBOCVfSpcTSs/HASSNw==, tarball: https://npm.pkg.github.com/download/@cside/browser-extension-utils/1.0.2/659a5e05fb873ab7de39694cdb3cc1da3a9949a9}
+  '@cside/browser-extension-utils@1.0.3':
+    resolution: {integrity: sha512-sQ1yZA5FsjC50EoVbLbcHDBOC5gpxxk7VvnGvGum0Ms4taMQNtaslqsid2I/K49gUc8VTvNziGe7trQv6+cEOg==, tarball: https://npm.pkg.github.com/download/@cside/browser-extension-utils/1.0.3/5357cef38a15a975bc995ee95ebe25f7c7c76729}
     hasBin: true
 
   '@csstools/css-parser-algorithms@2.6.0':
@@ -3980,7 +3980,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@cside/browser-extension-utils@1.0.2(typescript@5.3.3)':
+  '@cside/browser-extension-utils@1.0.3(typescript@5.3.3)':
     dependencies:
       colorette: 2.0.20
       lizod: 0.2.7(typescript@5.3.3)
