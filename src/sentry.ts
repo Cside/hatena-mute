@@ -25,5 +25,10 @@ export const initSentry = (
       : 'https://35a77cb42ef64cc3a64e60d13ea9894a@o49171.ingest.sentry.io/4504761158074368',
     release: chrome.runtime.getManifest().version,
     integrations: [new BrowserTracing(), new CaptureConsole({ levels: ['warn', 'error'] })],
+    ignoreErrors: [
+      /Too long processing in/,
+      /type: get-visited-map }\) failed/, // タイムアウトで失敗することある
+      /type: get-muted-entry-map }\) failed/, //        〃
+    ],
   });
 };
