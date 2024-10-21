@@ -1,5 +1,6 @@
 {
   "version": "1.5.4",
+  "type":"module",
   "scripts": {
     "dev": "ENABLES_SENTRY=false vite",
     "build:chrome": "rimraf dist && vite build",
@@ -25,7 +26,7 @@
     "check": "run-p -c test lint check:*"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4",
+    "@crxjs/vite-plugin": "https://gitpkg.now.sh/Cside/chrome-vite-plugin/packages/vite-plugin?5dc254985df0c9e1adb7145f4176de34141669bc",
     "@types/chrome": "^0.0.239",
     "@types/lodash.zip": "^4.2.7",
     "@types/react": "^18.0.28",
