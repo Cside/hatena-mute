@@ -55,8 +55,8 @@ importers:
         version: 11.0.2
     devDependencies:
       '@crxjs/vite-plugin':
-        specifier: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4
-        version: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4
+        specifier: https://gitpkg.now.sh/Cside/chrome-vite-plugin/packages/vite-plugin?5dc254985df0c9e1adb7145f4176de34141669bc
+        version: https://gitpkg.now.sh/Cside/chrome-vite-plugin/packages/vite-plugin?5dc254985df0c9e1adb7145f4176de34141669bc
       '@types/chrome':
         specifier: ^0.0.239
         version: 0.0.239
@@ -448,9 +448,9 @@ packages:
     peerDependencies:
       typescript: '>=4.5.2'
 
-  '@crxjs/vite-plugin@https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4':
-    resolution: {registry: https://registry.npmjs.org/, tarball: https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4}
-    version: 2.0.0-beta.202307072012
+  '@crxjs/vite-plugin@https://gitpkg.now.sh/Cside/chrome-vite-plugin/packages/vite-plugin?5dc254985df0c9e1adb7145f4176de34141669bc':
+    resolution: {tarball: https://gitpkg.now.sh/Cside/chrome-vite-plugin/packages/vite-plugin?5dc254985df0c9e1adb7145f4176de34141669bc}
+    version: 2.0.0-beta.26.20241021
 
   '@cside/browser-extension-utils@1.0.3':
     resolution: {integrity: sha512-sQ1yZA5FsjC50EoVbLbcHDBOC5gpxxk7VvnGvGum0Ms4taMQNtaslqsid2I/K49gUc8VTvNziGe7trQv6+cEOg==, tarball: https://npm.pkg.github.com/download/@cside/browser-extension-utils/1.0.3/5357cef38a15a975bc995ee95ebe25f7c7c76729}
@@ -2862,6 +2862,10 @@ packages:
   q@1.5.1:
     resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
+    deprecated: |-
+      You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
+      (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   querystringify@2.2.0:
     resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
@@ -3959,7 +3963,7 @@ snapshots:
     dependencies:
       typescript: 5.3.3
 
-  '@crxjs/vite-plugin@https://gitpkg.now.sh/crxjs/chrome-extension-tools/packages/vite-plugin?56c5b28f9bbd2dd9165b1b79c4570a24a58e9ab4':
+  '@crxjs/vite-plugin@https://gitpkg.now.sh/Cside/chrome-vite-plugin/packages/vite-plugin?5dc254985df0c9e1adb7145f4176de34141669bc':
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@webcomponents/custom-elements': 1.6.0
@@ -3969,7 +3973,7 @@ snapshots:
       convert-source-map: 1.9.0
       debug: 4.3.4
       es-module-lexer: 0.10.5
-      fast-glob: 3.3.0
+      fast-glob: 3.3.2
       fs-extra: 10.1.0
       jsesc: 3.0.2
       magic-string: 0.26.7
