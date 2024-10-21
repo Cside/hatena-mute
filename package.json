@@ -9,7 +9,7 @@
     "visualize": "ENABLES_VISUALIZER=true pnpm run build:chrome",
     "test:watch": "vitest",
     "test": "vitest --run",
-    "package": "run-s package:*",
+    "zip": "run-s package:*",
     "package:chrome": "./scripts/package-chrome.sh",
     "package:firefox": "./scripts/package-firefox.sh",
     "lint:eslint": "eslint './src/**/*.{ts,tsx}'",
