@@ -1,6 +1,6 @@
 {
   "version": "1.5.4",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "ENABLES_SENTRY=false vite",
     "build:chrome": "rimraf dist && vite build",
@@ -23,7 +23,7 @@
     "check:types": "tsc --noEmit",
     "check:ng-word": "./scripts/check-ng-words.sh",
     "check:unused-exports": "ts-prune -e",
-    "check": "run-p -c test lint check:*"
+    "check-all": "run-p -c test lint check:*"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "https://gitpkg.now.sh/Cside/chrome-vite-plugin/packages/vite-plugin?5dc254985df0c9e1adb7145f4176de34141669bc",
