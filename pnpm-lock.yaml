@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  caniuse-lite: 1.0.30001653
+
 importers:
 
   .:
@@ -91,8 +94,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       caniuse-lite:
-        specifier: ^1.0.30001663
-        version: 1.0.30001663
+        specifier: 1.0.30001653
+        version: 1.0.30001653
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -1295,8 +1298,8 @@ packages:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
 
-  caniuse-lite@1.0.30001663:
-    resolution: {integrity: sha512-o9C3X27GLKbLeTYZ6HBOLU1tsAcBZsLis28wrVzddShCS16RujjHp9GDHKZqrB3meE0YjhawvMFsGb/igqiPzA==}
+  caniuse-lite@1.0.30001653:
+    resolution: {integrity: sha512-XGWQVB8wFQ2+9NZwZ10GxTYC5hk0Fa+q8cSkr0tgvMhYhMHP/QC+WTgrePMDBWiWc/pV+1ik82Al20XOK25Gcw==}
 
   chai@4.3.7:
     resolution: {integrity: sha512-HLnAzZ2iupm25PlN0xFreAlBA5zaBSv3og0DdeGA4Ar6h6rJ3A0rolRUKJhSF2V10GZKDgWF/VmAEsNWjCRB+A==}
@@ -4845,7 +4848,7 @@ snapshots:
   autoprefixer@10.4.19(postcss@8.4.29):
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001663
+      caniuse-lite: 1.0.30001653
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -4961,7 +4964,7 @@ snapshots:
 
   browserslist@4.23.0:
     dependencies:
-      caniuse-lite: 1.0.30001663
+      caniuse-lite: 1.0.30001653
       electron-to-chromium: 1.4.677
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -4996,7 +4999,7 @@ snapshots:
 
   camelcase@6.3.0: {}
 
-  caniuse-lite@1.0.30001663: {}
+  caniuse-lite@1.0.30001653: {}
 
   chai@4.3.7:
     dependencies:
@@ -5238,7 +5241,7 @@ snapshots:
   doiuse@6.0.2:
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001663
+      caniuse-lite: 1.0.30001653
       css-tokenize: 1.0.1
       duplexify: 4.1.2
       ldjson-stream: 1.2.1

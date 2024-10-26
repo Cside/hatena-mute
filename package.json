@@ -84,5 +84,10 @@
     "react-dom": "^18.2.0",
     "serialize-error": "^11.0.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "overrides": {
+      "caniuse-lite": "1.0.30001653"
+    }
+  }
 }
